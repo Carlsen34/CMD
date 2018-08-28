@@ -1,14 +1,17 @@
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Stack;
 public class CMD {
 	
+	
+	Stack palavraReservada = new Stack();
+	
+	
 	public CMD() {
-		
+		inserirpalavrasReservadas();
 		lerLPD();
-		
 	}
 	public static void lerLPD() {
 		
@@ -30,7 +33,32 @@ public class CMD {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		
 	}
+	
+	
+	private void inserirpalavrasReservadas() {
+		palavraReservada.add("E");
+		palavraReservada.add("INÍCIO");
+		palavraReservada.add("BOOLEANO");
+		palavraReservada.add("DIV");
+		palavraReservada.add("FACA");
+		palavraReservada.add("SENAO");
+		palavraReservada.add("FIM");
+		palavraReservada.add("FALSO");
+		palavraReservada.add("FUNCAO");
+		palavraReservada.add("SE");
+		palavraReservada.add("INTEGER");
+		palavraReservada.add("NAO");
+		palavraReservada.add("OU");
+		palavraReservada.add("PROCEDIMENTO");
+		palavraReservada.add("PROGRAMA");
+		palavraReservada.add("LEIA");
+		palavraReservada.add("ENTAO");
+		palavraReservada.add("VERDADEIRO");
+		palavraReservada.add("VAR");
+		palavraReservada.add("ENQUANTO");
+		palavraReservada.add("ESCREVA");
+
+	}
+	
 }
