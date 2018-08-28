@@ -7,6 +7,7 @@ public class PalavraReservada {
 	public PalavraReservada() {
 		
 		inserirpalavrasReservadas();
+		System.out.println(palavraReservada);
 		
 	}
 
