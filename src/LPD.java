@@ -11,14 +11,14 @@ public class LPD {
 	
 	public LPD() {
 	
-		lerLPD();
+		lerLPDLinha();
 		System.out.println(token);
 		
 		
 	}
 	
 
-	public void lerLPD() {
+	public void lerLPDLinha() {
 		
 		try {
 			// Cria arquivo
@@ -29,16 +29,27 @@ public class LPD {
 			BufferedReader reader = new BufferedReader(ler);
 			String linha;
 			while ((linha = reader.readLine()) != null) {
-				String[] arrayValores = linha.split(" ");
-				for (String s : arrayValores) {
-					token.add(s);
-				}
+				
+				lerLPDCaracter(linha);
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}		
+	}
+	
+	
+	public void lerLPDCaracter(String linha) {
+		
+		for(int i = 0; i < linha.length();i++) {
+			token.add(linha.charAt(i));
+		}
+		
+		
+		
+
+	}
+	
 	}
 
 
