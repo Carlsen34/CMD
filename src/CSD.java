@@ -4,10 +4,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class CMD {
+public class CSD {
 	
 	
-	public CMD() {
+	public CSD() {
 		PalavraReservada palavraReservada  = new PalavraReservada();
 		LPD lpd = new LPD();
 	}
