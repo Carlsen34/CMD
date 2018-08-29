@@ -8,14 +8,42 @@ public class LPD {
 	
 	
 	Stack token = new Stack();
+	AnalisadorLexico lexico = new AnalisadorLexico();
 	
 	public LPD() {
-	
 		lerLPDLinha();
-		System.out.println(token);
-		
+		eliminarComentario();
 		
 	}
+	
+	
+	
+	
+	
+	public void eliminarComentario() {
+		Stack aux = new Stack();
+
+		for(int i = 0; i<token.size();i++) {
+			
+	
+			aux.add(token.get(i));
+
+		}
+		
+		System.out.println(aux);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	public void lerLPDLinha() {
