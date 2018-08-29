@@ -13,17 +13,26 @@ public class LPD {
 	public LPD() {
 		lerLPDLinha();
 		eliminarComentario();
-		
 	}
-	
-	
-	
-	
+		
+
 	
 	public void eliminarComentario() {
 		Stack aux = new Stack();
 
 		for(int i = 0; i<token.size();i++) {
+			
+			if(token.get(i).equals('{')) {
+
+				do {
+					i++;
+				}while(!token.get(i).equals('}'));
+				
+			i++;
+				
+			}
+			
+		
 			
 	
 			aux.add(token.get(i));
@@ -33,15 +42,6 @@ public class LPD {
 		System.out.println(aux);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
