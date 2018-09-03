@@ -11,7 +11,9 @@ public class LPD {
 	
 	public LPD() {
 		lerLPDLinha();
-		AnalisadorLexico.eliminarComentario(token);
+		token = AnalisadorLexico.eliminarComentario(token);
+		token = AnalisadorLexico.consumirEspaco(token);
+		System.out.println(token);
 	}
 		
 
