@@ -27,6 +27,7 @@ public class Janela extends JFrame implements ActionListener {
 		tela.add(area);
 		area.setBorder(BorderFactory.createLineBorder(Color.black));
 		area.setBackground(Color.white);
+		area.setText("Teste");
 		
 		final JScrollPane scrollEsq = new JScrollPane(area, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);//this is for the main panel 		
 		area.setPreferredSize(new Dimension(700,450));

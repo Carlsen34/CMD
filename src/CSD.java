@@ -11,7 +11,7 @@ public class CSD {
 		
 		LPD lpd = new LPD();
 		PalavraReservada palavrasReservadas = new PalavraReservada();
-
+		Simbulo simbulos = new Simbulo();
 	}
 
 }

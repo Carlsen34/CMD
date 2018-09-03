@@ -8,11 +8,13 @@ public class LPD {
 	
 	Stack token = new Stack();
 	AnalisadorLexico lexico = new AnalisadorLexico();
+	Janela janela = new Janela();
 	
 	public LPD() {
 		lerLPDLinha();
 		token = AnalisadorLexico.eliminarComentario(token);
 		token = AnalisadorLexico.consumirEspaco(token);
+		token = AnalisadorLexico.pegaToken(token);
 		System.out.println(token);
 	}
 		
@@ -27,8 +29,10 @@ public class LPD {
 			FileReader ler = new FileReader("arquivo.txt");
 			BufferedReader reader = new BufferedReader(ler);
 			String linha;
+			String aux = "";
 			while ((linha = reader.readLine()) != null) {
-				
+				aux = aux + linha ;
+				janela.area.setText(aux);
 				lerLPDCaracter(linha);
 			}
 
