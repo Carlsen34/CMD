@@ -45,27 +45,53 @@ public class AnalisadorLexico {
 		for(int i = 0; i<caracter.size();i++) {
 			String aux = caracter.get(i).toString();
 			if(isDigit(aux) == false) {
-				if(aux.equals("(")) token.add(simbulos.sabre_parênteses);
-				if(aux.equals(")")) token.add(simbulos.sfecha_parênteses);
-				if(aux.equals(".")) token.add(simbulos.Sponto);
-				if(aux.equals(";")) token.add(simbulos.Sdoispontos);
-				if(aux.equals(",")) token.add(simbulos.Svírgula);
-				if(aux.equals(">")) token.add(simbulos.Smaior);
-				if(aux.equals(">=")) token.add(simbulos.Smaiorig);
-				if(aux.equals("=")) token.add(simbulos.Sig);
-
-
-
-				
-//				System.out.println("METODO TRATAR LETRA");
+				i = tratarCaracter(caracter,i);
 			}else {
-	//			System.out.println("METODO TRATAR DIGITO");
+				i = tratarDigito(caracter,i);
 			}
 		}
 		
 		
 		return token;
 	}
+	
+	
+	
+	
+	private static int tratarDigito(Stack caracter,int i) {
+		String aux = "";
+		do {
+			aux = aux + caracter.get(i).toString();
+			i++;
+
+		}while(isDigit(caracter.get(i).toString())==true);
+		
+		token.add(aux);
+		token.add(Simbulo.Snumero);
+		return i-1;
+
+	}
+	
+	
+	private static int tratarCaracter(Stack caracter,int i) {
+		String aux = "";
+		do {
+	
+			aux = aux + caracter.get(i).toString();
+			i++;
+
+			if(i == caracter.size()) {
+				System.out.println(aux);
+				return i;
+			}
+			
+		}while(isDigit(caracter.get(i).toString())==false);
+		System.out.println(aux);
+
+		return i-1;
+	}
+	
+	
 
 	private static boolean isDigit(String aux) {
 		if(aux.equals("0") || aux.equals("1") || aux.equals("2") || aux.equals("3") || aux.equals("4") || aux.equals("5") || aux.equals("6") ||
@@ -75,4 +101,9 @@ public class AnalisadorLexico {
 		return false;
 	
 }
+
+	
+
+	
+	
 }

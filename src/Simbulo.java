@@ -38,6 +38,8 @@ public class Simbulo {
 	static final int Snao =33;
 	static final int Sdoispontos = 34;
 	static final int Sig = 35;
+	static final int Smenorig = 35;
+
 	
 	
 }
