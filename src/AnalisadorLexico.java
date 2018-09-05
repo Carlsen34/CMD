@@ -21,19 +21,33 @@ public class AnalisadorLexico {
 
 	}
 
+
+	
 	public static Stack consumirEspaco(Stack caracter) {
 		Stack aux = new Stack();
-
-		for (int i = 0; i < caracter.size(); i++) {
-			if (!caracter.get(i).equals(' ')) {
-				aux.add(caracter.get(i));
-			}
-
+		int i = 0;
+		
+		
+		do {
+		aux.add(caracter.get(i));
+		caracter.remove(i);
+		}while(!caracter.get(i).equals(' '));
+		
+		if(caracter.get(i).equals(' ')) {
+			do {
+				caracter.remove(i);
+			}while(caracter.get(i).equals(' '));
 		}
-
+		
+		
+		System.out.println(caracter);
 		return aux;
 
+		
 	}
+	
+	
+	
 
 	public static Stack pegaToken(Stack caracter) {
 		Simbulo simbulos = new Simbulo();

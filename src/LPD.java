@@ -34,7 +34,7 @@ public class LPD {
 			String linha;
 			String aux = "";
 			while ((linha = reader.readLine()) != null) {
-				aux = aux + linha ;
+				aux = aux + linha + '\n';
 				janela.area.setText(aux);
 				lerLPDCaracter(linha);
 			}
