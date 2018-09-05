@@ -8,7 +8,7 @@ public class LPD {
 	
 	Stack token = new Stack();
 	AnalisadorLexico lexico = new AnalisadorLexico();
-	Janela janela = new Janela();
+	//Janela janela = new Janela();
 	
 	public LPD() {
 		lerLPDLinha();
@@ -17,8 +17,8 @@ public class LPD {
 		System.out.println("Elininar Comentario  :" + token);
 		token = AnalisadorLexico.consumirEspaco(token);
 		System.out.println("Consumir Espaço :" + token);
-		token = AnalisadorLexico.pegaToken(token);
-		System.out.println(token);
+//		token = AnalisadorLexico.pegaToken(token);
+//		System.out.println(token);
 	}
 		
 
@@ -35,7 +35,7 @@ public class LPD {
 			String aux = "";
 			while ((linha = reader.readLine()) != null) {
 				aux = aux + linha + '\n';
-				janela.area.setText(aux);
+				//janela.area.setText(aux);
 				lerLPDCaracter(linha);
 			}
 

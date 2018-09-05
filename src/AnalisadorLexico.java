@@ -40,7 +40,7 @@ public class AnalisadorLexico {
 		}
 		
 		
-		System.out.println(caracter);
+		pegaToken(aux);
 		return aux;
 
 		
