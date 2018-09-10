@@ -84,9 +84,9 @@ public class AnalisadorLexico {
 
 			aux = aux + caracter.get(i).toString();
 			i++;
+			
 
 			Boolean identificador = true;
-			verificarPalavrasReservadas(aux);
 
 			if (aux.equals("programa")) {
 				token.add(aux);
@@ -389,9 +389,6 @@ public class AnalisadorLexico {
 		return i - 1;
 	}
 
-	public static void verificarPalavrasReservadas(String aux) {
-
-	}
 
 	public static boolean isDigit(String aux) {
 		if (aux.equals("0") || aux.equals("1") || aux.equals("2") || aux.equals("3") || aux.equals("4")
