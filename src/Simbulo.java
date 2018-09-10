@@ -41,6 +41,7 @@ public class Simbulo {
 	static final int smenorig = 35;
 	static final int sverdadeiro = 36;
 	static final int sfalso = 37;
+	static final int smenor = 38;
 	
 	
 }

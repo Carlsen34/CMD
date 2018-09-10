@@ -37,9 +37,9 @@ public class AnalisadorLexico {
 			}while(caracter.get(i).equals(' '));
 		}
 		
-		
 		tratarToken(token);
 		
+		System.out.println("Tabela de Caracter = " + caracter);
 		return caracter;
 	}
 	
@@ -57,6 +57,8 @@ public class AnalisadorLexico {
 			}else {
 				//i = tratarDigito(token, i);
 				i = tratarCaracter(token, i);
+
+			
 			}
 		}
 		
@@ -255,6 +257,87 @@ public class AnalisadorLexico {
 				identificador = false;
 
 			}
+			if(aux.equals(".")) {
+				token.add(Simbulo.sponto);
+				aux = "";
+				identificador = false;
+
+			}
+			if(aux.equals(";")) {
+				token.add(Simbulo.sponto_vírgula);
+				aux = "";
+				identificador = false;
+
+			}	
+			if(aux.equals("(")) {
+				token.add(Simbulo.sabre_parênteses);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals(")")) {
+				token.add(Simbulo.sfecha_parênteses);
+				aux = "";
+				identificador = false;
+
+			}
+			if(aux.equals(">")) {
+				token.add(Simbulo.smaior);
+				aux = "";
+				identificador = false;
+
+			}
+			if(aux.equals(">=")) {
+				token.add(Simbulo.smaiorig);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("=")) {
+				token.add(Simbulo.sig);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("=")) {
+				token.add(Simbulo.sig);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("<")) {
+				token.add(Simbulo.smenor);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("<=")) {
+				token.add(Simbulo.smenorig);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("!=")) {
+				token.add(Simbulo.sdif);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("+")) {
+				token.add(Simbulo.smais);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("-")) {
+				token.add(Simbulo.smenos);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("-")) {
+				token.add(Simbulo.smenos);
+				aux = "";
+				identificador = false;
+			}
+			if(aux.equals("*")) {
+				token.add(Simbulo.smult);
+				aux = "";
+				identificador = false;
+			}
+			
+			
 			
 //			if(identificador == true) {
 //				token.add(Simbulo.sidentificador);
