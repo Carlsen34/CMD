@@ -19,52 +19,47 @@ public class AnalisadorLexico {
 
 		return aux;
 	}
-	
-	
-	
+
 	public static Stack consumirEspaco(Stack caracter) {
-	
+
+		Stack aux = new Stack();
 		int i = 0;
-		
+
 		do {
-		token.add(caracter.get(i));
-		caracter.remove(i);
-		}while(!caracter.get(i).equals(' '));
-		
-		if(caracter.get(i).equals(' ')) {
+			aux.add(caracter.get(i));
+			caracter.remove(i);
+		} while (!caracter.get(i).equals(' '));
+
+		if (caracter.get(i).equals(' ')) {
 			do {
 				caracter.remove(i);
-			}while(caracter.get(i).equals(' '));
+			} while (caracter.get(i).equals(' '));
 		}
+
+		tratarToken(aux);
+
+		System.out.println(token);
 		
-		tratarToken(token);
-		
-		System.out.println("Tabela de Caracter = " + caracter);
 		return caracter;
 	}
-	
-	
-	
-	
+
 	public static void tratarToken(Stack token) {
 		
+		System.out.println(token);
 		Simbulo simbulos = new Simbulo();
-		
-		for(int i = 0; i < token.size();i++) {
+
+		for (int i = 0; i < token.size(); i++) {
 			String aux = token.get(i).toString();
-			if(isDigit(aux) == false) {
+			if (isDigit(aux) == false) {
 				i = tratarCaracter(token, i);
-			}else {
-				//i = tratarDigito(token, i);
+			} else {
+				// i = tratarDigito(token, i);
 				i = tratarCaracter(token, i);
 
-			
 			}
 		}
-		
-		
-		System.out.println("Tabela de Token = " + token);
-		
+
+
 	}
 
 	public static int tratarDigito(Stack caracter, int i) {
@@ -82,282 +77,321 @@ public class AnalisadorLexico {
 
 	public static int tratarCaracter(Stack caracter, int i) {
 		String aux = "";
+		System.out.println("Tabela de Token = " + token);
+
+		Stack controle;
 		do {
 
 			aux = aux + caracter.get(i).toString();
 			i++;
-		
+
 			Boolean identificador = true;
 			verificarPalavrasReservadas(aux);
-			
-			if(aux.equals("programa")) {
+
+			if (aux.equals("programa")) {
+				token.add(aux);
 				token.add(Simbulo.sprograma);
 				aux = "";
 				identificador = false;
 			}
-			
-			if(aux.equals("início")) {
+
+			if (aux.equals("início")) {
+				token.add(aux);
 				token.add(Simbulo.sinício);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("fim")) {
+
+			if (aux.equals("fim")) {
+				token.add(aux);
 				token.add(Simbulo.sfim);
 				aux = "";
 				identificador = false;
 
 			}
-			if(aux.equals("procedimento")) {
+			if (aux.equals("procedimento")) {
+				token.add(aux);
 				token.add(Simbulo.sprocedimento);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("funcao")) {
+
+			if (aux.equals("funcao")) {
+				token.add(aux);
 				token.add(Simbulo.sfuncao);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("se")) {
+
+			if (aux.equals("se")) {
+				token.add(aux);
 				token.add(Simbulo.sse);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("entao")) {
+
+			if (aux.equals("entao")) {
+				token.add(aux);
 				token.add(Simbulo.sentao);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("senao")) {
+
+			if (aux.equals("senao")) {
+				token.add(aux);
 				token.add(Simbulo.ssenao);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("enquanto")) {
+
+			if (aux.equals("enquanto")) {
+				token.add(aux);
 				token.add(Simbulo.senquanto);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("faca")) {
+
+			if (aux.equals("faca")) {
+				token.add(aux);
 				token.add(Simbulo.sfaca);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("início")) {
+
+			if (aux.equals("início")) {
+				token.add(aux);
 				token.add(Simbulo.sinício);
 				aux = "";
 				identificador = false;
 
 			}
-	
-			if(aux.equals("fim")) {
+
+			if (aux.equals("fim")) {
+				token.add(aux);
 				token.add(Simbulo.sfim);
 				aux = "";
 				identificador = false;
 
 			}
-	
-			
-			if(aux.equals("escreva")) {
+
+			if (aux.equals("escreva")) {
+				token.add(aux);
 				token.add(Simbulo.sescreva);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("leia")) {
+
+			if (aux.equals("leia")) {
+				token.add(aux);
 				token.add(Simbulo.sleia);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("var")) {
+
+			if (aux.equals("var")) {
+				token.add(aux);
 				token.add(Simbulo.svar);
 				aux = "";
 				identificador = false;
 
 			}
-			
-		
-			if(aux.equals("inteiro")) {
+
+			if (aux.equals("inteiro")) {
+				token.add(aux);
 				token.add(Simbulo.sinteiro);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("booleano")) {
+
+			if (aux.equals("booleano")) {
+				token.add(aux);
 				token.add(Simbulo.sbooleano);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("verdadeiro")) {
+
+			if (aux.equals("verdadeiro")) {
+				token.add(aux);
 				token.add(Simbulo.sverdadeiro);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("falso")) {
+
+			if (aux.equals("falso")) {
+				token.add(aux);
 				token.add(Simbulo.sfalso);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("div")) {
+
+			if (aux.equals("div")) {
+				token.add(aux);
 				token.add(Simbulo.sdiv);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("e")) {
+
+			if (aux.equals("e")) {
+				token.add(aux);
 				token.add(Simbulo.se);
 				aux = "";
 				identificador = false;
 
 			}
-	
-			if(aux.equals("ou")) {
+
+			if (aux.equals("ou")) {
+				token.add(aux);
 				token.add(Simbulo.sou);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("nao")) {
+
+			if (aux.equals("nao")) {
+				token.add(aux);
 				token.add(Simbulo.snao);
 				aux = "";
 				identificador = false;
 
 			}
-			
-			if(aux.equals("contador")) {
+
+			if (aux.equals("contador")) {
+				token.add(aux);
 				token.add(Simbulo.sidentificador);
 				aux = "";
 				identificador = false;
 
 			}
-			if(aux.equals(".")) {
+			if (aux.equals(".")) {
+				token.add(aux);
 				token.add(Simbulo.sponto);
 				aux = "";
 				identificador = false;
 
 			}
-			if(aux.equals(";")) {
+			if (aux.equals(";")) {
+				token.add(aux);
 				token.add(Simbulo.sponto_vírgula);
 				aux = "";
 				identificador = false;
 
-			}	
-			if(aux.equals("(")) {
+			}
+			if (aux.equals("(")) {
+				token.add(aux);
 				token.add(Simbulo.sabre_parênteses);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals(")")) {
+			if (aux.equals(")")) {
+				token.add(aux);
 				token.add(Simbulo.sfecha_parênteses);
 				aux = "";
 				identificador = false;
 
 			}
-			if(aux.equals(">")) {
+			if (aux.equals(">")) {
+				token.add(aux);
 				token.add(Simbulo.smaior);
 				aux = "";
 				identificador = false;
 
 			}
-			if(aux.equals(">=")) {
+			if (aux.equals(">=")) {
+				token.add(aux);
 				token.add(Simbulo.smaiorig);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("=")) {
+			if (aux.equals("=")) {
+				token.add(aux);
 				token.add(Simbulo.sig);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("=")) {
+			if (aux.equals("=")) {
+				token.add(aux);
 				token.add(Simbulo.sig);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("<")) {
+			if (aux.equals("<")) {
+				token.add(aux);
 				token.add(Simbulo.smenor);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("<=")) {
+			if (aux.equals("<=")) {
+				token.add(aux);
 				token.add(Simbulo.smenorig);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("!=")) {
+			if (aux.equals("!=")) {
+				token.add(aux);
 				token.add(Simbulo.sdif);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("+")) {
+			if (aux.equals("+")) {
+				token.add(aux);
 				token.add(Simbulo.smais);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("-")) {
+			if (aux.equals("-")) {
+				token.add(aux);
 				token.add(Simbulo.smenos);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("-")) {
+			if (aux.equals("-")) {
+				token.add(aux);
 				token.add(Simbulo.smenos);
 				aux = "";
 				identificador = false;
 			}
-			if(aux.equals("*")) {
+			if (aux.equals("*")) {
+				token.add(aux);
 				token.add(Simbulo.smult);
 				aux = "";
 				identificador = false;
 			}
-			
-			
-			
-//			if(identificador == true) {
-//				token.add(Simbulo.sidentificador);
-//				aux = "";
-//				identificador = false;
-//			}
+			if (aux.equals("contador")) {
+				token.add(aux);
+				token.add(Simbulo.sidentificador);
+				aux = "";
+				identificador = false;
+			}
 
-			
+			// if(identificador == true) {
+			// token.add(Simbulo.sidentificador);
+			// aux = "";
+			// identificador = false;
+			// }
 
-		}while(i<caracter.size() && isDigit(caracter.get(i).toString()) == false );
-
+		} while (i < caracter.size() && isDigit(caracter.get(i).toString()) == false);
 
 		return i - 1;
 	}
-	
-	
+
 	public static void verificarPalavrasReservadas(String aux) {
-		
+
 	}
-	
 
 	public static boolean isDigit(String aux) {
 		if (aux.equals("0") || aux.equals("1") || aux.equals("2") || aux.equals("3") || aux.equals("4")
