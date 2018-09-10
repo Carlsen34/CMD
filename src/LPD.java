@@ -15,8 +15,12 @@ public class LPD {
 		System.out.println("Codigo Fonte :" + token);
 		token = AnalisadorLexico.eliminarComentario(token);
 		System.out.println("Elininar Comentario  :" + token);
+
+		do {
 		token = AnalisadorLexico.consumirEspaco(token);
-		System.out.println("Consumir Espaço :" + token);
+		}while(token.isEmpty()!=true);
+		
+		
 //		token = AnalisadorLexico.pegaToken(token);
 //		System.out.println(token);
 	}

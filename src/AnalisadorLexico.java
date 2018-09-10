@@ -18,18 +18,16 @@ public class AnalisadorLexico {
 		}
 
 		return aux;
-
 	}
-
-
+	
+	
 	
 	public static Stack consumirEspaco(Stack caracter) {
-		Stack aux = new Stack();
+	
 		int i = 0;
 		
-		
 		do {
-		aux.add(caracter.get(i));
+		token.add(caracter.get(i));
 		caracter.remove(i);
 		}while(!caracter.get(i).equals(' '));
 		
@@ -40,27 +38,31 @@ public class AnalisadorLexico {
 		}
 		
 		
-		pegaToken(aux);
-		return aux;
-
+		tratarToken(token);
 		
+		return caracter;
 	}
 	
 	
 	
-
-	public static Stack pegaToken(Stack caracter) {
+	
+	public static void tratarToken(Stack token) {
+		
 		Simbulo simbulos = new Simbulo();
-		for (int i = 0; i < caracter.size(); i++) {
-			String aux = caracter.get(i).toString();
-			if (isDigit(aux) == false) {
-				i = tratarCaracter(caracter, i);
-			} else {
-				i = tratarDigito(caracter, i);
+		
+		for(int i = 0; i < token.size();i++) {
+			String aux = token.get(i).toString();
+			if(isDigit(aux) == false) {
+				i = tratarCaracter(token, i);
+			}else {
+				//i = tratarDigito(token, i);
+				i = tratarCaracter(token, i);
 			}
 		}
-
-		return token;
+		
+		
+		System.out.println("Tabela de Token = " + token);
+		
 	}
 
 	public static int tratarDigito(Stack caracter, int i) {
@@ -71,7 +73,6 @@ public class AnalisadorLexico {
 
 		} while (isDigit(caracter.get(i).toString()) == true);
 
-		token.add(aux);
 		token.add(Simbulo.snumero);
 		return i - 1;
 
@@ -88,14 +89,12 @@ public class AnalisadorLexico {
 			verificarPalavrasReservadas(aux);
 			
 			if(aux.equals("programa")) {
-				token.add(aux);
 				token.add(Simbulo.sprograma);
 				aux = "";
 				identificador = false;
 			}
 			
 			if(aux.equals("início")) {
-				token.add(aux);
 				token.add(Simbulo.sinício);
 				aux = "";
 				identificador = false;
@@ -103,14 +102,12 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("fim")) {
-				token.add(aux);
 				token.add(Simbulo.sfim);
 				aux = "";
 				identificador = false;
 
 			}
 			if(aux.equals("procedimento")) {
-				token.add(aux);
 				token.add(Simbulo.sprocedimento);
 				aux = "";
 				identificador = false;
@@ -118,7 +115,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("funcao")) {
-				token.add(aux);
 				token.add(Simbulo.sfuncao);
 				aux = "";
 				identificador = false;
@@ -126,7 +122,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("se")) {
-				token.add(aux);
 				token.add(Simbulo.sse);
 				aux = "";
 				identificador = false;
@@ -134,7 +129,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("entao")) {
-				token.add(aux);
 				token.add(Simbulo.sentao);
 				aux = "";
 				identificador = false;
@@ -142,7 +136,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("senao")) {
-				token.add(aux);
 				token.add(Simbulo.ssenao);
 				aux = "";
 				identificador = false;
@@ -150,7 +143,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("enquanto")) {
-				token.add(aux);
 				token.add(Simbulo.senquanto);
 				aux = "";
 				identificador = false;
@@ -158,7 +150,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("faca")) {
-				token.add(aux);
 				token.add(Simbulo.sfaca);
 				aux = "";
 				identificador = false;
@@ -166,7 +157,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("início")) {
-				token.add(aux);
 				token.add(Simbulo.sinício);
 				aux = "";
 				identificador = false;
@@ -174,7 +164,6 @@ public class AnalisadorLexico {
 			}
 	
 			if(aux.equals("fim")) {
-				token.add(aux);
 				token.add(Simbulo.sfim);
 				aux = "";
 				identificador = false;
@@ -183,7 +172,6 @@ public class AnalisadorLexico {
 	
 			
 			if(aux.equals("escreva")) {
-				token.add(aux);
 				token.add(Simbulo.sescreva);
 				aux = "";
 				identificador = false;
@@ -191,7 +179,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("leia")) {
-				token.add(aux);
 				token.add(Simbulo.sleia);
 				aux = "";
 				identificador = false;
@@ -199,7 +186,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("var")) {
-				token.add(aux);
 				token.add(Simbulo.svar);
 				aux = "";
 				identificador = false;
@@ -208,7 +194,6 @@ public class AnalisadorLexico {
 			
 		
 			if(aux.equals("inteiro")) {
-				token.add(aux);
 				token.add(Simbulo.sinteiro);
 				aux = "";
 				identificador = false;
@@ -216,7 +201,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("booleano")) {
-				token.add(aux);
 				token.add(Simbulo.sbooleano);
 				aux = "";
 				identificador = false;
@@ -224,7 +208,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("verdadeiro")) {
-				token.add(aux);
 				token.add(Simbulo.sverdadeiro);
 				aux = "";
 				identificador = false;
@@ -232,7 +215,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("falso")) {
-				token.add(aux);
 				token.add(Simbulo.sfalso);
 				aux = "";
 				identificador = false;
@@ -240,7 +222,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("div")) {
-				token.add(aux);
 				token.add(Simbulo.sdiv);
 				aux = "";
 				identificador = false;
@@ -248,7 +229,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("e")) {
-				token.add(aux);
 				token.add(Simbulo.se);
 				aux = "";
 				identificador = false;
@@ -256,7 +236,6 @@ public class AnalisadorLexico {
 			}
 	
 			if(aux.equals("ou")) {
-				token.add(aux);
 				token.add(Simbulo.sou);
 				aux = "";
 				identificador = false;
@@ -264,7 +243,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("nao")) {
-				token.add(aux);
 				token.add(Simbulo.snao);
 				aux = "";
 				identificador = false;
@@ -272,7 +250,6 @@ public class AnalisadorLexico {
 			}
 			
 			if(aux.equals("contador")) {
-				token.add(aux);
 				token.add(Simbulo.sidentificador);
 				aux = "";
 				identificador = false;
@@ -280,7 +257,6 @@ public class AnalisadorLexico {
 			}
 			
 //			if(identificador == true) {
-//				token.add(aux);
 //				token.add(Simbulo.sidentificador);
 //				aux = "";
 //				identificador = false;
@@ -290,7 +266,6 @@ public class AnalisadorLexico {
 
 		}while(i<caracter.size() && isDigit(caracter.get(i).toString()) == false );
 
-		System.out.println(aux);
 
 		return i - 1;
 	}
