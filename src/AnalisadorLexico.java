@@ -37,15 +37,14 @@ public class AnalisadorLexico {
 		}
 
 		tratarToken(aux);
-
-		System.out.println(token);
-		
 		return caracter;
 	}
 
 	public static void tratarToken(Stack token) {
+
 		
 		System.out.println(token);
+		
 		Simbulo simbulos = new Simbulo();
 
 		for (int i = 0; i < token.size(); i++) {
@@ -77,8 +76,6 @@ public class AnalisadorLexico {
 
 	public static int tratarCaracter(Stack caracter, int i) {
 		String aux = "";
-		System.out.println("Tabela de Token = " + token);
-
 		Stack controle;
 		do {
 
