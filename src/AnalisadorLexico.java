@@ -21,27 +21,23 @@ public class AnalisadorLexico {
 	}
 
 	public static Stack consumirEspaco(Stack caracter) {
-
 		Stack aux = new Stack();
-		int i = 0;
-
-		do {
+		System.out.println(caracter);
+		
+		for(int i = 0; i<caracter.size();i++) {
+			
+			if(!caracter.get(i).equals(' ')) {
 			aux.add(caracter.get(i));
-			caracter.remove(i);
-		} while (!caracter.get(i).equals(' '));
-
-		if (caracter.get(i).equals(' ')) {
-			do {
-				caracter.remove(i);
-			} while (caracter.get(i).equals(' '));
+			}else {
+				//tratarToken(aux);
+				System.out.println(aux);
+				aux.clear();
+			}
 		}
-
-		tratarToken(aux);
 		return caracter;
 	}
 
 	public static void tratarToken(Stack caracter) {
-
 		Simbulo simbulos = new Simbulo();
 		String aux = "";
 		
@@ -49,6 +45,8 @@ public class AnalisadorLexico {
 			aux = aux + caracter.get(i);
 		}
 
+		System.out.println(aux);
+		
 		tratarCaracter(aux);
 	}
 
@@ -67,7 +65,7 @@ public class AnalisadorLexico {
 
 	public static void tratarCaracter(String palavra) {
 
-		System.out.println(palavra);
+		System.out.println(token);
 			Boolean identificador = true;
 
 			if (palavra.equals("programa")) {

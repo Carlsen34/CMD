@@ -7,7 +7,6 @@ import java.util.Stack;
 public class LPD {
 	
 	Stack token = new Stack();
-	AnalisadorLexico lexico = new AnalisadorLexico();
 	//Janela janela = new Janela();
 	
 	public LPD() {
@@ -15,10 +14,10 @@ public class LPD {
 		System.out.println("Codigo Fonte :" + token);
 		token = AnalisadorLexico.eliminarComentario(token);
 		System.out.println("Elininar Comentario  :" + token);
-
-		do {
+	
 		token = AnalisadorLexico.consumirEspaco(token);
-		}while(token.isEmpty()!=true);
+		
+		
 		
 //		token = AnalisadorLexico.pegaToken(token);
 //		System.out.println(token);
