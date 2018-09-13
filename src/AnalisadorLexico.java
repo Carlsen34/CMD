@@ -23,29 +23,28 @@ public class AnalisadorLexico {
 	public static Stack consumirEspaco(Stack caracter) {
 		Stack aux = new Stack();
 
-		for (int i = 0; i < caracter.size(); i++) {
+		 for (int i = 0; i < caracter.size(); i++) {
+			String dig = caracter.get(i).toString().toLowerCase();
 
-			if (!caracter.get(i).equals(' ')) {
-				aux.add(caracter.get(i));
-
-				if (caracter.get(i).equals('(') || caracter.get(i).equals(')') || caracter.get(i).equals(';')) {
-
-					tratarToken(aux);
-					aux.clear();
-
-				}
-
-			} else {
-				tratarToken(aux);
-				aux.clear();
-			}
-		}
+		 if (!caracter.get(i).equals(' ')) {
+		 aux.add(caracter.get(i));
+		
+		if(!isLetra(dig) && !isDigit(dig)) {
+		 tratarToken(aux);
+		 aux.clear();
+		 }
+		
+		 } else {
+		 tratarToken(aux);
+		 aux.clear();
+		 }
+		 }
 		return caracter;
 	}
 
 	public static void tratarToken(Stack caracter) {
-		 System.out.println(caracter);
-		
+		System.out.println(caracter);
+
 		Simbulo simbulos = new Simbulo();
 		String aux = "";
 
@@ -53,7 +52,7 @@ public class AnalisadorLexico {
 			aux = aux + caracter.get(i);
 		}
 
-		tratarCaracter(aux);
+		verificarToken(aux);
 	}
 
 	public static int tratarDigito(Stack caracter, int i) {
@@ -69,9 +68,8 @@ public class AnalisadorLexico {
 
 	}
 
-	public static void tratarCaracter(String palavra) {
+	public static void verificarToken(String palavra) {
 
-		// System.out.println(token);
 		Boolean identificador = true;
 
 		if (palavra.equals("programa")) {
@@ -306,12 +304,26 @@ public class AnalisadorLexico {
 		// aux = "";
 		// identificador = false;
 		// }
-
+		
+		System.out.println(token);
 	}
 
 	public static boolean isDigit(String aux) {
 		if (aux.equals("0") || aux.equals("1") || aux.equals("2") || aux.equals("3") || aux.equals("4")
 				|| aux.equals("5") || aux.equals("6") || aux.equals("7") || aux.equals("8") || aux.equals("9")) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public static boolean isLetra(String aux) {
+		if (aux.equals("a") || aux.equals("b") || aux.equals("c") || aux.equals("d") || aux.equals("e")
+				|| aux.equals("f") || aux.equals("g") || aux.equals("h") || aux.equals("i") || aux.equals("j")
+				|| aux.equals("k") || aux.equals("l") || aux.equals("m") || aux.equals("n") || aux.equals("o")
+				|| aux.equals("p") || aux.equals("q") || aux.equals("r") || aux.equals("s") || aux.equals("t") || aux.equals("i") || aux.equals("j")
+				|| aux.equals("u") || aux.equals("v") || aux.equals("x") || aux.equals("w") || aux.equals("y")
+				|| aux.equals("z")) {
 			return true;
 		}
 		return false;
