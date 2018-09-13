@@ -43,7 +43,6 @@ public class AnalisadorLexico {
 	}
 
 	public static void tratarToken(Stack caracter) {
-		System.out.println(caracter);
 
 		Simbulo simbulos = new Simbulo();
 		String aux = "";
@@ -69,6 +68,7 @@ public class AnalisadorLexico {
 	}
 
 	public static void verificarToken(String palavra) {
+		System.out.println(palavra);
 
 		Boolean identificador = true;
 
@@ -213,11 +213,6 @@ public class AnalisadorLexico {
 			identificador = false;
 		}
 
-		if (palavra.equals("contador")) {
-			token.add(palavra);
-			token.add(Simbulo.sidentificador);
-			identificador = false;
-		}
 		if (palavra.equals(".")) {
 			token.add(palavra);
 			token.add(Simbulo.sponto);
@@ -293,19 +288,13 @@ public class AnalisadorLexico {
 			token.add(Simbulo.smult);
 			identificador = false;
 		}
-		if (palavra.equals("contador")) {
-			token.add(palavra);
-			token.add(Simbulo.sidentificador);
-			identificador = false;
-		}
 
-		// if(identificador == true) {
-		// token.add(Simbulo.sidentificador);
-		// aux = "";
-		// identificador = false;
-		// }
+		 if(identificador == true) {
+		 token.add(palavra);
+		 token.add(Simbulo.sidentificador);
+		 identificador = false;
+		 }
 		
-		System.out.println(token);
 	}
 
 	public static boolean isDigit(String aux) {
