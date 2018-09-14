@@ -16,7 +16,6 @@ public class AnalisadorLexico {
 
 			}
 		}
-
 		return aux;
 	}
 
@@ -25,17 +24,16 @@ public class AnalisadorLexico {
 
 		 for (int i = 0; i < caracter.size(); i++) {
 			String dig = caracter.get(i).toString().toLowerCase();
-
 		 if (!caracter.get(i).equals(' ')) {
 		 aux.add(caracter.get(i));
-		
 		if(!isLetra(dig) && !isDigit(dig)) {
 		 tratarToken(aux);
 		 aux.clear();
 		 }
-		
 		 } else {
-		 tratarToken(aux);
+		 if(!aux.isEmpty()) {
+			 tratarToken(aux);
+		 }
 		 aux.clear();
 		 }
 		 }
@@ -43,14 +41,13 @@ public class AnalisadorLexico {
 	}
 
 	public static void tratarToken(Stack caracter) {
-
+		System.out.println(caracter);
 		Simbulo simbulos = new Simbulo();
 		String aux = "";
 
 		for (int i = 0; i < caracter.size(); i++) {
 			aux = aux + caracter.get(i);
 		}
-
 		verificarToken(aux);
 	}
 
@@ -68,10 +65,7 @@ public class AnalisadorLexico {
 	}
 
 	public static void verificarToken(String palavra) {
-		System.out.println(palavra);
-
 		Boolean identificador = true;
-
 		if (palavra.equals("programa")) {
 			token.add(palavra);
 			token.add(Simbulo.sprograma);

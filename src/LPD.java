@@ -18,7 +18,6 @@ public class LPD {
 		token = AnalisadorLexico.consumirEspaco(token);
 		
 		
-		
 //		token = AnalisadorLexico.pegaToken(token);
 //		System.out.println(token);
 	}

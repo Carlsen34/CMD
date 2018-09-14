@@ -11,10 +11,6 @@ import java.util.Stack;
 import javax.swing.*;
 
 public class Janela extends JFrame implements ActionListener {
-
-	
-	
-	
 	
 	JFrame tela = new JFrame("CMD");
     JTextArea area=new JTextArea(); 
