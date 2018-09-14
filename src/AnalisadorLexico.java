@@ -33,15 +33,16 @@ public class AnalisadorLexico {
 		 } else {
 		 if(!aux.isEmpty()) {
 			 tratarToken(aux);
+
 		 }
 		 aux.clear();
 		 }
 		 }
+		 
 		return caracter;
 	}
 
 	public static void tratarToken(Stack caracter) {
-		System.out.println(caracter);
 		Simbulo simbulos = new Simbulo();
 		String aux = "";
 
@@ -49,23 +50,21 @@ public class AnalisadorLexico {
 			aux = aux + caracter.get(i);
 		}
 		verificarToken(aux);
+		System.out.println(token);
+		
 	}
 
-	public static int tratarDigito(Stack caracter, int i) {
-		String aux = "";
-		do {
-			aux = aux + caracter.get(i).toString();
-			i++;
-
-		} while (isDigit(caracter.get(i).toString()) == true);
-
-		token.add(Simbulo.snumero);
-		return i - 1;
-
-	}
 
 	public static void verificarToken(String palavra) {
 		Boolean identificador = true;
+		
+		if(isDigit(palavra.substring(0, 1))) {
+			token.add(palavra);
+			token.add(Simbulo.snumero);
+			identificador = false;
+
+		}
+		
 		if (palavra.equals("programa")) {
 			token.add(palavra);
 			token.add(Simbulo.sprograma);
