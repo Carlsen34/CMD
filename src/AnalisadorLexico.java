@@ -3,6 +3,7 @@ import java.util.Stack;
 public class AnalisadorLexico {
 	static Stack token = new Stack();
 
+
 	public static Stack eliminarComentario(Stack caracter) {
 		Stack aux = new Stack();
 
@@ -27,18 +28,30 @@ public class AnalisadorLexico {
 		 if (!caracter.get(i).equals(' ')) {
 		 aux.add(caracter.get(i));
 		if(!isLetra(dig) && !isDigit(dig)) {
+			if(aux.size()>1) {
+				Stack aux1 = new Stack();
+				aux1.add(aux.pop());
+				 tratarToken(aux);
+				 aux.clear();
+
+				 tratarToken(aux1);
+				// aux1.clear();
+				 
+			}
+		 if(!aux.empty()) {	
 		 tratarToken(aux);
 		 aux.clear();
+		 }
 		 }
 		 } else {
 		 if(!aux.isEmpty()) {
 			 tratarToken(aux);
-
 		 }
 		 aux.clear();
 		 }
 		 }
 		 
+		 System.out.println(token);
 		return caracter;
 	}
 
@@ -50,7 +63,6 @@ public class AnalisadorLexico {
 			aux = aux + caracter.get(i);
 		}
 		verificarToken(aux);
-		System.out.println(token);
 		
 	}
 
