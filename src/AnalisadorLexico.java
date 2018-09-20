@@ -295,11 +295,23 @@ public class AnalisadorLexico {
 		}
 
 		 if(identificador == true) {
+		
+		 
+		
+		 if(isIdentificador(palavra)) {
 		 token.add(palavra);
 		 token.add(Simbulo.sidentificador);
 		 identificador = false;
 		 }
+		 }
 		
+	}
+	
+	public static boolean isIdentificador(String palavra) {
+
+		String aux = palavra.substring(0, 1);
+		
+		return isLetra(aux);
 	}
 
 	public static boolean isDigit(String aux) {
