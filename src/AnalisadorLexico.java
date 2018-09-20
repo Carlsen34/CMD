@@ -258,6 +258,13 @@ public class AnalisadorLexico {
 			token.add(Simbulo.smaiorig);
 			identificador = false;
 		}
+		
+		if(palavra.equals(":=")) {
+			token.add(palavra);
+			token.add(Simbulo.satribuição);
+			identificador = false;
+		}
+		
 		if (palavra.equals("=")) {
 			token.add(palavra);
 			token.add(Simbulo.sig);
