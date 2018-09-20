@@ -69,6 +69,7 @@ public class AnalisadorLexico {
 
 	public static void verificarToken(String palavra) {
 		Boolean identificador = true;
+		Boolean error = false;
 		
 		if(isDigit(palavra.substring(0, 1))) {
 			token.add(palavra);
@@ -228,6 +229,15 @@ public class AnalisadorLexico {
 			token.add(Simbulo.sponto_vírgula);
 			identificador = false;
 		}
+		
+		
+		if(palavra.equals(",")) {
+			token.add(palavra);
+			token.add(Simbulo.svírgula);
+			identificador = false;
+		}
+		
+		
 		if (palavra.equals("(")) {
 			token.add(palavra);
 			token.add(Simbulo.sabre_parênteses);
@@ -303,6 +313,14 @@ public class AnalisadorLexico {
 		 token.add(Simbulo.sidentificador);
 		 identificador = false;
 		 }
+		 else {
+		  error = true;
+		 }
+		 }
+		 
+		 
+		 if(error) {
+			 System.out.println("Token Invalido : " + palavra);
 		 }
 		
 	}
