@@ -35,7 +35,6 @@ public class AnalisadorLexico {
 				 aux.clear();
 
 				 tratarToken(aux1);
-				// aux1.clear();
 				 
 			}
 		 if(!aux.empty()) {	
@@ -62,6 +61,7 @@ public class AnalisadorLexico {
 		for (int i = 0; i < caracter.size(); i++) {
 			aux = aux + caracter.get(i);
 		}
+		
 		verificarToken(aux);
 		
 	}
@@ -262,6 +262,12 @@ public class AnalisadorLexico {
 		if(palavra.equals(":=")) {
 			token.add(palavra);
 			token.add(Simbulo.satribuição);
+			identificador = false;
+		}
+		
+		if(palavra.equals(":")) {
+			token.add(palavra);
+			token.add(Simbulo.sdoispontos);
 			identificador = false;
 		}
 		
