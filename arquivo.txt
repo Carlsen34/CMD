@@ -1,3 +1,6 @@
+{Teste numero com ponto}
+programa test1;
+
 var a,b,c: inteiro;
 
 {proc 1}
@@ -8,7 +11,7 @@ inicio
   se x>1  entao
       x:= 0;
   leia(z);
-  enquanto (a != 89) e (a<= 1000)  {condicao de parada}
+  enquanto (a != 89) e (a<= 100.0)  {condicao de parada}
   faca inicio
            a:= x+z
        fim;
@@ -30,4 +33,4 @@ inicio
     senao escreva(c)
 fim.
 
-{fim} 
+{fim}   
