@@ -25,9 +25,15 @@ public class AnalisadorLexico {
 
 		 for (int i = 0; i < caracter.size(); i++) {
 			String dig = caracter.get(i).toString().toLowerCase();
+			String dig2 = caracter.get(i+1).toString().toLowerCase();
 		 if (!caracter.get(i).equals(' ')) {
 		 aux.add(caracter.get(i));
 		if(!isLetra(dig) && !isDigit(dig)) {
+			if(!isLetra(dig2) && !isDigit(dig2)) {
+				String dig3 = dig + dig2;
+				System.out.println(dig3);
+			}
+			
 			if(aux.size()>1) {
 				Stack aux1 = new Stack();
 				aux1.add(aux.pop());
