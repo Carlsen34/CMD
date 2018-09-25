@@ -33,10 +33,7 @@ public class AnalisadorLexico {
 					if (!isLetra(caracter.get(i + 1).toString()) && !isDigit(caracter.get(i + 1).toString()) // Verifica se simbulo tem mais de um caracter (exemplo: "!="
 							&& !caracter.get(i + 1).equals(' ')) {
 						String dig2 = dig + caracter.get(i + 1).toString();
-						if(dig2.equals(";;")) {//Não tenho certeza se é essa a regra no caso de dois pontos e virgulas em sequencia
-							errorToken.add(dig2);
-
-						}
+					
 						if (dig2.equals(":=") || dig2.equals("!=") || dig2.equals(">=") || dig2.equals("<=")) { //Verifica se simbulo com mais de um caracter é existente
 							aux.pop();
 							aux.add(dig2);
@@ -47,12 +44,14 @@ public class AnalisadorLexico {
 					if (aux.size() > 1) {  // Fix dos simbulos grudados nos finais das palavras
 						Stack aux1 = new Stack();  
 						aux1.add(aux.pop());
+
 						tratarToken(aux);
 						aux.clear();
 						tratarToken(aux1);
 
 					}
 					if (!aux.empty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
+
 						tratarToken(aux);
 
 						aux.clear();
@@ -60,6 +59,7 @@ public class AnalisadorLexico {
 				}
 			} else {
 				if (!aux.isEmpty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
+
 					tratarToken(aux);
 				}
 				aux.clear();

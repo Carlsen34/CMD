@@ -14,7 +14,7 @@ public class LPD {
 		lerLPDLinha();
 		System.out.println("Codigo Fonte :" + token);
 		token = AnalisadorLexico.eliminarComentario(token);
-		System.out.println("Elininar Comentario  :" + token);
+		System.out.println("Eliminar Comentario  :" + token);
 		token = AnalisadorLexico.consumirEspaco(token);
 		
 		
@@ -40,7 +40,10 @@ public class LPD {
 				numerosLinhas ++;
 				aux = aux + linha + '\n';
 				//janela.area.setText(aux);
+
+
 				lerLPDCaracter(linha,numerosLinhas);
+				
 			}
 
 		} catch (IOException e) {
@@ -50,6 +53,10 @@ public class LPD {
 	
 	
 	public void lerLPDCaracter(String linha,int numberLinhas) {
+
+		if(linha.length() == 0) {
+			token.add(' ');
+		}
 		for(int i = 0; i < linha.length();i++) {
 			token.add(linha.charAt(i));
 		}
