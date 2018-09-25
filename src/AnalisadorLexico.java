@@ -19,6 +19,7 @@ public class AnalisadorLexico {
 		}
 		return aux;
 	}
+	
 
 	public static Stack consumirEspaco(Stack caracter) {
 		Stack aux = new Stack();
@@ -48,18 +49,17 @@ public class AnalisadorLexico {
 						aux1.add(aux.pop());
 						tratarToken(aux);
 						aux.clear();
-
 						tratarToken(aux1);
 
 					}
 					if (!aux.empty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
 						tratarToken(aux);
+
 						aux.clear();
 					}
 				}
 			} else {
 				if (!aux.isEmpty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
-
 					tratarToken(aux);
 				}
 				aux.clear();
@@ -87,7 +87,7 @@ public class AnalisadorLexico {
 	public static void verificarToken(String palavra) {
 		Boolean identificador = true;
 		Boolean error = false;
-
+		
 		if (isDigit(palavra.substring(0, 1))) {
 			for(int i =0;i<palavra.length();i++) {
 				String	aux = palavra.charAt(i) + "";
@@ -99,20 +99,20 @@ public class AnalisadorLexico {
 			}
 
 			token.add(palavra);
-			//token.add(Simbulo.snumero);
+			token.add(Simbulo.snumero);
 			identificador = false;
 
 		}
 
 		if (palavra.equals("programa")) {
 			token.add(palavra);
-			//token.add(Simbulo.sprograma);
+			token.add(Simbulo.sprograma);
 			identificador = false;
 		}
 
 		if (palavra.equals("início")) {
 			token.add(palavra);
-			//token.add(Simbulo.sinício);
+			token.add(Simbulo.sinício);
 
 			identificador = false;
 
@@ -120,14 +120,14 @@ public class AnalisadorLexico {
 
 		if (palavra.equals("fim")) {
 			token.add(palavra);
-			//token.add(Simbulo.sfim);
+			token.add(Simbulo.sfim);
 
 			identificador = false;
 
 		}
 		if (palavra.equals("procedimento")) {
 			token.add(palavra);
-			//token.add(Simbulo.sprocedimento);
+			token.add(Simbulo.sprocedimento);
 
 			identificador = false;
 
@@ -135,7 +135,7 @@ public class AnalisadorLexico {
 
 		if (palavra.equals("funcao")) {
 			token.add(palavra);
-			//token.add(Simbulo.sfuncao);
+			token.add(Simbulo.sfuncao);
 
 			identificador = false;
 
@@ -143,156 +143,156 @@ public class AnalisadorLexico {
 
 		if (palavra.equals("se")) {
 			token.add(palavra);
-			//token.add(Simbulo.sse);
+			token.add(Simbulo.sse);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("entao")) {
 			token.add(palavra);
-			//token.add(Simbulo.sentao);
+			token.add(Simbulo.sentao);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("senao")) {
 			token.add(palavra);
-			//token.add(Simbulo.ssenao);
+			token.add(Simbulo.ssenao);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("enquanto")) {
 			token.add(palavra);
-			//token.add(Simbulo.senquanto);
+			token.add(Simbulo.senquanto);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("faca")) {
 			token.add(palavra);
-			//token.add(Simbulo.sfaca);
+			token.add(Simbulo.sfaca);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("início")) {
 			token.add(palavra);
-			//token.add(Simbulo.sinício);
+			token.add(Simbulo.sinício);
 			identificador = false;
 		}
 
 		if (palavra.equals("escreva")) {
 			token.add(palavra);
-			//token.add(Simbulo.sescreva);
+			token.add(Simbulo.sescreva);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("leia")) {
 			token.add(palavra);
-			//token.add(Simbulo.sleia);
+			token.add(Simbulo.sleia);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("var")) {
 			token.add(palavra);
-			//token.add(Simbulo.svar);
+			token.add(Simbulo.svar);
 			identificador = false;
 		}
 
 		if (palavra.equals("inteiro")) {
 			token.add(palavra);
-			//token.add(Simbulo.sinteiro);
+			token.add(Simbulo.sinteiro);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("booleano")) {
 			token.add(palavra);
-			//token.add(Simbulo.sbooleano);
+			token.add(Simbulo.sbooleano);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("verdadeiro")) {
 			token.add(palavra);
-			//token.add(Simbulo.sverdadeiro);
+			token.add(Simbulo.sverdadeiro);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("falso")) {
 			token.add(palavra);
-			//token.add(Simbulo.sfalso);
+			token.add(Simbulo.sfalso);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("div")) {
 			token.add(palavra);
-			//token.add(Simbulo.sdiv);
+			token.add(Simbulo.sdiv);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("e")) {
 			token.add(palavra);
-			//token.add(Simbulo.se);
+			token.add(Simbulo.se);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("ou")) {
 			token.add(palavra);
-			//token.add(Simbulo.sou);
+			token.add(Simbulo.sou);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("nao")) {
 			token.add(palavra);
-			//token.add(Simbulo.snao);
+			token.add(Simbulo.snao);
 
 			identificador = false;
 		}
 
 		if (palavra.equals(".")) {
 			token.add(palavra);
-			//token.add(Simbulo.sponto);
+			token.add(Simbulo.sponto);
 
 			identificador = false;
 		}
 		if (palavra.equals(";")) {
 			token.add(palavra);
-			//token.add(Simbulo.sponto_vírgula);
+			token.add(Simbulo.sponto_vírgula);
 
 			identificador = false;
 		}
 
 		if (palavra.equals(",")) {
 			token.add(palavra);
-			//token.add(Simbulo.svírgula);
+			token.add(Simbulo.svírgula);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("(")) {
 			token.add(palavra);
-			//token.add(Simbulo.sabre_parênteses);
+			token.add(Simbulo.sabre_parênteses);
 
 			identificador = false;
 		}
 		if (palavra.equals(")")) {
 			token.add(palavra);
-			//token.add(Simbulo.sfecha_parênteses);
+			token.add(Simbulo.sfecha_parênteses);
 
 			identificador = false;
 		}
 		if (palavra.equals(">")) {
 			token.add(palavra);
-			//token.add(Simbulo.smaior);
+			token.add(Simbulo.smaior);
 
 			identificador = false;
 		}
@@ -303,59 +303,59 @@ public class AnalisadorLexico {
 
 		if (palavra.equals(":=")) {
 			token.add(palavra);
-			//token.add(Simbulo.satribuição);
+			token.add(Simbulo.satribuição);
 
 			identificador = false;
 		}
 
 		if (palavra.equals(":")) {
 			token.add(palavra);
-			//token.add(Simbulo.sdoispontos);
+			token.add(Simbulo.sdoispontos);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("=")) {
 			token.add(palavra);
-			//token.add(Simbulo.sig);
+			token.add(Simbulo.sig);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("<")) {
 			token.add(palavra);
-			//token.add(Simbulo.smenor);
+			token.add(Simbulo.smenor);
 
 			identificador = false;
 		}
 		if (palavra.equals("<=")) {
 			token.add(palavra);
-			//token.add(Simbulo.smenorig);
+			token.add(Simbulo.smenorig);
 
 			identificador = false;
 		}
 		if (palavra.equals("!=")) {
 			token.add(palavra);
-			//token.add(Simbulo.sdif);
+			token.add(Simbulo.sdif);
 
 			identificador = false;
 		}
 		if (palavra.equals("+")) {
 			token.add(palavra);
-			//token.add(Simbulo.smais);
+			token.add(Simbulo.smais);
 
 			identificador = false;
 		}
 		if (palavra.equals("-")) {
 			token.add(palavra);
-			//token.add(Simbulo.smenos);
+			token.add(Simbulo.smenos);
 
 			identificador = false;
 		}
 	
 		if (palavra.equals("*")) {
 			token.add(palavra);
-			//token.add(Simbulo.smult);
+			token.add(Simbulo.smult);
 
 			identificador = false;
 		}
@@ -364,7 +364,7 @@ public class AnalisadorLexico {
 
 			if (isIdentificador(palavra)) {
 				token.add(palavra);
-				//token.add(Simbulo.sidentificador);
+				token.add(Simbulo.sidentificador);
 
 				identificador = false;
 			} else {
