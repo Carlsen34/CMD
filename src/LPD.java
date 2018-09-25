@@ -12,9 +12,7 @@ public class LPD {
 	
 	public LPD() {
 		lerLPDLinha();
-		System.out.println("Codigo Fonte :" + token);
 		token = AnalisadorLexico.eliminarComentario(token);
-		System.out.println("Eliminar Comentario  :" + token);
 		token = AnalisadorLexico.consumirEspaco(token);
 		
 		
@@ -53,7 +51,8 @@ public class LPD {
 	
 	
 	public void lerLPDCaracter(String linha,int numberLinhas) {
-
+		System.out.println(numberLinhas + " " + linha);
+		//Fazer loop infinito pra jogar os tokens para o analisador lexico, junto com o numero da linha
 		if(linha.length() == 0) {
 			token.add(' ');
 		}
