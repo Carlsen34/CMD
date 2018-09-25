@@ -7,6 +7,7 @@ import java.util.Stack;
 public class LPD {
 	
 	Stack token = new Stack();
+	Stack nLinhas = new Stack();
 	//Janela janela = new Janela();
 	
 	public LPD() {
@@ -14,7 +15,6 @@ public class LPD {
 		System.out.println("Codigo Fonte :" + token);
 		token = AnalisadorLexico.eliminarComentario(token);
 		System.out.println("Elininar Comentario  :" + token);
-	
 		token = AnalisadorLexico.consumirEspaco(token);
 		
 		
@@ -24,6 +24,7 @@ public class LPD {
 		
 
 	public void lerLPDLinha() {
+		int numerosLinhas = 0;
 		
 		try {
 			// Cria arquivo
@@ -33,11 +34,13 @@ public class LPD {
 			FileReader ler = new FileReader("arquivo.txt");
 			BufferedReader reader = new BufferedReader(ler);
 			String linha;
+			
 			String aux = "";
 			while ((linha = reader.readLine()) != null) {
+				numerosLinhas ++;
 				aux = aux + linha + '\n';
 				//janela.area.setText(aux);
-				lerLPDCaracter(linha);
+				lerLPDCaracter(linha,numerosLinhas);
 			}
 
 		} catch (IOException e) {
@@ -46,17 +49,11 @@ public class LPD {
 	}
 	
 	
-	public void lerLPDCaracter(String linha) {
-		
+	public void lerLPDCaracter(String linha,int numberLinhas) {
 		for(int i = 0; i < linha.length();i++) {
 			token.add(linha.charAt(i));
 		}
-		
-		
-		
-
 	}
-	
 	}
 
 

@@ -400,7 +400,8 @@ public class AnalisadorLexico {
 				|| aux.equals("k") || aux.equals("l") || aux.equals("m") || aux.equals("n") || aux.equals("o")
 				|| aux.equals("p") || aux.equals("q") || aux.equals("r") || aux.equals("s") || aux.equals("t")
 				|| aux.equals("i") || aux.equals("j") || aux.equals("u") || aux.equals("v") || aux.equals("x")
-				|| aux.equals("w") || aux.equals("y") || aux.equals("z")) {
+				|| aux.equals("w") || aux.equals("y") || aux.equals("z") || aux.equals("ã") || aux.equals("á") 
+				|| aux.equals("é") || aux.equals("í") || aux.equals("ç") ) {
 			return true;
 		}
 		return false;
