@@ -68,6 +68,12 @@ public class AnalisadorLexico {
 
 		System.out.println("Tokens Validos " + token);
 		System.out.println("Tokens Invalidos " + errorToken);
+		if(!errorToken.isEmpty()) {
+			for(int i = 0; i<errorToken.size();i++) {
+			int a = LPD.lerLPDLinha1(errorToken.get(i).toString());
+			System.out.println("Error Linha = " + a);
+			}
+		}
 
 		return caracter;
 	}
@@ -87,6 +93,10 @@ public class AnalisadorLexico {
 	public static void verificarToken(String palavra) {
 		Boolean identificador = true;
 		Boolean error = false;
+		
+		if(palavra.substring(0,1).equals("_")) {
+			errorToken.add(palavra);
+		}
 		
 		if (isDigit(palavra.substring(0, 1))) {
 			for(int i =0;i<palavra.length();i++) {
@@ -111,6 +121,14 @@ public class AnalisadorLexico {
 		}
 
 		if (palavra.equals("início")) {
+			token.add(palavra);
+			token.add(Simbulo.sinício);
+
+			identificador = false;
+
+		}
+		
+		if (palavra.equals("inicio")) {
 			token.add(palavra);
 			token.add(Simbulo.sinício);
 
@@ -401,7 +419,7 @@ public class AnalisadorLexico {
 				|| aux.equals("p") || aux.equals("q") || aux.equals("r") || aux.equals("s") || aux.equals("t")
 				|| aux.equals("i") || aux.equals("j") || aux.equals("u") || aux.equals("v") || aux.equals("x")
 				|| aux.equals("w") || aux.equals("y") || aux.equals("z") || aux.equals("ã") || aux.equals("á") 
-				|| aux.equals("é") || aux.equals("í") || aux.equals("ç") ) {
+				|| aux.equals("é") || aux.equals("í") || aux.equals("ç")  || aux.equals("_") ) {
 			return true;
 		}
 		return false;

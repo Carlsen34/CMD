@@ -49,9 +49,39 @@ public class LPD {
 		}
 	}
 	
+	public static int lerLPDLinha1(String caracter) {
+		int numerosLinhas = 0;
+		
+		try {
+			// Cria arquivo
+			File file = new File("arquivo.txt");
+
+			// Le o arquivo
+			FileReader ler = new FileReader("arquivo.txt");
+			BufferedReader reader = new BufferedReader(ler);
+			String linha;
+			
+			String aux = "";
+			while ((linha = reader.readLine()) != null) {
+				numerosLinhas ++;
+				aux = aux + linha + '\n';
+				//janela.area.setText(aux);
+
+				if(linha.contains(caracter)) {
+					return numerosLinhas;
+				}
+				//lerLPDCaracter(linha,numerosLinhas);
+				
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	
 	public void lerLPDCaracter(String linha,int numberLinhas) {
-		System.out.println(numberLinhas + " " + linha);
 		//Fazer loop infinito pra jogar os tokens para o analisador lexico, junto com o numero da linha
 		if(linha.length() == 0) {
 			token.add(' ');
