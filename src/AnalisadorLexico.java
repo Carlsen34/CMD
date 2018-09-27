@@ -66,7 +66,8 @@ public class AnalisadorLexico {
 			}
 		}
 
-		System.out.println("Tokens Validos " + token);
+		//System.out.println("Tokens Validos " + token);
+		AnalisadorSintatico.analisadorSintatico();
 		System.out.println("Tokens Invalidos " + errorToken);
 		if(!errorToken.isEmpty()) {
 			for(int i = 0; i<errorToken.size();i++) {
@@ -390,10 +391,8 @@ public class AnalisadorLexico {
 			}
 		}
 
-		if (error) {
-			errorToken.add(palavra);
-		}
-
+		if (error) errorToken.add(palavra);
+		//else AnalisadorSintatico.analisadorSintatico();
 	}
 
 	public static boolean isIdentificador(String palavra) {
