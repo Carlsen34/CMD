@@ -101,28 +101,86 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaAtribChProcedimento(int i) {
-		// TODO Auto-generated method stub
+		i += 2; // ler token seguinte
+		if(Simbulo.satribuição.equals(tokenAS.get(i))) {
+			i = analisaAtribuicao(i);
+		
+		}else {
+			i = chamadaProc(i);
+		}
+		
+		
 		return i;
 	}
 
-	private static int analisaSe(int i) {
+	private static int chamadaProc(int i) {
 		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private static int analisaAtribuicao(int i) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private static int analisaSe(int i) {
+
+	
+		
+		
 		return i;
 	}
 
 	private static int analisaEnquanto(int i) {
+
+		i +=2;
+		
+		i = analiseExpressao(i);
+		
+		if(Simbulo.sfaca.equals(tokenAS.get(i))) {
+			i +=2;
+			i = analisaComandoSimples(i);
+			
+		}else System.out.println("ERROR Enquanto");
+		
+		
+		return i;
+	}
+
+	private static int analiseExpressao(int i) {
 		// TODO Auto-generated method stub
 		return i;
 	}
 
 	private static int analisaLeia(int i) {
-		// TODO Auto-generated method stub
+		i +=2 ; 
+		if(Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
+			i +=2;
+			if(Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				i +=2;
+				if(Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
+				i +=2;
+				}
+			
+			}else System.out.println("ERROR LEIA2");
+		}else System.out.println("ERROR LEIA1");
+		
 		return i;
 	}
 
 	private static int analisaEscreva(int i) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		i +=2;
+		if(Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
+			i +=2;
+			if(Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				if(Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
+					i +=2;
+				}else System.out.println("ERROR ESCREVA3");
+			}else System.out.println("ERROR ESCREVA2");
+		}else System.out.println("ERROR ESCREVA1");
+		
+		return i;
 	}
 
 	private static int analisaSubrotinas(int i) {
