@@ -102,14 +102,13 @@ public class AnalisadorSintatico {
 
 	private static int analisaAtribChProcedimento(int i) {
 		i += 2; // ler token seguinte
-		if(Simbulo.satribuição.equals(tokenAS.get(i))) {
+		if (Simbulo.satribuição.equals(tokenAS.get(i))) {
 			i = analisaAtribuicao(i);
-		
-		}else {
+
+		} else {
 			i = chamadaProc(i);
 		}
-		
-		
+
 		return i;
 	}
 
@@ -125,61 +124,100 @@ public class AnalisadorSintatico {
 
 	private static int analisaSe(int i) {
 
-	
-		
-		
+		i += 2;
+
+		if (Simbulo.sentao.equals(tokenAS.get(i))) {
+			i += 2;
+
+			i = analisaComandoSimples(i);
+
+			if (Simbulo.ssenao.equals(tokenAS.get(i))) {
+				i += 2;
+
+				i = analisaComandoSimples(i);
+
+			}
+			System.out.println("ERROR ANALISE SE 2");
+
+		} else
+			System.out.println("ERROR ANALISE SE 1");
+
 		return i;
 	}
 
 	private static int analisaEnquanto(int i) {
 
-		i +=2;
-		
+		i += 2;
+
 		i = analiseExpressao(i);
-		
-		if(Simbulo.sfaca.equals(tokenAS.get(i))) {
-			i +=2;
+
+		if (Simbulo.sfaca.equals(tokenAS.get(i))) {
+			i += 2;
 			i = analisaComandoSimples(i);
-			
-		}else System.out.println("ERROR Enquanto");
-		
-		
+
+		} else
+			System.out.println("ERROR Enquanto");
+
 		return i;
 	}
 
 	private static int analiseExpressao(int i) {
-		// TODO Auto-generated method stub
+
+		i = analiseExpressaoSimples(i);
+		if (Simbulo.smaior.equals(tokenAS.get(i)) || Simbulo.smaiorig.equals(tokenAS.get(i)) || Simbulo.smenor.equals(tokenAS.get(i)) 
+		|| Simbulo.smenorig.equals(tokenAS.get(i)) || Simbulo.sdif.equals(tokenAS.get(i)) || Simbulo.sig.equals(tokenAS.get(i))) {
+			
+			i += 2;
+				i = analiseExpressaoSimples(i);
+			
+			
+		}else System.out.println("ERROR Analise Expressao");
+		
 		return i;
 	}
 
-	private static int analisaLeia(int i) {
-		i +=2 ; 
-		if(Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
-			i +=2;
-			if(Simbulo.sidentificador.equals(tokenAS.get(i))) {
-				i +=2;
-				if(Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
-				i +=2;
-				}
+	private static int analiseExpressaoSimples(int i) {
+		if(Simbulo.smais.equals(tokenAS.get(i)) ||  Simbulo.smenos.equals(tokenAS.get(i))){
 			
-			}else System.out.println("ERROR LEIA2");
-		}else System.out.println("ERROR LEIA1");
+			
+		}else System.out.println("Error Analise Expressão Simples");
 		
+		return 0;
+	}
+
+	private static int analisaLeia(int i) {
+		i += 2;
+		if (Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
+			i += 2;
+			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				i += 2;
+				if (Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
+					i += 2;
+				}
+
+			} else
+				System.out.println("ERROR LEIA2");
+		} else
+			System.out.println("ERROR LEIA1");
+
 		return i;
 	}
 
 	private static int analisaEscreva(int i) {
 
-		i +=2;
-		if(Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
-			i +=2;
-			if(Simbulo.sidentificador.equals(tokenAS.get(i))) {
-				if(Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
-					i +=2;
-				}else System.out.println("ERROR ESCREVA3");
-			}else System.out.println("ERROR ESCREVA2");
-		}else System.out.println("ERROR ESCREVA1");
-		
+		i += 2;
+		if (Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
+			i += 2;
+			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				if (Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
+					i += 2;
+				} else
+					System.out.println("ERROR ESCREVA3");
+			} else
+				System.out.println("ERROR ESCREVA2");
+		} else
+			System.out.println("ERROR ESCREVA1");
+
 		return i;
 	}
 
