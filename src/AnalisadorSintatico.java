@@ -291,12 +291,13 @@ public class AnalisadorSintatico {
 
 		int flag = 0;
 
+
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 
 			// auxrot:= rotulo
-			// GERA( ́
-			// ́,JMP,rotulo, ́
-			// ́)
+			// GERA( Ì�
+			// Ì�,JMP,rotulo, Ì�
+			// Ì�)
 			// {Salta sub-rotinas}
 			// rotulo:= rotulo + 1
 			// flag = 1
@@ -324,17 +325,20 @@ public class AnalisadorSintatico {
 
 		}
 		if (flag == 1) {
-			// Gera(auxrot,NULL, ́, ́ ́)
+			// Gera(auxrot,NULL, Ì�, Ì� Ì�)
 		}
 
 		return i;
 	}
 
 	private static int analisaDeclaracaoProcedimento(int i) {
+		
 		i += 2; // ler proximo token
+		
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			i += 2; // ler proximo token
 			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
+				
 				i = analisarBloco(i);
 
 			}
@@ -347,7 +351,9 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaDeclaracaoFuncao(int i) {
+		
 		i += 2; // ler proximo token
+
 
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			i += 2; // ler proximo token
@@ -380,11 +386,13 @@ public class AnalisadorSintatico {
 		if (Simbulo.svar.equals(tokenAS.get(i))) {
 			i += 2; // Ler Proximo Token
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				
 				while (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 
 					i = analisaVariaveis(i);
 					
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
+						
 						i += 2; // Ler Proximo Token
 					} else
 						System.out.println("ERROR ANALISA ET VARIAVEIS 1");
@@ -399,10 +407,12 @@ public class AnalisadorSintatico {
 	}
 
 	public static int analisaVariaveis(int i) {
+		
 		do {
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 				i += 2;
 				if (Simbulo.svirgula.equals(tokenAS.get(i)) || Simbulo.sdoispontos.equals(tokenAS.get(i))) {
+					
 					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
 						i += 2;
 
