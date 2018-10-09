@@ -4,28 +4,28 @@ public class Simbulo {
 	
 
 	static final String sprograma = "sprograma";
-	static final String sinício = "sinício";
+	static final String sinicio = "sinicio";
 	static final String sfim = "sfim";
 	static final String sprocedimento = "sprocedimento";
-	static final String sfuncao = "sinício";
+	static final String sfuncao = "sinicio";
 	static final String sse ="sse";
 	static final String sentao = "sentao";
 	static final String ssenao = "ssenao";
 	static final String senquanto = "senquanto";
 	static final String sfaca = "sfaca";
-	static final String satribuição = "satribuição";
+	static final String satribuicao = "satribuicao";
 	static final String sescreva = "sescreva";
-	static final String sleia = "satribuição";
+	static final String sleia = "satribuicao";
 	static final String svar ="svar";
 	static final String sinteiro = "sinteiro";
 	static final String sbooleano = "sbooleano";
 	static final String sidentificador = "sidentificador";
 	static final String snumero = "snumero";
 	static final String sponto = "sponto";
-	static final String sponto_vírgula = "sponto_virgula";
-	static final String svírgula = "svirgula";
-	static final String sabre_parênteses = "sabre_parênteses";
-	static final String sfecha_parênteses = "sfecha_parênteses";
+	static final String sponto_virgula = "sponto_virgula";
+	static final String svirgula = "svirgula";
+	static final String sabre_parenteses = "sabre_parenteses";
+	static final String sfecha_parenteses = "sfecha_parenteses";
 	static final String smaior ="smaior";
 	static final String smaiorig = "smaiorig";
 	static final String sdif = "sdif";
