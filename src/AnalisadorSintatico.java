@@ -13,7 +13,7 @@ public class AnalisadorSintatico {
 				i += 2; // Ler proximo Token
 				if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 					i += 2; // Ler proximo Token
-					if (Simbulo.sponto_vírgula.equals(tokenAS.get(i))) {
+					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 
 						i = analisarBloco(i);
 						tokenAS.clear();
@@ -47,13 +47,13 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandos(int i) {
 
-		if (Simbulo.sinício.equals(tokenAS.get(i))) {
+		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
 			i += 2; // Ler proximo Token
 
 			i = analisaComandoSimples(i);
 
 			while (!Simbulo.sfim.equals(tokenAS.get(i))) {
-				if (Simbulo.sponto_vírgula.equals(tokenAS.get(i))) {
+				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i += 2; // Ler Proximo token
 					if (!Simbulo.sfim.equals(tokenAS.get(i))) {
 						i = analisaComandoSimples(i);
@@ -102,7 +102,7 @@ public class AnalisadorSintatico {
 
 	private static int analisaAtribChProcedimento(int i) {
 		i += 2; // ler token seguinte
-		if (Simbulo.satribuição.equals(tokenAS.get(i))) {
+		if (Simbulo.satribuicao.equals(tokenAS.get(i))) {
 			i = analisaAtribuicao(i);
 
 		} else {
@@ -180,18 +180,18 @@ public class AnalisadorSintatico {
 		if(Simbulo.smais.equals(tokenAS.get(i)) ||  Simbulo.smenos.equals(tokenAS.get(i))){
 			
 			
-		}else System.out.println("Error Analise Expressão Simples");
+		}else System.out.println("Error Analise Expressao Simples");
 		
 		return 0;
 	}
 
 	private static int analisaLeia(int i) {
 		i += 2;
-		if (Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
+		if (Simbulo.sabre_parenteses.equals(tokenAS.get(i))) {
 			i += 2;
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 				i += 2;
-				if (Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
+				if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 					i += 2;
 				}
 
@@ -206,10 +206,10 @@ public class AnalisadorSintatico {
 	private static int analisaEscreva(int i) {
 
 		i += 2;
-		if (Simbulo.sabre_parênteses.equals(tokenAS.get(i))) {
+		if (Simbulo.sabre_parenteses.equals(tokenAS.get(i))) {
 			i += 2;
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
-				if (Simbulo.sfecha_parênteses.equals(tokenAS.get(i))) {
+				if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 					i += 2;
 				} else
 					System.out.println("ERROR ESCREVA3");
@@ -241,7 +241,7 @@ public class AnalisadorSintatico {
 				i = analisaDeclaracaoFuncao(i);
 			}
 
-			if (Simbulo.sponto_vírgula.equals(tokenAS.get(i))) {
+			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 
 				i += 2; // ler Proximo Token
 
@@ -257,7 +257,7 @@ public class AnalisadorSintatico {
 		i += 2; // ler proximo token
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			i += 2; // ler proximo token
-			if (Simbulo.sponto_vírgula.equals(tokenAS.get(i))) {
+			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 				i = analisarBloco(i);
 
 			}
@@ -279,7 +279,7 @@ public class AnalisadorSintatico {
 
 				if (Simbulo.sinteiro.equals(tokenAS.get(i)) || Simbulo.sbooleano.equals(tokenAS.get(i))) {
 					i += 2; // ler proximo token
-					if (Simbulo.sponto_vírgula.equals(tokenAS.get(i))) {
+					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 
 						i = analisarBloco(i);
 
@@ -307,7 +307,7 @@ public class AnalisadorSintatico {
 
 					i = analisaVariaveis(i);
 
-					if (Simbulo.sponto_vírgula.equals(tokenAS.get(i))) {
+					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 						i += 2; // Ler Proximo Token
 					} else
 						System.out.println("ERROR ANALISA ET VARIAVEIS 1");
@@ -326,9 +326,9 @@ public class AnalisadorSintatico {
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 				i += 2; // Ler Proximo Token
 
-				if (Simbulo.svírgula.equals(tokenAS.get(i)) || Simbulo.sdoispontos.equals(tokenAS.get(i))) {
+				if (Simbulo.svirgula.equals(tokenAS.get(i)) || Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 
-					if (Simbulo.svírgula.equals(tokenAS.get(i))) {
+					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
 						i += 2; // Ler Proximo Token
 
 					} else

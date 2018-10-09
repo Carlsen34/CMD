@@ -121,9 +121,9 @@ public class AnalisadorLexico {
 			identificador = false;
 		}
 
-		if (palavra.equals("início")) {
+		if (palavra.equals("inicio")) {
 			token.add(palavra);
-			token.add(Simbulo.sinício);
+			token.add(Simbulo.sinicio);
 
 			identificador = false;
 
@@ -131,7 +131,7 @@ public class AnalisadorLexico {
 		
 		if (palavra.equals("inicio")) {
 			token.add(palavra);
-			token.add(Simbulo.sinício);
+			token.add(Simbulo.sinicio);
 
 			identificador = false;
 
@@ -195,9 +195,9 @@ public class AnalisadorLexico {
 			identificador = false;
 		}
 
-		if (palavra.equals("início")) {
+		if (palavra.equals("inicio")) {
 			token.add(palavra);
-			token.add(Simbulo.sinício);
+			token.add(Simbulo.sinicio);
 			identificador = false;
 		}
 
@@ -285,27 +285,27 @@ public class AnalisadorLexico {
 		}
 		if (palavra.equals(";")) {
 			token.add(palavra);
-			token.add(Simbulo.sponto_vírgula);
+			token.add(Simbulo.sponto_virgula);
 
 			identificador = false;
 		}
 
 		if (palavra.equals(",")) {
 			token.add(palavra);
-			token.add(Simbulo.svírgula);
+			token.add(Simbulo.svirgula);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("(")) {
 			token.add(palavra);
-			token.add(Simbulo.sabre_parênteses);
+			token.add(Simbulo.sabre_parenteses);
 
 			identificador = false;
 		}
 		if (palavra.equals(")")) {
 			token.add(palavra);
-			token.add(Simbulo.sfecha_parênteses);
+			token.add(Simbulo.sfecha_parenteses);
 
 			identificador = false;
 		}
@@ -322,7 +322,7 @@ public class AnalisadorLexico {
 
 		if (palavra.equals(":=")) {
 			token.add(palavra);
-			token.add(Simbulo.satribuição);
+			token.add(Simbulo.satribuicao);
 
 			identificador = false;
 		}
@@ -418,7 +418,7 @@ public class AnalisadorLexico {
 				|| aux.equals("p") || aux.equals("q") || aux.equals("r") || aux.equals("s") || aux.equals("t")
 				|| aux.equals("i") || aux.equals("j") || aux.equals("u") || aux.equals("v") || aux.equals("x")
 				|| aux.equals("w") || aux.equals("y") || aux.equals("z") || aux.equals("ã") || aux.equals("á") 
-				|| aux.equals("é") || aux.equals("í") || aux.equals("ç")  || aux.equals("_") ) {
+				|| aux.equals("é") || aux.equals("i") || aux.equals("ç")  || aux.equals("_") ) {
 			return true;
 		}
 		return false;
