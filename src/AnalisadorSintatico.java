@@ -16,12 +16,12 @@ public class AnalisadorSintatico {
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 
 						i = analisarBloco(i);
-							
-							if(Simbulo.sponto.equals(tokenAS.get(i))) {
-								System.out.println("Analise Realizada com sucesso");
-							}else
-								System.out.println("ERROR");
-						
+
+						if (Simbulo.sponto.equals(tokenAS.get(i))) {
+							System.out.println("Analise Realizada com sucesso");
+						} else
+							System.out.println("ERROR");
+
 						tokenAS.clear();
 
 					} else
@@ -62,8 +62,10 @@ public class AnalisadorSintatico {
 					} else
 						System.out.println("ERROR ANALISA COMANDOS 3");
 
+				} else {
+					System.out.println("ERROR ANALISA COMANDOS 2");
 				}
-				System.out.println("ERROR ANALISA COMANDOS 2");
+				i += 2; // Ler Proximo token
 			}
 
 		} else
@@ -116,17 +118,18 @@ public class AnalisadorSintatico {
 
 	private static int chamadaProc(int i) {
 		// TODO Auto-generated method stub
-		return 0;
+		return i;
 	}
 
 	private static int analisaAtribuicao(int i) {
 		// TODO Auto-generated method stub
-		return 0;
+		return i;
 	}
 
 	private static int analisaSe(int i) {
 
 		i += 2;
+		i = analiseExpressao(i);
 
 		if (Simbulo.sentao.equals(tokenAS.get(i))) {
 			i += 2;
@@ -166,25 +169,86 @@ public class AnalisadorSintatico {
 	private static int analiseExpressao(int i) {
 
 		i = analiseExpressaoSimples(i);
-		if (Simbulo.smaior.equals(tokenAS.get(i)) || Simbulo.smaiorig.equals(tokenAS.get(i)) || Simbulo.smenor.equals(tokenAS.get(i)) 
-		|| Simbulo.smenorig.equals(tokenAS.get(i)) || Simbulo.sdif.equals(tokenAS.get(i)) || Simbulo.sig.equals(tokenAS.get(i))) {
-			
+		if (Simbulo.smaior.equals(tokenAS.get(i)) || Simbulo.smaiorig.equals(tokenAS.get(i))
+				|| Simbulo.smenor.equals(tokenAS.get(i)) || Simbulo.smenorig.equals(tokenAS.get(i))
+				|| Simbulo.sdif.equals(tokenAS.get(i)) || Simbulo.sig.equals(tokenAS.get(i))) {
+
 			i += 2;
-				i = analiseExpressaoSimples(i);
-			
-			
-		}else System.out.println("ERROR Analise Expressao");
-		
+			i = analiseExpressaoSimples(i);
+
+		} else
+			System.out.println("ERROR Analise Expressao");
+
 		return i;
 	}
 
 	private static int analiseExpressaoSimples(int i) {
-		if(Simbulo.smais.equals(tokenAS.get(i)) ||  Simbulo.smenos.equals(tokenAS.get(i))){
-			
-			
-		}else System.out.println("Error Analise Expressao Simples");
-		
-		return 0;
+		if (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))) {
+			i += 2;
+			i = analiseTermo(i);
+			while (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))
+					|| Simbulo.sou.equals(tokenAS.get(i))) {
+				i += 2;
+				i = analiseTermo(i);
+			}
+
+		} else
+			System.out.println("Error Analise Expressao Simples");
+
+		return i;
+	}
+
+	private static int analiseTermo(int i) {
+
+		i = analiseFator(i);
+		while (Simbulo.smult.equals(tokenAS.get(i)) || Simbulo.sdiv.equals(tokenAS.get(i))
+				|| Simbulo.sse.equals(tokenAS.get(i))) {
+
+			i += 2;
+			i = analiseFator(i);
+		}
+
+		return i;
+	}
+
+	private static int analiseFator(int i) {
+		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+			i = analisaChamadaFuncao(i);
+		} else {
+			if (Simbulo.snumero.equals(tokenAS.get(i))) {
+				i += 2;
+				if (Simbulo.snao.equals(tokenAS.get(i))) {
+					i += 2;
+					i = analiseFator(i);
+
+				} else {
+					if (Simbulo.sabre_parenteses.equals(tokenAS.get(i))) {
+						i += 2;
+
+						i = analiseExpressao(i);
+						if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
+							i += 2;
+
+						}
+
+					} else {
+						if (Simbulo.sverdadeiro.equals(tokenAS.get(i)) || Simbulo.sfalso.equals(tokenAS.get(i))) {
+							i += 2;
+						}
+
+					}
+
+				}
+
+			}
+		}
+
+		return i;
+	}
+
+	private static int analisaChamadaFuncao(int i) {
+		// TODO Auto-generated method stub
+		return i;
 	}
 
 	private static int analisaLeia(int i) {
@@ -211,6 +275,7 @@ public class AnalisadorSintatico {
 		if (Simbulo.sabre_parenteses.equals(tokenAS.get(i))) {
 			i += 2;
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				i += 2;
 				if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 					i += 2;
 				} else
@@ -228,6 +293,14 @@ public class AnalisadorSintatico {
 		int flag = 0;
 
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
+
+			// auxrot:= rotulo
+			// GERA( ́
+			// ́,JMP,rotulo, ́
+			// ́)
+			// {Salta sub-rotinas}
+			// rotulo:= rotulo + 1
+			// flag = 1
 
 		} else
 			System.out.println("ERROR SUBROTINA");
@@ -250,6 +323,9 @@ public class AnalisadorSintatico {
 			} else
 				System.out.println("ERROR SUBROTINA 2");
 
+		}
+		if (flag == 1) {
+			// Gera(auxrot,NULL, ́, ́ ́)
 		}
 
 		return i;
@@ -335,7 +411,6 @@ public class AnalisadorSintatico {
 						if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 							System.out.println("ERROR ANALISA VARIAVEIS 4");
 						}
-						
 
 					} else
 						System.out.println("ERROR ANALISA VARIAVEIS 3");
@@ -360,9 +435,10 @@ public class AnalisadorSintatico {
 
 			i += 2; // Ler Proximo Token
 
-		} else
+		} else {
 			System.out.println("ERROR ANALISA TIPO");
-
+			
+		}
 		return i;
 	}
 
