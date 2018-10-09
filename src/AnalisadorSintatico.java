@@ -38,7 +38,6 @@ public class AnalisadorSintatico {
 	public static int analisarBloco(int i) {
 
 		i += 2; // Ler Proximo Token
-
 		i = analisaEtVariaveis(i);
 		i = analisaSubrotinas(i);
 		i = analisaComandos(i);
@@ -384,7 +383,7 @@ public class AnalisadorSintatico {
 				while (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 
 					i = analisaVariaveis(i);
-
+					
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 						i += 2; // Ler Proximo Token
 					} else
@@ -402,25 +401,21 @@ public class AnalisadorSintatico {
 	public static int analisaVariaveis(int i) {
 		do {
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
-				i += 2; // Ler Proximo Token
-
+				i += 2;
 				if (Simbulo.svirgula.equals(tokenAS.get(i)) || Simbulo.sdoispontos.equals(tokenAS.get(i))) {
-
 					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
-						i += 2; // Ler Proximo Token
+						i += 2;
+
 						if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
-							System.out.println("ERROR ANALISA VARIAVEIS 4");
+
+							System.out.println("ERROR");
 						}
+					}
+				}
 
-					} else
-						System.out.println("ERROR ANALISA VARIAVEIS 3");
+			}
 
-				} else
-					System.out.println("ERROR ANALISA VARIAVEIS 2");
-
-			} else
-				System.out.println("ERROR ANALISA VARIAVEIS 1");
-		} while (Simbulo.sdoispontos.equals(tokenAS.get(i)));
+		} while (!Simbulo.sdoispontos.equals(tokenAS.get(i)));
 
 		i += 2; // Ler Proximo Token
 
@@ -437,7 +432,7 @@ public class AnalisadorSintatico {
 
 		} else {
 			System.out.println("ERROR ANALISA TIPO");
-			
+
 		}
 		return i;
 	}
