@@ -327,6 +327,7 @@ public class AnalisadorSintatico {
 
 	private static int analisaDeclaracaoFuncao(int i) {
 		i = pegarToken(i); // ler proximo token
+	
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			
 			i = pegarToken(i); // ler proximo token

@@ -120,23 +120,7 @@ public class AnalisadorLexico {
 			token.add(Simbulo.sprograma);
 			identificador = false;
 		}
-
-		if (palavra.equals("inicio")) {
-			token.add(palavra);
-			token.add(Simbulo.sinicio);
-
-			identificador = false;
-
-		}
 		
-		if (palavra.equals("inicio")) {
-			token.add(palavra);
-			token.add(Simbulo.sinicio);
-
-			identificador = false;
-
-		}
-
 		if (palavra.equals("fim")) {
 			token.add(palavra);
 			token.add(Simbulo.sfim);
