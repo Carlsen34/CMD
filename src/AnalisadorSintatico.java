@@ -283,8 +283,13 @@ public class AnalisadorSintatico {
 		int flag = 0;
 
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
-		} else
-			System.out.println("ERROR SUBROTINA");
+			//
+			// auxrot:= rotulo
+			// GERA(´ ´,JMP,rotulo,´ ´) {Salta sub-rotinas}
+			// rotulo:= rotulo + 1
+			// flag = 1
+			//
+		}
 		while (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
 				i = analisaDeclaracaoProcedimento(i);
@@ -292,9 +297,9 @@ public class AnalisadorSintatico {
 				i = analisaDeclaracaoFuncao(i);
 			}
 			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
-				i = pegarToken(i); // ler Proximo Token
+				i = pegarToken(i);
 			} else
-				System.out.println("ERROR SUBROTINA 2");
+				System.out.println("ERROR SUBROTINA");
 		}
 		if (flag == 1) {
 		}
@@ -311,11 +316,11 @@ public class AnalisadorSintatico {
 
 				i = analisarBloco(i);
 
-			}
-			System.out.println("ERROR DEC PROC 2");
+			} else
+				System.out.println("ERROR DEC PROC 2");
 
-		}
-		System.out.println("ERROR DEC PROC 1");
+		} else
+			System.out.println("ERROR DEC PROC 1");
 
 		return i;
 	}
@@ -323,21 +328,28 @@ public class AnalisadorSintatico {
 	private static int analisaDeclaracaoFuncao(int i) {
 		i = pegarToken(i); // ler proximo token
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+			
 			i = pegarToken(i); // ler proximo token
+			
 			if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
+				
 				i = pegarToken(i); // ler proximo token
+				
 				if (Simbulo.sinteiro.equals(tokenAS.get(i)) || Simbulo.sbooleano.equals(tokenAS.get(i))) {
+					
 					i = pegarToken(i); // ler proximo token
+					
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
+						
 						i = analisarBloco(i);
 					}
 					System.out.println("ERROR DECLARACAO FUNC 4");
 				}
 				System.out.println("ERROR DECLARACAO FUNC 3");
 			} else
-				System.out.println("ERROR DECLARACAO FUNC");
+				System.out.println("ERROR DECLARACAO FUNC 2");
 		} else
-			System.out.println("ERROR DECLARACAO FUNC 2");
+			System.out.println("ERROR DECLARACAO FUNC 1");
 
 		return i;
 	}
