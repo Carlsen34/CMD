@@ -290,6 +290,7 @@ public class AnalisadorSintatico {
 			// flag = 1
 			//
 		}
+		
 		while (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
 				i = analisaDeclaracaoProcedimento(i);
@@ -327,7 +328,7 @@ public class AnalisadorSintatico {
 
 	private static int analisaDeclaracaoFuncao(int i) {
 		i = pegarToken(i); // ler proximo token
-	
+
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			
 			i = pegarToken(i); // ler proximo token

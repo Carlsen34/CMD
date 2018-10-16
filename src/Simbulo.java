@@ -7,7 +7,7 @@ public class Simbulo {
 	static final String sinicio = "sinicio";
 	static final String sfim = "sfim";
 	static final String sprocedimento = "sprocedimento";
-	static final String sfuncao = "sinicio";
+	static final String sfuncao = "sfuncao";
 	static final String sse ="sse";
 	static final String sentao = "sentao";
 	static final String ssenao = "ssenao";
