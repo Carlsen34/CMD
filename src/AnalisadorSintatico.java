@@ -39,6 +39,7 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandos(int i) {
 
+
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler proximo Token
 
@@ -132,7 +133,6 @@ public class AnalisadorSintatico {
 				i = analisaComandoSimples(i);
 
 			}
-			System.out.println("ERROR ANALISE SE 2");
 
 		} else
 			System.out.println("ERROR ANALISE SE 1");
@@ -157,7 +157,6 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analiseExpressao(int i) {
-
 		i = analiseExpressaoSimples(i);
 		if (Simbulo.smaior.equals(tokenAS.get(i)) || Simbulo.smaiorig.equals(tokenAS.get(i))
 				|| Simbulo.smenor.equals(tokenAS.get(i)) || Simbulo.smenorig.equals(tokenAS.get(i))
@@ -166,8 +165,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			i = analiseExpressaoSimples(i);
 
-		} else
-			System.out.println("ERROR Analise Expressao");
+		} 
 
 		return i;
 	}
@@ -182,9 +180,7 @@ public class AnalisadorSintatico {
 				i = analiseTermo(i);
 			}
 
-		} else
-			System.out.println("Error Analise Expressao Simples");
-
+		} 
 		return i;
 	}
 
