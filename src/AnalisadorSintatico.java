@@ -173,6 +173,7 @@ public class AnalisadorSintatico {
 	private static int analiseExpressaoSimples(int i) {
 		if (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
+		}
 			i = analiseTermo(i);
 			while (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))
 					|| Simbulo.sou.equals(tokenAS.get(i))) {
@@ -180,7 +181,7 @@ public class AnalisadorSintatico {
 				i = analiseTermo(i);
 			}
 
-		} 
+		
 		return i;
 	}
 
@@ -233,7 +234,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaChamadaFuncao(int i) {
-		// TODO Auto-generated method stub
+		i = pegarToken(i);
 		return i;
 	}
 
