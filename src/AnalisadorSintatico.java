@@ -56,8 +56,8 @@ public class AnalisadorSintatico {
 				} else {
 					System.out.println("ERROR ANALISA COMANDOS 2");
 				}
-				i = pegarToken(i); // Ler Proximo token
 			}
+			i = pegarToken(i); // Ler Proximo token
 
 		} else
 			System.out.println("ERROR ANALISA COMANDOS");
@@ -113,7 +113,16 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaAtribuicao(int i) {
-		// TODO Auto-generated method stub
+		i = pegarToken(i);
+		if (Simbulo.snumero.equals(tokenAS.get(i)) || Simbulo.sidentificador.equals(tokenAS.get(i))) {
+			i = pegarToken(i);
+//			while (!Simbulo.sponto_virgula.equals(tokenAS.get(i)) || !Simbulo.sfim.equals(tokenAS.get(i))) {
+//				i = pegarToken(i);
+//			}
+
+			
+		}else
+			System.out.println("Error Analisa Atribuição");
 		return i;
 	}
 
@@ -204,6 +213,7 @@ public class AnalisadorSintatico {
 		} else {
 			if (Simbulo.snumero.equals(tokenAS.get(i))) {
 				i = pegarToken(i);
+			}else{
 				if (Simbulo.snao.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
 					i = analiseFator(i);

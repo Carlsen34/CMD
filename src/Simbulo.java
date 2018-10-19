@@ -15,7 +15,7 @@ public class Simbulo {
 	static final String sfaca = "sfaca";
 	static final String satribuicao = "satribuicao";
 	static final String sescreva = "sescreva";
-	static final String sleia = "satribuicao";
+	static final String sleia = "sleia";
 	static final String svar ="svar";
 	static final String sinteiro = "sinteiro";
 	static final String sbooleano = "sbooleano";
