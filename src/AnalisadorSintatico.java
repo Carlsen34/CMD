@@ -48,6 +48,7 @@ public class AnalisadorSintatico {
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = pegarToken(i); // Ler Proximo token
 					if (!Simbulo.sfim.equals(tokenAS.get(i))) {
+						System.out.println(tokenAS.get(i));
 						i = analisaComandoSimples(i);
 					} else
 						System.out.println("ERROR ANALISA COMANDOS 3");
@@ -117,6 +118,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 
 			while (!Simbulo.sponto_virgula.equals(tokenAS.get(i)) && !Simbulo.sfim.equals(tokenAS.get(i))) {
+				i = analiseExpressao(i);
 				i = pegarToken(i);
 			}
 
