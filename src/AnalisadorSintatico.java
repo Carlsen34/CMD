@@ -39,7 +39,6 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandos(int i) {
 
-
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler proximo Token
 
@@ -116,12 +115,12 @@ public class AnalisadorSintatico {
 		i = pegarToken(i);
 		if (Simbulo.snumero.equals(tokenAS.get(i)) || Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
-//			while (!Simbulo.sponto_virgula.equals(tokenAS.get(i)) || !Simbulo.sfim.equals(tokenAS.get(i))) {
-//				i = pegarToken(i);
-//			}
 
-			
-		}else
+			while (!Simbulo.sponto_virgula.equals(tokenAS.get(i)) && !Simbulo.sfim.equals(tokenAS.get(i))) {
+				i = pegarToken(i);
+			}
+
+		} else
 			System.out.println("Error Analisa Atribuição");
 		return i;
 	}
@@ -174,7 +173,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			i = analiseExpressaoSimples(i);
 
-		} 
+		}
 
 		return i;
 	}
@@ -183,14 +182,13 @@ public class AnalisadorSintatico {
 		if (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
 		}
+		i = analiseTermo(i);
+		while (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))
+				|| Simbulo.sou.equals(tokenAS.get(i))) {
+			i = pegarToken(i);
 			i = analiseTermo(i);
-			while (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))
-					|| Simbulo.sou.equals(tokenAS.get(i))) {
-				i = pegarToken(i);
-				i = analiseTermo(i);
-			}
+		}
 
-		
 		return i;
 	}
 
@@ -213,7 +211,7 @@ public class AnalisadorSintatico {
 		} else {
 			if (Simbulo.snumero.equals(tokenAS.get(i))) {
 				i = pegarToken(i);
-			}else{
+			} else {
 				if (Simbulo.snao.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
 					i = analiseFator(i);
@@ -297,7 +295,7 @@ public class AnalisadorSintatico {
 			// flag = 1
 			//
 		}
-		
+
 		while (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
 				i = analisaDeclaracaoProcedimento(i);
@@ -337,19 +335,19 @@ public class AnalisadorSintatico {
 		i = pegarToken(i); // ler proximo token
 
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
-			
+
 			i = pegarToken(i); // ler proximo token
-			
+
 			if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
-				
+
 				i = pegarToken(i); // ler proximo token
-				
+
 				if (Simbulo.sinteiro.equals(tokenAS.get(i)) || Simbulo.sbooleano.equals(tokenAS.get(i))) {
-					
+
 					i = pegarToken(i); // ler proximo token
-					
+
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
-						
+
 						i = analisarBloco(i);
 					}
 					System.out.println("ERROR DECLARACAO FUNC 4");
@@ -385,6 +383,7 @@ public class AnalisadorSintatico {
 				System.out.println("ERROR ANALISA ET VARIAVEIS 2");
 		} else
 			System.out.println("ERROR ANALISA ET VARIAVEIS 3");
+
 		return i;
 	}
 
