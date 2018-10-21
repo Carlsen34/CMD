@@ -39,6 +39,10 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandos(int i) {
 
+		if(Simbulo.sprocedimento.equals(tokenAS.get(i))) {
+			System.out.println(tokenAS.get(i-1));
+		}
+		
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler proximo Token
 
@@ -48,7 +52,6 @@ public class AnalisadorSintatico {
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = pegarToken(i); // Ler Proximo token
 					if (!Simbulo.sfim.equals(tokenAS.get(i))) {
-						System.out.println(tokenAS.get(i));
 						i = analisaComandoSimples(i);
 					} else
 						System.out.println("ERROR ANALISA COMANDOS 3");
@@ -289,6 +292,7 @@ public class AnalisadorSintatico {
 
 		int flag = 0;
 
+
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			//
 			// auxrot:= rotulo
@@ -300,6 +304,7 @@ public class AnalisadorSintatico {
 
 		while (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
+
 				i = analisaDeclaracaoProcedimento(i);
 			} else {
 				i = analisaDeclaracaoFuncao(i);
