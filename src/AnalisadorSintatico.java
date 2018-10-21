@@ -39,10 +39,12 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandos(int i) {
 
-		if(Simbulo.sprocedimento.equals(tokenAS.get(i))) {
-			System.out.println(tokenAS.get(i-1));
+		if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
+			i = pegarToken(i); // Ler proximo Token
+			i = pegarToken(i); // Ler proximo Token
+			i = pegarToken(i); // Ler proximo Token
 		}
-		
+
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler proximo Token
 
@@ -99,6 +101,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaAtribChProcedimento(int i) {
+
 		i = pegarToken(i); // ler token seguinte
 		if (Simbulo.satribuicao.equals(tokenAS.get(i))) {
 			i = analisaAtribuicao(i);
@@ -111,7 +114,8 @@ public class AnalisadorSintatico {
 	}
 
 	private static int chamadaProc(int i) {
-		// TODO Auto-generated method stub
+		i = pegarToken(i); // ler token seguinte
+		System.out.println(tokenAS.get(i-1));
 		return i;
 	}
 
@@ -291,7 +295,6 @@ public class AnalisadorSintatico {
 	private static int analisaSubrotinas(int i) {
 
 		int flag = 0;
-
 
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			//
