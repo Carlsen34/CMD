@@ -20,7 +20,7 @@ inicio
 fim;
 
 
-procedimento analisa2; {token = sprocedimento em vez de sinicio}
+procedimento analisa2; 
 inicio
   leia(a);
   b:= a*a+(c div b) 

@@ -81,7 +81,6 @@ public class AnalisadorSintatico {
 		try {
 			System.in.read();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Finished.");
@@ -132,8 +131,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int chamadaProc(int i) {
-		i = pegarToken(i); // ler token seguinte
-		return i;
+	return i;
 	}
 
 	private static int analisaAtribuicao(int i) {
