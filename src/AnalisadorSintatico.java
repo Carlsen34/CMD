@@ -41,10 +41,17 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandos(int i) {
 
-		if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
+		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
+			
+			if(Simbulo.sfuncao.equals(tokenAS.get(i))) {
+			i = pegarToken(i); // Ler proximo Token
+			i = pegarToken(i); // Ler proximo Token
+			}
 			i = pegarToken(i); // Ler proximo Token
 			i = pegarToken(i); // Ler proximo Token
 			i = pegarToken(i); // Ler proximo Token
+			
+
 		}
 
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {

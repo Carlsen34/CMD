@@ -26,10 +26,18 @@ inicio
   b:= a*a+(c div b) 
 fim;
 
+funcao analisa3:inteiro; 
+inicio
+  leia(a);
+  b:= a*a+(c div b) 
+fim;
+
+
 
 inicio
     analisa1;
     analisa2;
+   a := analisa3;
     se b > (c+ a*a)
     entao escreva(b)
     senao escreva(c)
