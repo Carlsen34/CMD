@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Stack;
 
 public class AnalisadorSintatico {
@@ -51,6 +52,10 @@ public class AnalisadorSintatico {
 			i = analisaComandoSimples(i);
 
 			while (!Simbulo.sfim.equals(tokenAS.get(i))) {
+				if (Simbulo.sponto.equals(tokenAS.get(i)) && Simbulo.sponto.equals(tokenAS.get(i))) { // FIM DO ANALISADOR SINTATICO
+					
+					fimAnalisador();
+				}
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = pegarToken(i); // Ler Proximo token
 					if (!Simbulo.sfim.equals(tokenAS.get(i))) {
@@ -68,6 +73,19 @@ public class AnalisadorSintatico {
 			System.out.println("ERROR ANALISA COMANDOS");
 
 		return i;
+	}
+
+	private static void fimAnalisador() {
+
+		System.out.println("COMPLETO");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Finished.");
+		
 	}
 
 	private static int analisaComandoSimples(int i) {
@@ -115,7 +133,6 @@ public class AnalisadorSintatico {
 
 	private static int chamadaProc(int i) {
 		i = pegarToken(i); // ler token seguinte
-		System.out.println(tokenAS.get(i-1));
 		return i;
 	}
 
