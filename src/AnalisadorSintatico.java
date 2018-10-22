@@ -4,6 +4,7 @@ import java.util.Stack;
 public class AnalisadorSintatico {
 
 	static Stack tokenAS = new Stack();
+	static Stack tokenError = new Stack();
 
 	public static void analisadorSintatico() {
 
@@ -18,13 +19,13 @@ public class AnalisadorSintatico {
 					if (Simbulo.sponto.equals(tokenAS.get(i))) {
 						System.out.println("Analise Realizada com sucesso");
 					} else
-						System.out.println("ERROR 1");
+						tratarError(i);
 				} else
-					System.out.println("ERROR 2");
+					tratarError(i);
 			} else
-				System.out.println("ERROR 3");
+				tratarError(i);
 		} else
-			System.out.println("ERROR 4");
+			tratarError(i);
 	}
 
 	public static int analisarBloco(int i) {
@@ -52,8 +53,10 @@ public class AnalisadorSintatico {
 			i = analisaComandoSimples(i);
 
 			while (!Simbulo.sfim.equals(tokenAS.get(i))) {
-				if (Simbulo.sponto.equals(tokenAS.get(i)) && Simbulo.sponto.equals(tokenAS.get(i))) { // FIM DO ANALISADOR SINTATICO
-					
+				if (Simbulo.sponto.equals(tokenAS.get(i)) && Simbulo.sponto.equals(tokenAS.get(i))) { // FIM DO
+																										// ANALISADOR
+																										// SINTATICO
+
 					fimAnalisador();
 				}
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
@@ -61,16 +64,17 @@ public class AnalisadorSintatico {
 					if (!Simbulo.sfim.equals(tokenAS.get(i))) {
 						i = analisaComandoSimples(i);
 					} else
-						System.out.println("ERROR ANALISA COMANDOS 3");
+						tratarError(i);
 
 				} else {
-					System.out.println("ERROR ANALISA COMANDOS 2");
+					tratarError(i);
+
 				}
 			}
 			i = pegarToken(i); // Ler Proximo token
 
 		} else
-			System.out.println("ERROR ANALISA COMANDOS");
+			tratarError(i);
 
 		return i;
 	}
@@ -83,8 +87,7 @@ public class AnalisadorSintatico {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Finished.");
-		
+
 	}
 
 	private static int analisaComandoSimples(int i) {
@@ -131,7 +134,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int chamadaProc(int i) {
-	return i;
+		return i;
 	}
 
 	private static int analisaAtribuicao(int i) {
@@ -145,7 +148,8 @@ public class AnalisadorSintatico {
 			}
 
 		} else
-			System.out.println("Error Analisa Atribuição");
+			tratarError(i);
+
 		return i;
 	}
 
@@ -167,7 +171,7 @@ public class AnalisadorSintatico {
 			}
 
 		} else
-			System.out.println("ERROR ANALISE SE 1");
+			tratarError(i);
 
 		return i;
 	}
@@ -183,7 +187,7 @@ public class AnalisadorSintatico {
 			i = analisaComandoSimples(i);
 
 		} else
-			System.out.println("ERROR Enquanto");
+			tratarError(i);
 
 		return i;
 	}
@@ -281,9 +285,10 @@ public class AnalisadorSintatico {
 				}
 
 			} else
-				System.out.println("ERROR LEIA2");
+				tratarError(i);
+
 		} else
-			System.out.println("ERROR LEIA1");
+			tratarError(i);
 
 		return i;
 	}
@@ -298,11 +303,13 @@ public class AnalisadorSintatico {
 				if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
 				} else
-					System.out.println("ERROR ESCREVA3");
+					tratarError(i);
+
 			} else
-				System.out.println("ERROR ESCREVA2");
+				tratarError(i);
+
 		} else
-			System.out.println("ERROR ESCREVA1");
+			tratarError(i);
 
 		return i;
 	}
@@ -330,7 +337,8 @@ public class AnalisadorSintatico {
 			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 				i = pegarToken(i);
 			} else
-				System.out.println("ERROR SUBROTINA");
+				tratarError(i);
+
 		}
 		if (flag == 1) {
 		}
@@ -348,10 +356,10 @@ public class AnalisadorSintatico {
 				i = analisarBloco(i);
 
 			} else
-				System.out.println("ERROR DEC PROC 2");
+				tratarError(i);
 
 		} else
-			System.out.println("ERROR DEC PROC 1");
+			tratarError(i);
 
 		return i;
 	}
@@ -375,13 +383,13 @@ public class AnalisadorSintatico {
 
 						i = analisarBloco(i);
 					}
-					System.out.println("ERROR DECLARACAO FUNC 4");
+					tratarError(i);
 				}
-				System.out.println("ERROR DECLARACAO FUNC 3");
+				tratarError(i);
 			} else
-				System.out.println("ERROR DECLARACAO FUNC 2");
+				tratarError(i);
 		} else
-			System.out.println("ERROR DECLARACAO FUNC 1");
+			tratarError(i);
 
 		return i;
 	}
@@ -400,14 +408,14 @@ public class AnalisadorSintatico {
 
 						i = pegarToken(i); // Ler Proximo Token
 					} else
-						System.out.println("ERROR ANALISA ET VARIAVEIS 1");
+						tratarError(i);
 
 				}
 
 			} else
-				System.out.println("ERROR ANALISA ET VARIAVEIS 2");
+				tratarError(i);
 		} else
-			System.out.println("ERROR ANALISA ET VARIAVEIS 3");
+			tratarError(i);
 
 		return i;
 	}
@@ -421,13 +429,13 @@ public class AnalisadorSintatico {
 					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
 						i = pegarToken(i);
 						if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
-							System.out.println("Error Analisa Variaveis 3 ");
+							tratarError(i);
 						}
 					}
 				} else
-					System.out.println("Error Analisa Variaveis 2");
+					tratarError(i);
 			} else
-				System.out.println("Error Analisa Variaveis 1");
+				tratarError(i);
 		} while (!Simbulo.sdoispontos.equals(tokenAS.get(i)));
 
 		i = pegarToken(i); // Ler Proximo Token
@@ -444,10 +452,20 @@ public class AnalisadorSintatico {
 			i = pegarToken(i); // Ler Proximo Token
 
 		} else {
-			System.out.println("ERROR ANALISA TIPO");
+			tratarError(i);
 
 		}
 		return i;
+	}
+
+	public static void tratarError(int i) {
+		tokenError.add(tokenAS.get(i-1));
+		System.out.println("Erro Sintatico = " + tokenError);
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static int pegarToken(int i) {

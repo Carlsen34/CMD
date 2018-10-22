@@ -26,6 +26,7 @@ inicio
   b:= a*a+(c div b) 
 fim;
 
+
 inicio
     analisa1;
     analisa2;
