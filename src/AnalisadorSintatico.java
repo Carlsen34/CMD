@@ -42,16 +42,7 @@ public class AnalisadorSintatico {
 	private static int analisaComandos(int i) {
 
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
-			
-			if(Simbulo.sfuncao.equals(tokenAS.get(i))) {
-			i = pegarToken(i); // Ler proximo Token
-			i = pegarToken(i); // Ler proximo Token
-			}
-			i = pegarToken(i); // Ler proximo Token
-			i = pegarToken(i); // Ler proximo Token
-			i = pegarToken(i); // Ler proximo Token
-			
-
+			i = ajusteRotina(i);
 		}
 
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
@@ -466,7 +457,7 @@ public class AnalisadorSintatico {
 	}
 
 	public static void tratarError(int i) {
-		tokenError.add(tokenAS.get(i-1));
+		tokenError.add(tokenAS.get(i - 1));
 		System.out.println("Erro Sintatico = " + tokenError);
 		try {
 			System.in.read();
@@ -475,6 +466,42 @@ public class AnalisadorSintatico {
 		}
 	}
 
+	
+	public static int ajusteRotina(int i ) {
+		if (Simbulo.sfuncao.equals(tokenAS.get(i))) {
+			i = pegarToken(i); // Ler proximo Token
+			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				i = pegarToken(i); // Ler proximo Token
+				if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
+					i = pegarToken(i); // Ler proximo Token
+					if (Simbulo.sinteiro.equals(tokenAS.get(i)) || Simbulo.sbooleano.equals(tokenAS.get(i))) {
+						i = pegarToken(i); // Ler proximo Token
+						if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
+							i = pegarToken(i); // Ler proximo Token
+
+						} else
+							tratarError(i);
+					} else
+						tratarError(i);
+				} else
+					tratarError(i);
+			} else
+				tratarError(i);
+		} 
+		if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
+			i = pegarToken(i); // Ler proximo Token
+			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+				i = pegarToken(i); // Ler proximo Token
+				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
+					i = pegarToken(i); // Ler proximo Token
+				} else
+					tratarError(i);
+			} else
+				tratarError(i);
+		}
+		return i;
+	}
+	
 	public static int pegarToken(int i) {
 
 		i += 2;
