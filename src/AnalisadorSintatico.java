@@ -15,7 +15,7 @@ public class AnalisadorSintatico {
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
 					if (Simbulo.sponto.equals(tokenAS.get(i))) {
-						System.out.println("Analise Realizada com sucesso");
+						fimAnalisador();
 					} else
 						tratarError(i);
 				} else
