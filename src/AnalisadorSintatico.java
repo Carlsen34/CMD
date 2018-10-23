@@ -36,12 +36,12 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaComandos(int i) {
-		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
-			i = ajusteRotina(i);
-			if(Simbulo.svar.equals(tokenAS.get(i))) {
-				i = analisaEtVariaveis(i);
-			}
-		}
+//		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
+//			i = ajusteRotina(i);
+//			if(Simbulo.svar.equals(tokenAS.get(i))) {
+//				i = analisaEtVariaveis(i);
+//			}
+//		}
 
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler proximo Token
@@ -54,8 +54,7 @@ public class AnalisadorSintatico {
 					i = pegarToken(i); // Ler Proximo token
 					if (!Simbulo.sfim.equals(tokenAS.get(i))) {
 						i = analisaComandoSimples(i);
-					} else
-						tratarError(i);
+					}
 				} else {
 					tratarError(i);
 				}
@@ -119,7 +118,6 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			while (!Simbulo.sponto_virgula.equals(tokenAS.get(i)) && !Simbulo.sfim.equals(tokenAS.get(i))) {
 				i = analiseExpressao(i);
-				i = pegarToken(i);
 			}
 		} else
 			tratarError(i);
@@ -174,6 +172,7 @@ public class AnalisadorSintatico {
 		i = analiseTermo(i);
 		while (Simbulo.smais.equals(tokenAS.get(i)) || Simbulo.smenos.equals(tokenAS.get(i))
 				|| Simbulo.sou.equals(tokenAS.get(i))) {
+	
 			i = pegarToken(i);
 			i = analiseTermo(i);
 		}
@@ -208,11 +207,18 @@ public class AnalisadorSintatico {
 						i = analiseExpressao(i);
 						if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 							i = pegarToken(i);
-						}
+						} else
+							tratarError(i);
 
 					} else {
 						if (Simbulo.sverdadeiro.equals(tokenAS.get(i)) || Simbulo.sfalso.equals(tokenAS.get(i))) {
 							i = pegarToken(i);
+						} else {
+							if (Simbulo.smult.equals(tokenAS.get(i)) || Simbulo.sdiv.equals(tokenAS.get(i))
+									|| Simbulo.sse.equals(tokenAS.get(i))) {
+								return i;
+							} else
+							tratarError(i);
 						}
 					}
 				}
@@ -339,8 +345,7 @@ public class AnalisadorSintatico {
 				}
 			} else
 				tratarError(i);
-		} else
-			tratarError(i);
+		}
 		return i;
 	}
 
@@ -389,8 +394,7 @@ public class AnalisadorSintatico {
 		System.exit(0);
 	}
 
-	
-	public static int ajusteRotina(int i ) {
+	public static int ajusteRotina(int i) {
 		if (Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler proximo Token
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
@@ -410,7 +414,7 @@ public class AnalisadorSintatico {
 					tratarError(i);
 			} else
 				tratarError(i);
-		} 
+		}
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler proximo Token
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
@@ -424,7 +428,7 @@ public class AnalisadorSintatico {
 		}
 		return i;
 	}
-	
+
 	public static int pegarToken(int i) {
 
 		i += 2;
