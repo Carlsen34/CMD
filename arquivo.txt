@@ -6,7 +6,7 @@ var a,b,c: inteiro;
 
 {proc 1}
 procedimento analisa1;
-var a, x: inteiro;
+ var a, x: inteiro;
        z: booleano;
 inicio
   se x>1  entao
@@ -21,6 +21,7 @@ fim;
 
 
 procedimento analisa2; 
+var a,b,c: inteiro;
 inicio
   leia(a);
   b:= a*a+(c div b) 
@@ -29,17 +30,22 @@ fim;
 funcao analisa3:inteiro; 
 inicio
   leia(a);
-  b:= a*a+(c div b); 
+  b:= a*a+(c div b)
 fim;
 
-procedimento analisa4; 
+procedimento analisa4;
 inicio
+ analisa1;
+  escreva(a);
+  b:= a*a+(c div b)
   leia(a);
-  b:= a*a+(c div b);
 fim;
 
 inicio
     analisa1;
+    se b > (c+ a*a)
+    entao leia(a)
+    senao escreva(c);
     analisa2;
  	a := analisa3;
     se b > (c+ a*a)

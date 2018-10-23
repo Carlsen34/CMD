@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Stack;
 
 public class AnalisadorSintatico {
@@ -39,6 +38,9 @@ public class AnalisadorSintatico {
 	private static int analisaComandos(int i) {
 		if (Simbulo.sprocedimento.equals(tokenAS.get(i)) || Simbulo.sfuncao.equals(tokenAS.get(i))) {
 			i = ajusteRotina(i);
+			if(Simbulo.svar.equals(tokenAS.get(i))) {
+				i = analisaEtVariaveis(i);
+			}
 		}
 
 		if (Simbulo.sinicio.equals(tokenAS.get(i))) {
@@ -67,11 +69,7 @@ public class AnalisadorSintatico {
 
 	private static void fimAnalisador() {
 		System.out.println("COMPLETO");
-		try {
-			System.in.read();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		System.exit(0);
 	}
 
 	private static int analisaComandoSimples(int i) {
@@ -386,12 +384,9 @@ public class AnalisadorSintatico {
 
 	public static void tratarError(int i) {
 		tokenError.add(tokenAS.get(i - 1));
+		System.out.println(tokenAS);
 		System.out.println("Erro Sintatico = " + tokenError);
-		try {
-			System.in.read();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		System.exit(0);
 	}
 
 	
