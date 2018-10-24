@@ -1,5 +1,4 @@
-
-{Teste falta inicio}
+{Teste duplo inicio fim - OK}
 programa test1;
 
 var a,b,c: inteiro;
@@ -26,12 +25,14 @@ inicio
   b:= a*a+(c div b) 
 fim;
 
-
+inicio
+inicio
     analisa1;
     analisa2;
     se b > (c+ a*a)
     entao escreva(b)
     senao escreva(c)
+fim
 fim.
 
-{fim}   
+{fim}        
