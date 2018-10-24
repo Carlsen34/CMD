@@ -316,8 +316,8 @@ public class AnalisadorSintatico {
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 						i = analisarBloco(i);
 					}
-					tratarError(i);
 				}
+				else
 				tratarError(i);
 			} else
 				tratarError(i);
@@ -385,7 +385,7 @@ public class AnalisadorSintatico {
 
 	public static void tratarError(int i) {
 	
-		System.out.println(tokenError.peek());
+		System.out.println("Error Sintatico : " + tokenError.pop() + " = " + tokenError.pop());
 		System.exit(0);
 	}
 
@@ -395,6 +395,8 @@ public class AnalisadorSintatico {
 		} else {
 			i += 2;
 			tokenError.push(tokenAS.get(i-1));
+			tokenError.push(tokenAS.get(i));
+
 		}
 		return i;
 	}
