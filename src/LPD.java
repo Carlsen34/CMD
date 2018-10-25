@@ -2,12 +2,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class LPD {
 
 	Stack token = new Stack();
 	Stack nLinhas = new Stack();
+	List<Token> listToken = new ArrayList<>();
+ 	
 	// Janela janela = new Janela();
 
 	public LPD() {
@@ -37,6 +41,7 @@ public class LPD {
 				// janela.area.setText(aux);
 
 				linha = linha + " ";
+			
 				lerLPDCaracter(linha, numerosLinhas);
 
 			}
@@ -80,6 +85,12 @@ public class LPD {
 	public void lerLPDCaracter(String linha, int numberLinhas) {
 		// Fazer loop infinito pra jogar os tokens para o analisador lexico, junto com o
 		// numero da linha
+		
+		Token token1 = new Token();
+		token1.setNumLiha(numberLinhas);
+		
+		listToken.add(token1);
+		System.out.println(listToken.get(0).getNumLiha());
 		if (linha.length() == 0) {
 			token.add(' ');
 		}
