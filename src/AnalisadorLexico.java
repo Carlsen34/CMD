@@ -37,10 +37,18 @@ public class AnalisadorLexico {
 		Stack aux = new Stack();
 		for(int i = 0; i< caracter.size();i++) {
 			String dig = caracter.get(i).toString().toLowerCase();
-		if(isDigit(dig) || isLetra(dig) || isSimbulo(dig)) {
-		
-			System.out.println(dig);
-		}
+			if(isLetra(dig) || isDigit(dig) ||isSimbulo(dig)) {
+				if(isSimbulo(dig)) {
+					System.out.println(aux);
+					aux.clear();
+				}
+				aux.add(dig);
+			}else {
+				System.out.println(aux);
+				aux.clear();
+				
+			}
+	
 		}
 		return aux;
 		
@@ -415,6 +423,12 @@ public class AnalisadorLexico {
 				|| aux.equals("5") || aux.equals("6") || aux.equals("7") || aux.equals("8") || aux.equals("9")) {
 			return true;
 		}
+		return false;
+
+	}
+	
+	public static boolean isEspaco(String aux) {
+		if(aux.equals(" ") || aux.equals("\n"))return true;
 		return false;
 
 	}
