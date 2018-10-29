@@ -17,13 +17,15 @@ public class Janela extends JFrame implements ActionListener {
     JPanel botoes = new JPanel();
     JButton compilar= new JButton();
     JButton apagar = new JButton();
-
+    LPD lpd = new LPD();
+    String aux = lpd.lerArquivo();
 	public Janela() {
+		
 		
 		tela.add(area);
 		area.setBorder(BorderFactory.createLineBorder(Color.black));
 		area.setBackground(Color.white);
-		area.setText("Teste");
+		area.setText(aux);
 		
 		final JScrollPane scrollEsq = new JScrollPane(area, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);//this is for the main panel 		
 		area.setPreferredSize(new Dimension(700,450));
@@ -47,12 +49,16 @@ public class Janela extends JFrame implements ActionListener {
 		apagar.setText("APAGAR");
 		apagar.setBackground(Color.RED);
 		botoes.add(apagar);
+		
+		compilar.addActionListener(this);
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() == compilar) {
+			lpd.lerLPDLinha(aux);
+		}
 		
 	}
 	

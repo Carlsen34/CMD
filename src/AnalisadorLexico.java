@@ -20,64 +20,88 @@ public class AnalisadorLexico {
 		return aux;
 	}
 	
-
+	
 	public static Stack consumirEspaco(Stack caracter) {
 		Stack aux = new Stack();
-
-		for (int i = 0; i < caracter.size(); i++) {
-			String dig = caracter.get(i).toString().toLowerCase();
-			if (!caracter.get(i).equals(' ')) { // Verifica se caracter não é um espaço
+		
+		for(int i = 0; i< caracter.size();i++) {
+			if(!(caracter.get(i).equals(' ') && caracter.get(i+1).equals(' ') )) {
 				aux.add(caracter.get(i));
-				if (!isLetra(dig) && !isDigit(dig)) { // Verifica se caracter não é um numero ou uma letra
-
-					if (!isLetra(caracter.get(i + 1).toString()) && !isDigit(caracter.get(i + 1).toString()) // Verifica se simbulo tem mais de um caracter (exemplo: "!="
-							&& !caracter.get(i + 1).equals(' ')) {
-						String dig2 = dig + caracter.get(i + 1).toString();
-					
-						if (dig2.equals(":=") || dig2.equals("!=") || dig2.equals(">=") || dig2.equals("<=")) { //Verifica se simbulo com mais de um caracter é existente
-							aux.pop();
-							aux.add(dig2);
-							i++;             // Controle para não repetir o segundo simbulo no token seguinte
-						}
-					}
-
-					if (aux.size() > 1) {  // Fix dos simbulos grudados nos finais das palavras
-						Stack aux1 = new Stack();  
-						aux1.add(aux.pop());
-
-						tratarToken(aux);
-						aux.clear();
-						tratarToken(aux1);
-
-					}
-					if (!aux.empty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
-
-						tratarToken(aux);
-
-						aux.clear();
-					}
-				}
-			} else {
-				if (!aux.isEmpty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
-
-					tratarToken(aux);
-				}
-				aux.clear();
 			}
 		}
-
-		//System.out.println("Tokens Validos " + token);
-		AnalisadorSintatico.analisadorSintatico();
-		System.out.println("Tokens Invalidos " + errorToken);
-		if(!errorToken.isEmpty()) {
-			for(int i = 0; i<errorToken.size();i++) {
-			int a = LPD.lerLPDLinha1(errorToken.get(i).toString());
-			System.out.println("Error Linha = " + a);
-			}
-		}
-
-		return caracter;
+		return aux;
 	}
+	
+	
+	public static Stack criarToken(Stack caracter) {
+		Stack aux = new Stack();
+		for(int i = 0; i< caracter.size();i++) {
+			String dig = caracter.get(i).toString().toLowerCase();
+		if(isDigit(dig) || isLetra(dig) || isSimbulo(dig)) {
+		
+			System.out.println(dig);
+		}
+		}
+		return aux;
+		
+	}
+	
+	
+
+//	public static Stack consumirEspaco(Stack caracter) {
+//		Stack aux = new Stack();
+//
+//		for (int i = 0; i < caracter.size(); i++) {
+//			String dig = caracter.get(i).toString().toLowerCase();
+//			if (!caracter.get(i).equals(' ')) { // Verifica se caracter não é um espaço
+//				aux.add(caracter.get(i));
+//				if (!isLetra(dig) && !isDigit(dig)) { // Verifica se caracter não é um numero ou uma letra
+//
+//					if (!isLetra(caracter.get(i + 1).toString()) && !isDigit(caracter.get(i + 1).toString()) // Verifica se simbulo tem mais de um caracter (exemplo: "!="
+//							&& !caracter.get(i + 1).equals(' ')) {
+//						String dig2 = dig + caracter.get(i + 1).toString();
+//					
+//						if (dig2.equals(":=") || dig2.equals("!=") || dig2.equals(">=") || dig2.equals("<=")) { //Verifica se simbulo com mais de um caracter é existente
+//							aux.pop();
+//							aux.add(dig2);
+//							i++;             // Controle para não repetir o segundo simbulo no token seguinte
+//						}
+//					}
+//
+//					if (aux.size() > 1) {  // Fix dos simbulos grudados nos finais das palavras
+//						Stack aux1 = new Stack();  
+//						aux1.add(aux.pop());
+//
+//						tratarToken(aux);
+//						aux.clear();
+//						tratarToken(aux1);
+//
+//					}
+//					if (!aux.empty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
+//
+//						tratarToken(aux);
+//
+//						aux.clear();
+//					}
+//				}
+//			} else {
+//				if (!aux.isEmpty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
+//
+//					tratarToken(aux);
+//				}
+//				aux.clear();
+//			}
+//		}
+//
+//		//System.out.println("Tokens Validos " + token);
+//		AnalisadorSintatico.analisadorSintatico();
+//		System.out.println("Tokens Invalidos " + errorToken);
+//		if(!errorToken.isEmpty()) {
+//			System.out.println(errorToken.get(0));
+//		}
+//
+//		return caracter;
+//	}
 
 	public static void tratarToken(Stack caracter) {
 		Simbulo simbulos = new Simbulo();
@@ -394,6 +418,15 @@ public class AnalisadorLexico {
 		return false;
 
 	}
+	
+	public static boolean isSimbulo(String aux) {
+		if(aux.equals("(") ||  aux.equals(")") || aux.equals("!") || aux.equals("=") || aux.equals("<") || aux.equals(">") || aux.equals(":")
+				|| aux.equals(";") || aux.equals(".") || aux.equals(",") || aux.equals("_") || aux.equals("+") || aux.equals("-") || aux.equals("*")) {
+			return true;
+		}
+		return false;
+
+	}
 
 	public static boolean isLetra(String aux) {
 		if (aux.equals("a") || aux.equals("b") || aux.equals("c") || aux.equals("d") || aux.equals("e")
@@ -408,5 +441,6 @@ public class AnalisadorLexico {
 		return false;
 
 	}
+
 
 }
