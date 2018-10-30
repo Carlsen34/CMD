@@ -68,7 +68,6 @@ public class AnalisadorLexico {
 		}
 
 		AnalisadorSintatico.analisadorSintatico();
-		System.out.println("Tokens Invalidos " + errorToken);
 		return caracter;
 	}
 

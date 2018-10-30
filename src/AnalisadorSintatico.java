@@ -5,13 +5,13 @@ import javax.swing.JOptionPane;
 public class AnalisadorSintatico {
 
 	static Stack tokenAS = new Stack();
-	static Stack tokenError = new Stack();
+	static Stack errorToken = new Stack();
 
 	public static void analisadorSintatico() {
 		tokenAS = AnalisadorLexico.token;
 
 		if (tokenAS.isEmpty())
-			tratarError(0);
+			Erro.tratarError(0);
 		int i = 1;
 		if (Simbulo.sprograma.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
@@ -20,15 +20,15 @@ public class AnalisadorSintatico {
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
 					if (Simbulo.sponto.equals(tokenAS.get(i))) {
-						fimAnalisador();
+						fimAnalisador(i);
 					} else
-						tratarError(i);
+						Erro.tratarError(i);
 				} else
-					tratarError(i);
+					Erro.tratarError(i);
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 	}
 
 	public static int analisarBloco(int i) {
@@ -46,7 +46,7 @@ public class AnalisadorSintatico {
 			i = analisaComandoSimples(i);
 			while (!Simbulo.sfim.equals(tokenAS.get(i))) {
 				if (Simbulo.sponto.equals(tokenAS.get(i))) {
-					fimAnalisador();
+					fimAnalisador(i);
 				}
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = pegarToken(i); // Ler Proximo token
@@ -54,17 +54,18 @@ public class AnalisadorSintatico {
 						i = analisaComandoSimples(i);
 					}
 				} else {
-					tratarError(i);
+					Erro.tratarError(i);
 				}
 			}
 			i = pegarToken(i); // Ler Proximo token
 
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 		return i;
 	}
 
-	private static void fimAnalisador() {
+	private static void fimAnalisador(int i) {
+		Erro.tratarError(i);
 		JOptionPane.showMessageDialog( null,"Codigo Compilado Com Sucesso");
 		System.exit(0);
 	}
@@ -118,7 +119,7 @@ public class AnalisadorSintatico {
 				i = analiseExpressao(i);
 			}
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 		return i;
 	}
 
@@ -138,7 +139,7 @@ public class AnalisadorSintatico {
 			}
 
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 		return i;
 	}
 
@@ -150,7 +151,7 @@ public class AnalisadorSintatico {
 			i = analisaComandoSimples(i);
 
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 		return i;
 	}
 
@@ -209,7 +210,7 @@ public class AnalisadorSintatico {
 						if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 							i = pegarToken(i);
 						} else
-							tratarError(i);
+							Erro.tratarError(i);
 
 					} else {
 						if (Simbulo.sverdadeiro.equals(tokenAS.get(i)) || Simbulo.sfalso.equals(tokenAS.get(i))) {
@@ -219,7 +220,7 @@ public class AnalisadorSintatico {
 									|| Simbulo.sse.equals(tokenAS.get(i))) {
 								return i;
 							} else
-								tratarError(i);
+								Erro.tratarError(i);
 						}
 					}
 				}
@@ -245,10 +246,10 @@ public class AnalisadorSintatico {
 				}
 
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 
 		return i;
 	}
@@ -262,11 +263,11 @@ public class AnalisadorSintatico {
 				if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
 				} else
-					tratarError(i);
+					Erro.tratarError(i);
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 		return i;
 	}
 
@@ -290,7 +291,7 @@ public class AnalisadorSintatico {
 			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 				i = pegarToken(i);
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 		}
 		if (flag == 1) {
 		}
@@ -304,9 +305,9 @@ public class AnalisadorSintatico {
 			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 				i = analisarBloco(i);
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 		return i;
 	}
 
@@ -322,11 +323,11 @@ public class AnalisadorSintatico {
 						i = analisarBloco(i);
 					}
 				} else
-					tratarError(i);
+					Erro.tratarError(i);
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 		} else
-			tratarError(i);
+			Erro.tratarError(i);
 
 		return i;
 	}
@@ -341,10 +342,10 @@ public class AnalisadorSintatico {
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 						i = pegarToken(i); // Ler Proximo Token
 					} else
-						tratarError(i);
+						Erro.tratarError(i);
 				}
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 		}
 		return i;
 	}
@@ -358,13 +359,13 @@ public class AnalisadorSintatico {
 					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
 						i = pegarToken(i);
 						if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
-							tratarError(i);
+							Erro.tratarError(i);
 						}
 					}
 				} else
-					tratarError(i);
+					Erro.tratarError(i);
 			} else
-				tratarError(i);
+				Erro.tratarError(i);
 		} while (!Simbulo.sdoispontos.equals(tokenAS.get(i)));
 
 		i = pegarToken(i); // Ler Proximo Token
@@ -381,31 +382,21 @@ public class AnalisadorSintatico {
 			i = pegarToken(i); // Ler Proximo Token
 
 		} else {
-			tratarError(i);
+			Erro.tratarError(i);
 
 		}
 		return i;
 	}
 
-	public static void tratarError(int i) {
 
-		if (!AnalisadorLexico.errorToken.isEmpty()) {
-			JOptionPane.showMessageDialog( null,"Error Lexico: " + AnalisadorLexico.errorToken.pop() );
-			System.exit(0);
-		}
-		if (i == 0)
-			System.exit(0); // EmptyStackException
-		JOptionPane.showMessageDialog( null,"Error Sintatico : " + tokenError.pop() + " = " + tokenError.pop());
-		System.exit(0);
-	}
 
 	public static int pegarToken(int i) {
 		if (i + 2 > tokenAS.size()) {
-			tratarError(i);
+			Erro.tratarError(i);
 		} else {
 			i += 2;
-			tokenError.push(tokenAS.get(i - 1));
-			tokenError.push(tokenAS.get(i));
+			errorToken.push(tokenAS.get(i - 1));
+			errorToken.push(tokenAS.get(i));
 
 		}
 		return i;
