@@ -51,13 +51,19 @@ public class Janela extends JFrame implements ActionListener {
 		botoes.add(apagar);
 		
 		compilar.addActionListener(this);
+		apagar.addActionListener(this);
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == compilar) {
-			lpd.lerLPDLinha(aux);
+			String valor = area.getText();
+			lpd.lerLPDLinha(valor);
+		}
+		
+		if(e.getSource() == apagar) {
+			area.setText("");
 		}
 		
 	}
