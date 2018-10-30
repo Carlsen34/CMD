@@ -26,14 +26,13 @@ public class Janela extends JFrame implements ActionListener {
 		area.setBorder(BorderFactory.createLineBorder(Color.black));
 		area.setBackground(Color.white);
 		area.setText(aux);
-		
-		final JScrollPane scrollEsq = new JScrollPane(area, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);//this is for the main panel 		
-		area.setPreferredSize(new Dimension(700,450));
-		
-		tela.add(scrollEsq);
-		
-		
-		
+		area.setPreferredSize(new Dimension(600,10000));
+
+		JScrollPane scroll = new JScrollPane(area);
+        scroll.setPreferredSize(new Dimension(700,500));     
+		tela.add(scroll);
+        
+        
 		tela.setLayout(new FlowLayout());
 		tela.setSize(1300, 700);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
