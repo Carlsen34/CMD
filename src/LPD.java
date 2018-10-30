@@ -10,87 +10,106 @@ public class LPD {
 
 	Stack token = new Stack();
 	Stack nLinhas = new Stack();
-	List<Token> listToken = new ArrayList<>();
- 	
-	// Janela janela = new Janela();
 
 	public LPD() {
-		lerLPDLinha();
+	
+	}
+	
+	
+	public String lerArquivo() {
+		
+		int numerosLinhas = 0;
+		String aux = "";
+		try {
+			// Cria arquivo
+			File file = new File("arquivo.txt");
+
+			// Le o arquivo
+			FileReader ler = new FileReader("arquivo.txt");
+			BufferedReader reader = new BufferedReader(ler);
+			String linha;
+
+			
+			while ((linha = reader.readLine()) != null) {
+				numerosLinhas++;
+				aux = aux + linha + '\n';
+				linha = linha + " ";
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return aux;
+	}
+	
+	
+	
+	
+
+	public void lerLPDLinha(String str) {
+		for (int i = 0; i < str.length(); i++) {
+			token.add(str.charAt(i));
+		}
 		token = AnalisadorLexico.eliminarComentario(token);
 		token = AnalisadorLexico.consumirEspaco(token);
+		
 	}
 
-	public void lerLPDLinha() {
-		int numerosLinhas = 0;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//
+//	public void lerLPDLinha() {
+//		int numerosLinhas = 0;
+//
+//		try {
+//			// Cria arquivo
+//			File file = new File("arquivo.txt");
+//
+//			// Le o arquivo
+//			FileReader ler = new FileReader("arquivo.txt");
+//			BufferedReader reader = new BufferedReader(ler);
+//			String linha;
+//
+//			String aux = "";
+//			while ((linha = reader.readLine()) != null) {
+//				numerosLinhas++;
+//				aux = aux + linha + '\n';
+//				linha = linha + " ";
+//			
+//				lerLPDCaracter(linha, numerosLinhas);
+//
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
-		try {
-			// Cria arquivo
-			File file = new File("arquivo.txt");
-
-			// Le o arquivo
-			FileReader ler = new FileReader("arquivo.txt");
-			BufferedReader reader = new BufferedReader(ler);
-			String linha;
-
-			String aux = "";
-			while ((linha = reader.readLine()) != null) {
-				numerosLinhas++;
-				aux = aux + linha + '\n';
-				
-
-				// janela.area.setText(aux);
-
-				linha = linha + " ";
-			
-				lerLPDCaracter(linha, numerosLinhas);
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static int lerLPDLinha1(String caracter) {
-		int numerosLinhas = 0;
-
-		try {
-			// Cria arquivo
-			File file = new File("arquivo.txt");
-
-			// Le o arquivo
-			FileReader ler = new FileReader("arquivo.txt");
-			BufferedReader reader = new BufferedReader(ler);
-			String linha;
-
-			String aux = "";
-			while ((linha = reader.readLine()) != null) {
-				numerosLinhas++;
-				aux = aux + linha + '\n';
-				// janela.area.setText(aux);
-
-				if (linha.contains(caracter)) {
-					return numerosLinhas;
-				}
-				// lerLPDCaracter(linha,numerosLinhas);
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
+	
+	
 
 	public void lerLPDCaracter(String linha, int numberLinhas) {
 		// Fazer loop infinito pra jogar os tokens para o analisador lexico, junto com o
 		// numero da linha
 		
-		Token token1 = new Token();
-		token1.setNumLiha(numberLinhas);
 		
-		listToken.add(token1);
-		System.out.println(listToken.get(0).getNumLiha());
 		if (linha.length() == 0) {
 			token.add(' ');
 		}

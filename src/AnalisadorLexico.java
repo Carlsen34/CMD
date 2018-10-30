@@ -3,6 +3,7 @@ import java.util.Stack;
 public class AnalisadorLexico {
 	static Stack token = new Stack();
 	static Stack errorToken = new Stack();
+	static Stack tokenAux = new Stack();
 
 	public static Stack eliminarComentario(Stack caracter) {
 		Stack aux = new Stack();
@@ -20,13 +21,13 @@ public class AnalisadorLexico {
 		return aux;
 	}
 	
-
+	
 	public static Stack consumirEspaco(Stack caracter) {
 		Stack aux = new Stack();
 
 		for (int i = 0; i < caracter.size(); i++) {
 			String dig = caracter.get(i).toString().toLowerCase();
-			if (!caracter.get(i).equals(' ')) { // Verifica se caracter não é um espaço
+			if (!isEspaco(dig)) { // Verifica se caracter não é um espaço
 				aux.add(caracter.get(i));
 				if (!isLetra(dig) && !isDigit(dig)) { // Verifica se caracter não é um numero ou uma letra
 
@@ -66,16 +67,8 @@ public class AnalisadorLexico {
 			}
 		}
 
-		//System.out.println("Tokens Validos " + token);
 		AnalisadorSintatico.analisadorSintatico();
 		System.out.println("Tokens Invalidos " + errorToken);
-		if(!errorToken.isEmpty()) {
-			for(int i = 0; i<errorToken.size();i++) {
-			int a = LPD.lerLPDLinha1(errorToken.get(i).toString());
-			System.out.println("Error Linha = " + a);
-			}
-		}
-
 		return caracter;
 	}
 
@@ -86,7 +79,6 @@ public class AnalisadorLexico {
 		for (int i = 0; i < caracter.size(); i++) {
 			aux = aux + caracter.get(i);
 		}
-
 		verificarToken(aux);
 
 	}
@@ -394,6 +386,21 @@ public class AnalisadorLexico {
 		return false;
 
 	}
+	
+	public static boolean isEspaco(String aux) {
+		if(aux.equals(" ") || aux.equals("\n"))return true;
+		return false;
+
+	}
+	
+	public static boolean isSimbulo(String aux) {
+		if(aux.equals("(") ||  aux.equals(")") || aux.equals("!") || aux.equals("=") || aux.equals("<") || aux.equals(">") || aux.equals(":")
+				|| aux.equals(";") || aux.equals(".") || aux.equals(",") || aux.equals("_") || aux.equals("+") || aux.equals("-") || aux.equals("*")) {
+			return true;
+		}
+		return false;
+
+	}
 
 	public static boolean isLetra(String aux) {
 		if (aux.equals("a") || aux.equals("b") || aux.equals("c") || aux.equals("d") || aux.equals("e")
@@ -408,5 +415,6 @@ public class AnalisadorLexico {
 		return false;
 
 	}
+
 
 }

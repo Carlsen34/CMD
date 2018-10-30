@@ -8,10 +8,10 @@ public class CSD {
 	
 	
 	public CSD() {
-		
-		LPD lpd = new LPD();
-		PalavraReservada palavrasReservadas = new PalavraReservada();
-		Simbulo simbulos = new Simbulo();
+		Janela janela = new Janela();
+//		LPD lpd = new LPD();
+//		PalavraReservada palavrasReservadas = new PalavraReservada();
+//		Simbulo simbulos = new Simbulo();
 	}
 
 }

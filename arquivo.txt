@@ -1,6 +1,6 @@
 
 {Teste ponto e virgula antes do fim}
-programa test1;
+programa  test1;
 
 var a,b,c: inteiro;
 
@@ -32,4 +32,3 @@ inicio
     senao escreva(c)
 fim.
 
-{fim}   
