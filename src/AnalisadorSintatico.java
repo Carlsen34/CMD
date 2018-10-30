@@ -7,8 +7,9 @@ public class AnalisadorSintatico {
 
 	public static void analisadorSintatico() {
 		tokenAS = AnalisadorLexico.token;
-		
-		if(tokenAS.isEmpty())tratarError(0);
+
+		if (tokenAS.isEmpty())
+			tratarError(0);
 		int i = 1;
 		if (Simbulo.sprograma.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
@@ -318,9 +319,8 @@ public class AnalisadorSintatico {
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 						i = analisarBloco(i);
 					}
-				}
-				else
-				tratarError(i);
+				} else
+					tratarError(i);
 			} else
 				tratarError(i);
 		} else
@@ -386,7 +386,13 @@ public class AnalisadorSintatico {
 	}
 
 	public static void tratarError(int i) {
-		if(i==0)System.exit(0); //EmptyStackException
+
+		if (!AnalisadorLexico.errorToken.isEmpty()) {
+			System.out.println("Error Lexico: " + AnalisadorLexico.errorToken.pop());
+			System.exit(0);
+		}
+		if (i == 0)
+			System.exit(0); // EmptyStackException
 		System.out.println("Error Sintatico : " + tokenError.pop() + " = " + tokenError.pop());
 		System.exit(0);
 	}
@@ -396,7 +402,7 @@ public class AnalisadorSintatico {
 			tratarError(i);
 		} else {
 			i += 2;
-			tokenError.push(tokenAS.get(i-1));
+			tokenError.push(tokenAS.get(i - 1));
 			tokenError.push(tokenAS.get(i));
 
 		}

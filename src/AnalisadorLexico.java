@@ -20,8 +20,7 @@ public class AnalisadorLexico {
 		}
 		return aux;
 	}
-	
-	
+
 	public static Stack consumirEspaco(Stack caracter) {
 		Stack aux = new Stack();
 
@@ -31,19 +30,20 @@ public class AnalisadorLexico {
 				aux.add(caracter.get(i));
 				if (!isLetra(dig) && !isDigit(dig)) { // Verifica se caracter não é um numero ou uma letra
 
-					if (!isLetra(caracter.get(i + 1).toString()) && !isDigit(caracter.get(i + 1).toString()) // Verifica se simbulo tem mais de um caracter (exemplo: "!="
+					if (!isLetra(caracter.get(i + 1).toString()) && !isDigit(caracter.get(i + 1).toString()) // Verifica
+																												// "!="
 							&& !caracter.get(i + 1).equals(' ')) {
 						String dig2 = dig + caracter.get(i + 1).toString();
-					
-						if (dig2.equals(":=") || dig2.equals("!=") || dig2.equals(">=") || dig2.equals("<=")) { //Verifica se simbulo com mais de um caracter é existente
+
+						if (dig2.equals(":=") || dig2.equals("!=") || dig2.equals(">=") || dig2.equals("<=")) { // Verifica
 							aux.pop();
 							aux.add(dig2);
-							i++;             // Controle para não repetir o segundo simbulo no token seguinte
+							i++; // Controle para não repetir o segundo simbulo no token seguinte
 						}
 					}
 
-					if (aux.size() > 1) {  // Fix dos simbulos grudados nos finais das palavras
-						Stack aux1 = new Stack();  
+					if (aux.size() > 1) { // Fix dos simbulos grudados nos finais das palavras
+						Stack aux1 = new Stack();
 						aux1.add(aux.pop());
 
 						tratarToken(aux);
@@ -51,7 +51,7 @@ public class AnalisadorLexico {
 						tratarToken(aux1);
 
 					}
-					if (!aux.empty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
+					if (!aux.empty()) { // Garantir que todos simbulos tenha um token (Caso realmente exista)
 
 						tratarToken(aux);
 
@@ -59,7 +59,7 @@ public class AnalisadorLexico {
 					}
 				}
 			} else {
-				if (!aux.isEmpty()) { //Garantir que todos simbulos tenha um token (Caso realmente exista)
+				if (!aux.isEmpty()) { // Garantir que todos simbulos tenha um token (Caso realmente exista)
 
 					tratarToken(aux);
 				}
@@ -86,19 +86,19 @@ public class AnalisadorLexico {
 	public static void verificarToken(String palavra) {
 		Boolean identificador = true;
 		Boolean error = false;
-		
-		if(palavra.substring(0,1).equals("_")) {
+
+		if (palavra.substring(0, 1).equals("_")) {
 			errorToken.add(palavra);
 		}
-		
+
 		if (isDigit(palavra.substring(0, 1))) {
-			for(int i =0;i<palavra.length();i++) {
-				String	aux = palavra.charAt(i) + "";
-				if(isLetra(aux)) {
+			for (int i = 0; i < palavra.length(); i++) {
+				String aux = palavra.charAt(i) + "";
+				if (isLetra(aux)) {
 					errorToken.add(palavra);
 					palavra = "";
 				}
-				
+
 			}
 
 			token.add(palavra);
@@ -112,7 +112,7 @@ public class AnalisadorLexico {
 			token.add(Simbulo.sprograma);
 			identificador = false;
 		}
-		
+
 		if (palavra.equals("fim")) {
 			token.add(palavra);
 			token.add(Simbulo.sfim);
@@ -347,7 +347,7 @@ public class AnalisadorLexico {
 
 			identificador = false;
 		}
-	
+
 		if (palavra.equals("*")) {
 			token.add(palavra);
 			token.add(Simbulo.smult);
@@ -367,8 +367,9 @@ public class AnalisadorLexico {
 			}
 		}
 
-		if (error) errorToken.add(palavra);
-		//else AnalisadorSintatico.analisadorSintatico();
+		if (error)
+			errorToken.add(palavra);
+		// else AnalisadorSintatico.analisadorSintatico();
 	}
 
 	public static boolean isIdentificador(String palavra) {
@@ -386,16 +387,18 @@ public class AnalisadorLexico {
 		return false;
 
 	}
-	
+
 	public static boolean isEspaco(String aux) {
-		if(aux.equals(" ") || aux.equals("\n"))return true;
+		if (aux.equals(" ") || aux.equals("\n"))
+			return true;
 		return false;
 
 	}
-	
+
 	public static boolean isSimbulo(String aux) {
-		if(aux.equals("(") ||  aux.equals(")") || aux.equals("!") || aux.equals("=") || aux.equals("<") || aux.equals(">") || aux.equals(":")
-				|| aux.equals(";") || aux.equals(".") || aux.equals(",") || aux.equals("_") || aux.equals("+") || aux.equals("-") || aux.equals("*")) {
+		if (aux.equals("(") || aux.equals(")") || aux.equals("!") || aux.equals("=") || aux.equals("<")
+				|| aux.equals(">") || aux.equals(":") || aux.equals(";") || aux.equals(".") || aux.equals(",")
+				|| aux.equals("_") || aux.equals("+") || aux.equals("-") || aux.equals("*")) {
 			return true;
 		}
 		return false;
@@ -408,13 +411,12 @@ public class AnalisadorLexico {
 				|| aux.equals("k") || aux.equals("l") || aux.equals("m") || aux.equals("n") || aux.equals("o")
 				|| aux.equals("p") || aux.equals("q") || aux.equals("r") || aux.equals("s") || aux.equals("t")
 				|| aux.equals("i") || aux.equals("j") || aux.equals("u") || aux.equals("v") || aux.equals("x")
-				|| aux.equals("w") || aux.equals("y") || aux.equals("z") || aux.equals("ã") || aux.equals("á") 
-				|| aux.equals("é") || aux.equals("i") || aux.equals("ç")  || aux.equals("_") ) {
+				|| aux.equals("w") || aux.equals("y") || aux.equals("z") || aux.equals("ã") || aux.equals("á")
+				|| aux.equals("é") || aux.equals("i") || aux.equals("ç") || aux.equals("_")) {
 			return true;
 		}
 		return false;
 
 	}
-
 
 }

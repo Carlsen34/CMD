@@ -5,8 +5,7 @@ import java.io.IOException;
 
 
 public class CSD {
-	
-	
+
 	public CSD() {
 		Janela janela = new Janela();
 	}
