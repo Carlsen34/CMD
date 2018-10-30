@@ -9,9 +9,9 @@ public class Erro {
 			System.exit(0);
 		}
 
-		if (!AnalisadorSintatico.errorToken.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Error Sintatico : " + AnalisadorSintatico.errorToken.pop() + " = "
-					+ AnalisadorSintatico.errorToken.pop());
+		if (!AnalisadorSintatico.tokenAS.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Error Sintatico : " + AnalisadorSintatico.tokenAS.get(i) + " = "
+					+ AnalisadorSintatico.tokenAS.get(i));
 			System.exit(0);
 		}
 	}

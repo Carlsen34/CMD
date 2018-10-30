@@ -65,8 +65,9 @@ public class AnalisadorSintatico {
 	}
 
 	private static void fimAnalisador(int i) {
+		tokenAS.clear();
 		Erro.tratarError(i);
-		JOptionPane.showMessageDialog( null,"Codigo Compilado Com Sucesso");
+		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		System.exit(0);
 	}
 
@@ -388,17 +389,8 @@ public class AnalisadorSintatico {
 		return i;
 	}
 
-
-
 	public static int pegarToken(int i) {
-		if (i + 2 > tokenAS.size()) {
-			Erro.tratarError(i);
-		} else {
-			i += 2;
-			errorToken.push(tokenAS.get(i - 1));
-			errorToken.push(tokenAS.get(i));
-
-		}
+		i += 2;
 		return i;
 	}
 
