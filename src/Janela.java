@@ -51,7 +51,7 @@ public class Janela extends JFrame implements ActionListener {
 		compilar.addActionListener(this);
 		apagar.addActionListener(this);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == compilar) {

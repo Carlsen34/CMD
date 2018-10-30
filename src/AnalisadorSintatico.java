@@ -1,5 +1,7 @@
 import java.util.Stack;
 
+import javax.swing.JOptionPane;
+
 public class AnalisadorSintatico {
 
 	static Stack tokenAS = new Stack();
@@ -63,7 +65,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static void fimAnalisador() {
-		System.out.println("COMPLETO");
+		JOptionPane.showMessageDialog( null,"Codigo Compilado Com Sucesso");
 		System.exit(0);
 	}
 
@@ -388,12 +390,12 @@ public class AnalisadorSintatico {
 	public static void tratarError(int i) {
 
 		if (!AnalisadorLexico.errorToken.isEmpty()) {
-			System.out.println("Error Lexico: " + AnalisadorLexico.errorToken.pop());
+			JOptionPane.showMessageDialog( null,"Error Lexico: " + AnalisadorLexico.errorToken.pop() );
 			System.exit(0);
 		}
 		if (i == 0)
 			System.exit(0); // EmptyStackException
-		System.out.println("Error Sintatico : " + tokenError.pop() + " = " + tokenError.pop());
+		JOptionPane.showMessageDialog( null,"Error Sintatico : " + tokenError.pop() + " = " + tokenError.pop());
 		System.exit(0);
 	}
 
