@@ -9,9 +9,6 @@ public class CSD {
 	
 	public CSD() {
 		Janela janela = new Janela();
-//		LPD lpd = new LPD();
-//		PalavraReservada palavrasReservadas = new PalavraReservada();
-//		Simbulo simbulos = new Simbulo();
 	}
 
 }
