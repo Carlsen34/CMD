@@ -3,7 +3,6 @@ import java.util.Stack;
 public class AnalisadorLexico {
 	static Stack token = new Stack();
 	static Stack errorToken = new Stack();
-	static Stack tokenAux = new Stack();
 
 	public static Stack eliminarComentario(Stack caracter) {
 		Stack aux = new Stack();
@@ -87,14 +86,20 @@ public class AnalisadorLexico {
 		Boolean error = false;
 
 		if (palavra.substring(0, 1).equals("_")) {
-			errorToken.add(palavra);
+			if (errorToken.isEmpty()) {
+				errorToken = token;
+				errorToken.add(palavra);
+			}
 		}
 
 		if (isDigit(palavra.substring(0, 1))) {
 			for (int i = 0; i < palavra.length(); i++) {
 				String aux = palavra.charAt(i) + "";
 				if (isLetra(aux)) {
-					errorToken.add(palavra);
+					if (errorToken.isEmpty()) {
+						errorToken = token;
+						errorToken.add(palavra);
+					}
 					palavra = "";
 				}
 
@@ -366,8 +371,12 @@ public class AnalisadorLexico {
 			}
 		}
 
-		if (error)
-			errorToken.add(palavra);
+		if (error) {
+			if (errorToken.isEmpty()) {
+				errorToken = token;
+				errorToken.add(palavra);
+			}
+		}
 		// else AnalisadorSintatico.analisadorSintatico();
 	}
 

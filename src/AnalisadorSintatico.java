@@ -9,7 +9,7 @@ public class AnalisadorSintatico {
 
 	public static void analisadorSintatico() {
 		tokenAS = AnalisadorLexico.token;
-
+		errorToken = AnalisadorLexico.token;
 		if (tokenAS.isEmpty())
 			Erro.tratarError(0);
 		int i = 1;
