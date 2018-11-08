@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
@@ -16,6 +18,7 @@ public class AnalisadorSintatico {
 		if (Simbulo.sprograma.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 				i = pegarToken(i); // Ler proximo Token
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
@@ -68,11 +71,13 @@ public class AnalisadorSintatico {
 		tokenAS.clear();
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
+		AnalisadorSemantico.printarTS();
 		System.exit(0);
 	}
 
 	private static int analisaComandoSimples(int i) {
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 			i = analisaAtribChProcedimento(i);
 		} else {
 			if (Simbulo.sse.equals(tokenAS.get(i))) {
@@ -196,6 +201,7 @@ public class AnalisadorSintatico {
 
 	private static int analiseFator(int i) {
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 			i = analisaChamadaFuncao(i);
 		} else {
 			if (Simbulo.snumero.equals(tokenAS.get(i))) {
@@ -241,6 +247,7 @@ public class AnalisadorSintatico {
 		if (Simbulo.sabre_parenteses.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 				i = pegarToken(i);
 				if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
@@ -260,6 +267,7 @@ public class AnalisadorSintatico {
 		if (Simbulo.sabre_parenteses.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 				i = pegarToken(i);
 				if (Simbulo.sfecha_parenteses.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
@@ -302,6 +310,7 @@ public class AnalisadorSintatico {
 	private static int analisaDeclaracaoProcedimento(int i) {
 		i = pegarToken(i); // ler proximo token
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 			i = pegarToken(i); // ler proximo token
 			if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 				i = analisarBloco(i);
@@ -315,6 +324,7 @@ public class AnalisadorSintatico {
 	private static int analisaDeclaracaoFuncao(int i) {
 		i = pegarToken(i); // ler proximo token
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 			i = pegarToken(i); // ler proximo token
 			if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 				i = pegarToken(i); // ler proximo token
@@ -338,7 +348,9 @@ public class AnalisadorSintatico {
 		if (Simbulo.svar.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler Proximo Token
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 				while (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 					i = analisaVariaveis(i);
 					if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 						i = pegarToken(i); // Ler Proximo Token
@@ -355,6 +367,7 @@ public class AnalisadorSintatico {
 
 		do {
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
+
 				i = pegarToken(i);
 				if (Simbulo.svirgula.equals(tokenAS.get(i)) || Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
