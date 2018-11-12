@@ -13,6 +13,19 @@ public class AnalisadorSemantico {
 
  }
  
+ 
+ public static void procurarTabela(String identificadorAux) {
+
+	 TabelaSimbolos ts = new TabelaSimbolos();
+	 ts.setIdentificador(identificadorAux);
+	 
+	 System.out.println(simbolos.contains(ts.getIdentificador()));
+
+
+	 
+	 
+ }
+ 
  public static void printarTS() {
 	 for(int i =0 ; i<simbolos.size();i++) {
 		 System.out.println(simbolos.get(i).identificador);

@@ -72,6 +72,7 @@ public class AnalisadorSintatico {
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		AnalisadorSemantico.printarTS();
+		AnalisadorSemantico.procurarTabela("analise1");
 		System.exit(0);
 	}
 
@@ -403,6 +404,9 @@ public class AnalisadorSintatico {
 	}
 
 	public static int pegarToken(int i) {
+		if(Simbulo.sidentificador.equals(tokenAS.get(i))) {
+			AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString());
+		}
 		i += 2;
 		return i;
 	}
