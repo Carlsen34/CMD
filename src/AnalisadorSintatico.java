@@ -72,7 +72,6 @@ public class AnalisadorSintatico {
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		AnalisadorSemantico.printarTS();
-		AnalisadorSemantico.procurarTabela("analise1");
 		System.exit(0);
 	}
 
