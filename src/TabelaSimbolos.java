@@ -1,15 +1,37 @@
 
 public class TabelaSimbolos {
 
-	String identificador;
-
-	public String getIdentificador() {
-		return identificador;
+	String tokenLexema;
+	String tipoLexema;
+	String nivel;
+	String rotulo;
+	
+	
+	public String getTokenLexema() {
+		return tokenLexema;
 	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
+	public void setTokenLexema(String tokenLexema) {
+		this.tokenLexema = tokenLexema;
 	}
+	public String getTipoLexema() {
+		return tipoLexema;
+	}
+	public void setTipoLexema(String tipoLexema) {
+		this.tipoLexema = tipoLexema;
+	}
+	public String getNivel() {
+		return nivel;
+	}
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
+	}
+	public String getRotulo() {
+		return rotulo;
+	}
+	public void setRotulo(String rotulo) {
+		this.rotulo = rotulo;
+	}
+	
 	
 	
 }

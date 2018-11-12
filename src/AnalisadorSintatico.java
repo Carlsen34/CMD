@@ -18,7 +18,7 @@ public class AnalisadorSintatico {
 		if (Simbulo.sprograma.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
-
+				AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(),"nomedeprograma",null, null);
 				i = pegarToken(i); // Ler proximo Token
 				if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
@@ -367,7 +367,9 @@ public class AnalisadorSintatico {
 
 		do {
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
-
+				if(!AnalisadorSemantico.pesquisar_duplicvar_tabela(tokenAS.get(i-1).toString(),"var",null,null)) {
+					AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(),"var", null, null);
+				}
 				i = pegarToken(i);
 				if (Simbulo.svirgula.equals(tokenAS.get(i)) || Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
@@ -403,9 +405,6 @@ public class AnalisadorSintatico {
 	}
 
 	public static int pegarToken(int i) {
-		if(Simbulo.sidentificador.equals(tokenAS.get(i))) {
-			AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString());
-		}
 		i += 2;
 		return i;
 	}
