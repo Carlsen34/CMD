@@ -1,10 +1,11 @@
 
 public class TabelaSimbolos {
 
-	String tokenLexema;
-	String tipoLexema;
-	String nivel;
-	String rotulo;
+	String tokenLexema; //Lexema
+	String tokenSimbolo; // Simbolo ( Se é var, proc, func, programa etc )
+	String tipo; // Tipo da Variavel
+	int nivel; // nivel em relação ao scopo 
+	String rotulo; // rotulo para geração de codigos
 	
 	
 	public String getTokenLexema() {
@@ -13,16 +14,22 @@ public class TabelaSimbolos {
 	public void setTokenLexema(String tokenLexema) {
 		this.tokenLexema = tokenLexema;
 	}
-	public String getTipoLexema() {
-		return tipoLexema;
+	public String getTokenSimbolo() {
+		return tokenSimbolo;
 	}
-	public void setTipoLexema(String tipoLexema) {
-		this.tipoLexema = tipoLexema;
+	public void setTokenSimbolo(String tokenSimbolo) {
+		this.tokenSimbolo = tokenSimbolo;
 	}
-	public String getNivel() {
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public int getNivel() {
 		return nivel;
 	}
-	public void setNivel(String nivel) {
+	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
 	public String getRotulo() {
@@ -32,6 +39,7 @@ public class TabelaSimbolos {
 		this.rotulo = rotulo;
 	}
 	
+
 	
 	
 }
