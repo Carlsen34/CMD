@@ -15,6 +15,9 @@ public class Erro {
 			JOptionPane.showMessageDialog(null,"Error Sintatico");
 			System.exit(0);
 		}
+		
+		
+
 	}
 
 }
