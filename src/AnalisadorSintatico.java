@@ -368,9 +368,9 @@ public class AnalisadorSintatico {
 
 		do {
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
-				if(AnalisadorSemantico.pesquisar_duplicvar_tabela(tokenAS.get(i-1).toString(),"var",nivel,null)) {
-					AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(),"var", nivel, null);
-				}
+//				if(AnalisadorSemantico.pesquisar_duplicvar_tabela(tokenAS.get(i-1).toString(),"var",nivel,null)) {
+//					AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(),"var", nivel, null);
+//				}
 				i = pegarToken(i);
 				if (Simbulo.svirgula.equals(tokenAS.get(i)) || Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 					if (Simbulo.svirgula.equals(tokenAS.get(i))) {
