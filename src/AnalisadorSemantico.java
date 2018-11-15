@@ -67,22 +67,18 @@ public class AnalisadorSemantico {
 		return false;
 	}
 	
-	
-	
-	
-	
 
 	// Verificar se o identificador é uma função ou uma variavel
 
 	public static boolean pesquisa_declvarfunc_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
-		if (lexema.equals("funcao")) {
+		if (tipoLexema.equals("funcao")) {
 			for (int i = 0; i < simbolos.size(); i++) {
 				if (simbolos.get(i).getLexema().equals(lexema)) {
 					return true;
 				}
 			}
 		}
-		if (lexema.equals("var")) {
+		if (tipoLexema.equals("var")) {
 			for (int i = 0; i < simbolos.size(); i++) {
 				if (simbolos.get(i).getLexema().equals(lexema)) {
 					if (simbolos.get(i).getNivel() == nivel) {
@@ -158,6 +154,14 @@ public class AnalisadorSemantico {
 	}
 	
 	
+	public static void remover_nivel_simbolos(int nivel) {
+		for(int i = 0; i<simbolos.size();i++) {
+			if(simbolos.get(i).getNivel() == nivel) {
+				simbolos.remove(i);
+			}
+			
+		}
+	}
 	
 	
 	
@@ -166,10 +170,10 @@ public class AnalisadorSemantico {
 	public static void printarTS() {
 		for (int i = 0; i < simbolos.size(); i++) {
 			System.out.println("Lexema : " + simbolos.get(i).getLexema());
-			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
-			System.out.println("Nivel : " + simbolos.get(i).getNivel());
-			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
-			System.out.println("Tipo : " + simbolos.get(i).getTipo());
+//			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
+//			System.out.println("Nivel : " + simbolos.get(i).getNivel());
+//			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
+//			System.out.println("Tipo : " + simbolos.get(i).getTipo());
 
 		}
 	}
