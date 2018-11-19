@@ -106,7 +106,7 @@ public class AnalisadorSintatico {
 		i = pegarToken(i); // ler token seguinte
 		if (Simbulo.satribuicao.equals(tokenAS.get(i))) {
 			if(AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i-3).toString(),  "var", nivel, "")){
-			AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(), "var", nivel, "");
+			//AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(), "var", nivel, "");
 			}else {
 				System.out.println("Erro Semantico : " + tokenAS.get(i-3).toString() );
 			}
@@ -128,7 +128,7 @@ public class AnalisadorSintatico {
 		if (Simbulo.snumero.equals(tokenAS.get(i)) || Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			if(Simbulo.sidentificador.equals(tokenAS.get(i))){
 				//AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "funcao", nivel, "");
-				AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
+				//AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
 			}
 			i = pegarToken(i);
 			while (!Simbulo.sponto_virgula.equals(tokenAS.get(i)) && !Simbulo.sfim.equals(tokenAS.get(i))) {
@@ -213,7 +213,7 @@ public class AnalisadorSintatico {
 		if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 			// Pode ser função
 			if(AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i-1).toString(), "var", nivel, "")) {
-				AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
+				//AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
 			}else {
 				System.out.println("Erro Semantico : "+ tokenAS.get(i-1));
 			}
@@ -263,7 +263,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 				if(AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i-1).toString(), "var", nivel, "")) {
-				AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
+				//AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
 				}else {
 					System.out.println("Erro Semantico :" + tokenAS.get(i-1));
 				}
@@ -287,7 +287,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			if (Simbulo.sidentificador.equals(tokenAS.get(i))) {
 				if(AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i-1).toString(), "var", nivel, "")) {
-					AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
+					//AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel, "");
 					}else {
 						System.out.println("Erro Semantico :" + tokenAS.get(i-1));
 					}
@@ -361,6 +361,7 @@ public class AnalisadorSintatico {
 				if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 					i = pegarToken(i); // ler proximo token
 					if (Simbulo.sinteiro.equals(tokenAS.get(i)) || Simbulo.sbooleano.equals(tokenAS.get(i))) {
+					//	AnalisadorSemantico.coloca_tipo_tabela(null, null, i, null, tokenAS.get(i).toString());
 						i = pegarToken(i); // ler proximo token
 						if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 							i = analisarBloco(i);
@@ -430,7 +431,7 @@ public class AnalisadorSintatico {
 	public static int analisaTipo(int i) {
 
 		if (Simbulo.sinteiro.equals(tokenAS.get(i)) || Simbulo.sbooleano.equals(tokenAS.get(i))) {
-
+			AnalisadorSemantico.coloca_tipo_tabela(null, "var", i, null, tokenAS.get(i).toString());
 			i = pegarToken(i); // Ler Proximo Token
 
 		} else {

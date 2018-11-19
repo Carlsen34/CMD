@@ -132,23 +132,15 @@ public class AnalisadorSemantico {
 	public static void coloca_tipo_tabela(String tokenLexema, String tipoLexema, int nivel, String rotulo,String tipo) {
 			
 		if(tipoLexema.equals("var")) {
-			for(int i = 0; i<simbolos.size();i++) {
-				if(simbolos.get(i).getLexema().equals(tokenLexema) &&  simbolos.get(i).getNivel()== nivel) {
-					simbolos.get(i).setTipo(tipo);
+			for(int i = 0;i<simbolos.size();i++) {
+				if(simbolos.get(i).getTipo().equals("") || simbolos.get(i).getTipo().equals(null)) {
+					if(!simbolos.get(i).getTipoLexema().equals("nomedeprograma") && !simbolos.get(i).getTipoLexema().equals("procedimento") ) {
+						simbolos.get(i).setTipo(tipo);	
+					}
+				
 				}
 			}
 		}
-		
-		
-		if(tipoLexema.equals("funcao")) {
-				for(int i = 0; i<simbolos.size();i++) {
-				if(simbolos.get(i).getLexema().equals(tokenLexema)) {
-					simbolos.get(i).setTipo(tipo);
-				}
-			}
-		}
-
-
 	}
 	
 	
@@ -170,8 +162,8 @@ public class AnalisadorSemantico {
 			System.out.println("Lexema : " + simbolos.get(i).getLexema());
 			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
 			System.out.println("Nivel : " + simbolos.get(i).getNivel());
-//			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
-//			System.out.println("Tipo : " + simbolos.get(i).getTipo());
+			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
+			System.out.println("Tipo : " + simbolos.get(i).getTipo());
 			System.out.println("\n");
 
 		}
