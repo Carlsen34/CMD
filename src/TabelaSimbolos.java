@@ -4,7 +4,7 @@ public class TabelaSimbolos {
 	String lexema; //Lexema
 	String tipoLexema; // Simbolo ( Se é var, proc, func, programa etc )
 	String tipo; // Tipo da Variavel, func
-	String nivel; // nivel em relação ao scopo 
+	int nivel; // nivel em relação ao scopo 
 	String rotulo; // rotulo para geração de codigos
 	
 	
@@ -26,10 +26,10 @@ public class TabelaSimbolos {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public String getNivel() {
+	public int getNivel() {
 		return nivel;
 	}
-	public void setNivel(String nivel) {
+	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
 	public String getRotulo() {
