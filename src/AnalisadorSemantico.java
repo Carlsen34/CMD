@@ -153,8 +153,9 @@ public class AnalisadorSemantico {
 	}
 	
 	
-	public static boolean validar_tipo() {
-		
+	public static boolean validar_tipo(String aux)  {
+
+		System.out.println(aux);
 		
 		return false;
 		

@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class Simbulo {
+public class Simbolo {
 
 	static final String sprograma = "sprograma";
 	static final String sinicio = "sinicio";

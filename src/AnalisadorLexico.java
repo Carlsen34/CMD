@@ -37,11 +37,11 @@ public class AnalisadorLexico {
 						if (dig2.equals(":=") || dig2.equals("!=") || dig2.equals(">=") || dig2.equals("<=")) { // Verifica
 							aux.pop();
 							aux.add(dig2);
-							i++; // Controle para não repetir o segundo simbulo no token seguinte
+							i++; // Controle para não repetir o segundo Simbolo no token seguinte
 						}
 					}
 
-					if (aux.size() > 1) { // Fix dos simbulos grudados nos finais das palavras
+					if (aux.size() > 1) { // Fix dos Simbolos grudados nos finais das palavras
 						Stack aux1 = new Stack();
 						aux1.add(aux.pop());
 
@@ -50,7 +50,7 @@ public class AnalisadorLexico {
 						tratarToken(aux1);
 
 					}
-					if (!aux.empty()) { // Garantir que todos simbulos tenha um token (Caso realmente exista)
+					if (!aux.empty()) { // Garantir que todos Simbolos tenha um token (Caso realmente exista)
 
 						tratarToken(aux);
 
@@ -58,7 +58,7 @@ public class AnalisadorLexico {
 					}
 				}
 			} else {
-				if (!aux.isEmpty()) { // Garantir que todos simbulos tenha um token (Caso realmente exista)
+				if (!aux.isEmpty()) { // Garantir que todos Simbolos tenha um token (Caso realmente exista)
 
 					tratarToken(aux);
 				}
@@ -71,7 +71,7 @@ public class AnalisadorLexico {
 	}
 
 	public static void tratarToken(Stack caracter) {
-		Simbulo simbulos = new Simbulo();
+		Simbolo Simbolos = new Simbolo();
 		String aux = "";
 
 		for (int i = 0; i < caracter.size(); i++) {
@@ -106,27 +106,27 @@ public class AnalisadorLexico {
 			}
 
 			token.add(palavra);
-			token.add(Simbulo.snumero);
+			token.add(Simbolo.snumero);
 			identificador = false;
 
 		}
 
 		if (palavra.equals("programa")) {
 			token.add(palavra);
-			token.add(Simbulo.sprograma);
+			token.add(Simbolo.sprograma);
 			identificador = false;
 		}
 
 		if (palavra.equals("fim")) {
 			token.add(palavra);
-			token.add(Simbulo.sfim);
+			token.add(Simbolo.sfim);
 
 			identificador = false;
 
 		}
 		if (palavra.equals("procedimento")) {
 			token.add(palavra);
-			token.add(Simbulo.sprocedimento);
+			token.add(Simbolo.sprocedimento);
 
 			identificador = false;
 
@@ -134,7 +134,7 @@ public class AnalisadorLexico {
 
 		if (palavra.equals("funcao")) {
 			token.add(palavra);
-			token.add(Simbulo.sfuncao);
+			token.add(Simbolo.sfuncao);
 
 			identificador = false;
 
@@ -142,219 +142,219 @@ public class AnalisadorLexico {
 
 		if (palavra.equals("se")) {
 			token.add(palavra);
-			token.add(Simbulo.sse);
+			token.add(Simbolo.sse);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("entao")) {
 			token.add(palavra);
-			token.add(Simbulo.sentao);
+			token.add(Simbolo.sentao);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("senao")) {
 			token.add(palavra);
-			token.add(Simbulo.ssenao);
+			token.add(Simbolo.ssenao);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("enquanto")) {
 			token.add(palavra);
-			token.add(Simbulo.senquanto);
+			token.add(Simbolo.senquanto);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("faca")) {
 			token.add(palavra);
-			token.add(Simbulo.sfaca);
+			token.add(Simbolo.sfaca);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("inicio")) {
 			token.add(palavra);
-			token.add(Simbulo.sinicio);
+			token.add(Simbolo.sinicio);
 			identificador = false;
 		}
 
 		if (palavra.equals("escreva")) {
 			token.add(palavra);
-			token.add(Simbulo.sescreva);
+			token.add(Simbolo.sescreva);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("leia")) {
 			token.add(palavra);
-			token.add(Simbulo.sleia);
+			token.add(Simbolo.sleia);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("var")) {
 			token.add(palavra);
-			token.add(Simbulo.svar);
+			token.add(Simbolo.svar);
 			identificador = false;
 		}
 
 		if (palavra.equals("inteiro")) {
 			token.add(palavra);
-			token.add(Simbulo.sinteiro);
+			token.add(Simbolo.sinteiro);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("booleano")) {
 			token.add(palavra);
-			token.add(Simbulo.sbooleano);
+			token.add(Simbolo.sbooleano);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("verdadeiro")) {
 			token.add(palavra);
-			token.add(Simbulo.sverdadeiro);
+			token.add(Simbolo.sverdadeiro);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("falso")) {
 			token.add(palavra);
-			token.add(Simbulo.sfalso);
+			token.add(Simbolo.sfalso);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("div")) {
 			token.add(palavra);
-			token.add(Simbulo.sdiv);
+			token.add(Simbolo.sdiv);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("e")) {
 			token.add(palavra);
-			token.add(Simbulo.se);
+			token.add(Simbolo.se);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("ou")) {
 			token.add(palavra);
-			token.add(Simbulo.sou);
+			token.add(Simbolo.sou);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("nao")) {
 			token.add(palavra);
-			token.add(Simbulo.snao);
+			token.add(Simbolo.snao);
 
 			identificador = false;
 		}
 
 		if (palavra.equals(".")) {
 			token.add(palavra);
-			token.add(Simbulo.sponto);
+			token.add(Simbolo.sponto);
 
 			identificador = false;
 		}
 		if (palavra.equals(";")) {
 			token.add(palavra);
-			token.add(Simbulo.sponto_virgula);
+			token.add(Simbolo.sponto_virgula);
 
 			identificador = false;
 		}
 
 		if (palavra.equals(",")) {
 			token.add(palavra);
-			token.add(Simbulo.svirgula);
+			token.add(Simbolo.svirgula);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("(")) {
 			token.add(palavra);
-			token.add(Simbulo.sabre_parenteses);
+			token.add(Simbolo.sabre_parenteses);
 
 			identificador = false;
 		}
 		if (palavra.equals(")")) {
 			token.add(palavra);
-			token.add(Simbulo.sfecha_parenteses);
+			token.add(Simbolo.sfecha_parenteses);
 
 			identificador = false;
 		}
 		if (palavra.equals(">")) {
 			token.add(palavra);
-			token.add(Simbulo.smaior);
+			token.add(Simbolo.smaior);
 
 			identificador = false;
 		}
 		if (palavra.equals(">=")) {
 			token.add(palavra);
-			token.add(Simbulo.smaiorig);
+			token.add(Simbolo.smaiorig);
 		}
 
 		if (palavra.equals(":=")) {
 			token.add(palavra);
-			token.add(Simbulo.satribuicao);
+			token.add(Simbolo.satribuicao);
 
 			identificador = false;
 		}
 
 		if (palavra.equals(":")) {
 			token.add(palavra);
-			token.add(Simbulo.sdoispontos);
+			token.add(Simbolo.sdoispontos);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("=")) {
 			token.add(palavra);
-			token.add(Simbulo.sig);
+			token.add(Simbolo.sig);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("<")) {
 			token.add(palavra);
-			token.add(Simbulo.smenor);
+			token.add(Simbolo.smenor);
 
 			identificador = false;
 		}
 		if (palavra.equals("<=")) {
 			token.add(palavra);
-			token.add(Simbulo.smenorig);
+			token.add(Simbolo.smenorig);
 
 			identificador = false;
 		}
 		if (palavra.equals("!=")) {
 			token.add(palavra);
-			token.add(Simbulo.sdif);
+			token.add(Simbolo.sdif);
 
 			identificador = false;
 		}
 		if (palavra.equals("+")) {
 			token.add(palavra);
-			token.add(Simbulo.smais);
+			token.add(Simbolo.smais);
 
 			identificador = false;
 		}
 		if (palavra.equals("-")) {
 			token.add(palavra);
-			token.add(Simbulo.smenos);
+			token.add(Simbolo.smenos);
 
 			identificador = false;
 		}
 
 		if (palavra.equals("*")) {
 			token.add(palavra);
-			token.add(Simbulo.smult);
+			token.add(Simbolo.smult);
 
 			identificador = false;
 		}
@@ -363,7 +363,7 @@ public class AnalisadorLexico {
 
 			if (isIdentificador(palavra)) {
 				token.add(palavra);
-				token.add(Simbulo.sidentificador);
+				token.add(Simbolo.sidentificador);
 
 				identificador = false;
 			} else {
@@ -403,14 +403,15 @@ public class AnalisadorLexico {
 
 	}
 
-	public static boolean isSimbulo(String aux) {
+	
+	public static boolean isExpressao(String aux) {
 		if (aux.equals("(") || aux.equals(")") || aux.equals("!") || aux.equals("=") || aux.equals("<")
 				|| aux.equals(">") || aux.equals(":") || aux.equals(";") || aux.equals(".") || aux.equals(",")
 				|| aux.equals("_") || aux.equals("+") || aux.equals("-") || aux.equals("*")) {
 			return true;
 		}
 		return false;
-
+		
 	}
 
 	public static boolean isLetra(String aux) {
