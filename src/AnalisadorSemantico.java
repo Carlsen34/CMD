@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class AnalisadorSemantico {
 	static List<TabelaSimbolos> simbolos = new ArrayList<TabelaSimbolos>();
+	static Stack expressão = new Stack();
 
 	// Metodo para inserir na tabela de simbolo
 	//Metodo testado e funcionando
@@ -151,6 +153,13 @@ public class AnalisadorSemantico {
 	}
 	
 	
+	public static boolean validar_tipo() {
+		
+		
+		return false;
+		
+	}
+	
 	public static void remover_nivel_simbolos(int nivel) {
 		for(int i = 0; i<simbolos.size();i++) {
 			if(simbolos.get(i).getNivel()== nivel) {
@@ -166,12 +175,12 @@ public class AnalisadorSemantico {
 
 	public static void printarTS() {
 		for (int i = 0; i < simbolos.size(); i++) {
-			System.out.println("Lexema : " + simbolos.get(i).getLexema());
-			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
-			System.out.println("Nivel : " + simbolos.get(i).getNivel());
-			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
-			System.out.println("Tipo : " + simbolos.get(i).getTipo());
-			System.out.println("\n");
+//			System.out.println("Lexema : " + simbolos.get(i).getLexema());
+//			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
+//			System.out.println("Nivel : " + simbolos.get(i).getNivel());
+//			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
+//			System.out.println("Tipo : " + simbolos.get(i).getTipo());
+//			System.out.println("\n");
 
 		}
 	}

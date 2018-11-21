@@ -62,7 +62,6 @@ public class AnalisadorSintatico {
 					Erro.tratarError(i);
 				}
 			}
-			AnalisadorSemantico.remover_nivel_simbolos(nivel);
 			i = pegarToken(i); // Ler Proximo token
 
 		} else
@@ -353,7 +352,6 @@ public class AnalisadorSintatico {
 		
 		} else
 			Erro.tratarError(i);
-		
 		nivel--;
 		return i;
 	}
@@ -448,8 +446,17 @@ public class AnalisadorSintatico {
 	}
 
 	public static int pegarToken(int i) {
+		gambiarra(i);
 		i += 2;
 		return i;
+	}
+	
+	public static void gambiarra(int i) {
+	
+		if(Simbulo.sidentificador.equals(tokenAS.get(i)) || Simbulo.snumero.equals(tokenAS.get(i)) || Simbulo.satribuicao.equals(tokenAS.get(i)) || 
+				Simbulo.sdif.equals(tokenAS.get(i)) || Simbulo.sdiv.equals(tokenAS.get(i))) {
+			System.out.println(tokenAS.get(i-1));
+		}
 	}
 
 }
