@@ -40,6 +40,7 @@ public class AnalisadorSintatico {
 		i = analisaEtVariaveis(i);
 		i = analisaSubrotinas(i);
 		i = analisaComandos(i);
+		
 		return i;
 
 	}
@@ -61,6 +62,7 @@ public class AnalisadorSintatico {
 					Erro.tratarError(i);
 				}
 			}
+			AnalisadorSemantico.remover_nivel_simbolos(nivel);
 			i = pegarToken(i); // Ler Proximo token
 
 		} else
@@ -105,7 +107,7 @@ public class AnalisadorSintatico {
 	private static int analisaAtribChProcedimento(int i) {
 		i = pegarToken(i); // ler token seguinte
 		if (Simbulo.satribuicao.equals(tokenAS.get(i))) {
-			if(AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i-3).toString(),  "var", nivel, "")){
+			if(AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i-3).toString(), "var", nivel, "")){
 			//AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(), "var", nivel, "");
 			}else {
 				System.out.println("Erro Semantico : " + tokenAS.get(i-3).toString() );
@@ -113,13 +115,17 @@ public class AnalisadorSintatico {
 			i = analisaAtribuicao(i);
 
 		} else {
-			AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(), "procedimento", nivel, "");
+			//AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(), "procedimento", nivel, "");
 			i = chamadaProc(i);
 		}
 		return i;
 	}
 
 	private static int chamadaProc(int i) {
+		if(AnalisadorSemantico.pesquisa_declproc_tabela(tokenAS.get(i-3).toString(), "procedimento", 0, null)) {
+			System.out.println("Erro Semantico: Não existe procedimento declarado");
+		}else {
+		}
 		return i;
 	}
 
@@ -361,7 +367,7 @@ public class AnalisadorSintatico {
 				if (Simbulo.sdoispontos.equals(tokenAS.get(i))) {
 					i = pegarToken(i); // ler proximo token
 					if (Simbulo.sinteiro.equals(tokenAS.get(i)) || Simbulo.sbooleano.equals(tokenAS.get(i))) {
-					//	AnalisadorSemantico.coloca_tipo_tabela(null, null, i, null, tokenAS.get(i).toString());
+						AnalisadorSemantico.coloca_tipo_tabela(null, "funcao", i, null, tokenAS.get(i).toString());
 						i = pegarToken(i); // ler proximo token
 						if (Simbulo.sponto_virgula.equals(tokenAS.get(i))) {
 							i = analisarBloco(i);

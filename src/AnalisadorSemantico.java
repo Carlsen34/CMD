@@ -97,25 +97,23 @@ public class AnalisadorSemantico {
 
 	// Pesquisar se há duplicidade na declaração de um procedimento 
 	public static boolean pesquisa_declproc_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
+		
 		for (int i = 0; i < simbolos.size(); i++) {
 			if (simbolos.get(i).getLexema().equals(lexema)) {
+				if(tipoLexema.equals(simbolos.get(i).getTipoLexema())) {
 				return false;
 			}
 		}
+		}
 		return true;
 	}
-
-	
-	
-	
-	
 	
 	// Pesquisar se há duplicidade na declaração de uma funcao
 	public static boolean pesquisa_declfunc_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
 		for (int i = 0; i < simbolos.size(); i++) {
-			if (simbolos.get(i).getLexema().equals(lexema)) {
+			if (simbolos.get(i).getLexema().equals(lexema) && simbolos.get(i).getTipoLexema().equals(tipoLexema)) {
 				return false;
-			}
+			}		
 		}
 		return true;
 	}
@@ -137,7 +135,16 @@ public class AnalisadorSemantico {
 					if(!simbolos.get(i).getTipoLexema().equals("nomedeprograma") && !simbolos.get(i).getTipoLexema().equals("procedimento") ) {
 						simbolos.get(i).setTipo(tipo);	
 					}
-				
+				}
+			}
+		}
+		
+		if(tipoLexema.equals("funcao")) {
+			for(int i =0;i<simbolos.size();i++) {
+				if(simbolos.get(i).getTipo().equals("") || simbolos.get(i).getTipo().equals(null)) {
+					if(!simbolos.get(i).getTipoLexema().equals("nomedeprograma") && !simbolos.get(i).getTipoLexema().equals("procedimento") ) {
+						simbolos.get(i).setTipo(tipo);	
+					}
 				}
 			}
 		}
