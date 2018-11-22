@@ -79,7 +79,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaComandoSimples(int i) {
-		AnalisadorSemantico.limpar_expressão();
+		AnalisadorSemantico.validar_tipoAUX();
 
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			i = analisaAtribChProcedimento(i);

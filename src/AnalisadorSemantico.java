@@ -158,8 +158,21 @@ public class AnalisadorSemantico {
 	}
 	
 	
-	public static void limpar_expressão() {
-		System.out.println(expressão);
+	public static void validar_tipoAUX() {
+		String aux;
+		Stack aux1 = new Stack();
+		for(int i = 0;i<expressão.size();i++) {
+			aux = retorna_tipo(expressão.get(i).toString());
+			if(aux != null) {
+			aux1.add(aux);
+			}
+		}
+		
+		for(int i = 0;i<aux1.size()-1;i++) {
+			if(aux1.get(i)!=aux1.get(i+1)) {
+				System.out.println("ERR");
+			}
+		}
 		expressão.clear();
 	}
 	
@@ -175,12 +188,12 @@ public class AnalisadorSemantico {
 
 	public static void printarTS() {
 		for (int i = 0; i < simbolos.size(); i++) {
-//			System.out.println("Lexema : " + simbolos.get(i).getLexema());
-//			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
-//			System.out.println("Nivel : " + simbolos.get(i).getNivel());
-//			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
-//			System.out.println("Tipo : " + simbolos.get(i).getTipo());
-//			System.out.println("\n");
+			System.out.println("Lexema : " + simbolos.get(i).getLexema());
+			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
+			System.out.println("Nivel : " + simbolos.get(i).getNivel());
+			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
+			System.out.println("Tipo : " + simbolos.get(i).getTipo());
+			System.out.println("\n");
 
 		}
 	}
@@ -188,11 +201,11 @@ public class AnalisadorSemantico {
 	public static String retorna_tipo(String lexema) {
 
 		if (AnalisadorLexico.isDigit(lexema.substring(0, 1))) {
-			return "inteiro";
+			return "sinteiro";
 		}
 		
 		if(AnalisadorLexico.isDigit(lexema)) {
-			return "inteiro";
+			return "sinteiro";
 		}
 		
 		for(int i = 0; i<simbolos.size();i++) {
