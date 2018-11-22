@@ -153,13 +153,16 @@ public class AnalisadorSemantico {
 	}
 	
 	
-	public static boolean validar_tipo(String lexema,String tipo)  {
-
-		System.out.println(lexema + " " + tipo);
-		
-		return false;
-		
+	public static void validar_tipo(String lexema,String tipo)  {
+		expressão.add(lexema);
 	}
+	
+	
+	public static void limpar_expressão() {
+		System.out.println(expressão);
+		expressão.clear();
+	}
+	
 	
 	public static void remover_nivel_simbolos(int nivel) {
 		for(int i = 0; i<simbolos.size();i++) {
@@ -169,10 +172,6 @@ public class AnalisadorSemantico {
 			
 		}
 	}
-	
-	
-	
-	
 
 	public static void printarTS() {
 		for (int i = 0; i < simbolos.size(); i++) {
