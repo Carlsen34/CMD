@@ -188,6 +188,12 @@ public class AnalisadorSemantico {
 
 	public static String retorna_tipo(String lexema) {
 
+		
+		if(AnalisadorLexico.isDigit(lexema)) {
+			return "inteiro";
+			
+		}
+		
 		for(int i = 0; i<simbolos.size();i++) {
 			if(simbolos.get(i).equals(lexema)) {
 				return simbolos.get(i).getTipo();
