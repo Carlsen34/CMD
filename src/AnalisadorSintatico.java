@@ -105,6 +105,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaAtribChProcedimento(int i) {
+		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
 		i = pegarToken(i); // ler token seguinte
 		if (Simbolo.satribuicao.equals(tokenAS.get(i))) {
@@ -223,6 +224,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analiseFator(int i) {
+		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			// Pode ser função
