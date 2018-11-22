@@ -153,9 +153,9 @@ public class AnalisadorSemantico {
 	}
 	
 	
-	public static boolean validar_tipo(String aux)  {
+	public static boolean validar_tipo(String lexema,String tipo)  {
 
-		System.out.println(aux);
+		System.out.println(lexema + " " + tipo);
 		
 		return false;
 		
@@ -184,6 +184,18 @@ public class AnalisadorSemantico {
 //			System.out.println("\n");
 
 		}
+	}
+
+	public static String retorna_tipo(String lexema) {
+
+		for(int i = 0; i<simbolos.size();i++) {
+			if(simbolos.get(i).equals(lexema)) {
+				return simbolos.get(i).getTipo();
+			}
+		}
+		
+		
+		return null;
 	}
 
 }
