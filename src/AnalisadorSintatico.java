@@ -128,7 +128,6 @@ public class AnalisadorSintatico {
 	}
 
 	private static int chamadaProc(int i) {
-		System.out.println(tokenAS.get(i - 3));
 		if (AnalisadorSemantico.pesquisa_declproc_tabela(tokenAS.get(i - 3).toString(), "procedimento", 0, null)) {
 			System.out.println("Erro Semantico: Não existe procedimento declarado");
 		} else {
@@ -349,6 +348,7 @@ public class AnalisadorSintatico {
 		}
 		if (flag == 1) {
 		}
+
 		return i;
 	}
 
