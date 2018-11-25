@@ -28,6 +28,8 @@ public class AnalisadorSintatico {
 				if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
 					if (Simbolo.sponto.equals(tokenAS.get(i))) {
+						GeradorCodigo.exibir_codigo_objeto("", "DALLOC", "", "");
+						GeradorCodigo.exibir_codigo_objeto("", "HLT", "", "");
 						fimAnalisador(i);
 					} else
 						Erro.tratarError(i);
@@ -77,7 +79,6 @@ public class AnalisadorSintatico {
 		tokenAS.clear();
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
-		AnalisadorSemantico.printarTS();
 		System.exit(0);
 	}
 
@@ -85,6 +86,7 @@ public class AnalisadorSintatico {
 		AnalisadorSemantico.validar_tipoAUX();
 
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
+
 			i = analisaAtribChProcedimento(i);
 		} else {
 			if (Simbolo.sse.equals(tokenAS.get(i))) {
@@ -99,6 +101,7 @@ public class AnalisadorSintatico {
 						if (Simbolo.sescreva.equals(tokenAS.get(i))) {
 							i = analisaEscreva(i);
 						} else {
+
 							i = analisaComandos(i);
 						}
 					}
@@ -112,16 +115,19 @@ public class AnalisadorSintatico {
 	private static int analisaAtribChProcedimento(int i) {
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
+		int index = 0;
 
 		i = pegarToken(i); // ler token seguinte
 		if (Simbolo.satribuicao.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 3).toString(), "var", nivel, "")) {
-				// AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(), "var", nivel,
-				// "");
+
 			} else {
 				System.out.println("Erro Semantico : " + tokenAS.get(i - 3).toString());
 			}
 			i = analisaAtribuicao(i);
+		 //  System.out.println(tokenAS.get(i-7));
+			index = GeradorCodigo.returnIndex(tokenAS.get(i-7).toString());
+			GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(index), "");
 
 		} else {
 			// AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(),
@@ -151,9 +157,12 @@ public class AnalisadorSintatico {
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
 		if (Simbolo.snumero.equals(tokenAS.get(i)) || Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
-
-//				System.out.println(tokenAS.get(i-1));
-				
+				auxAtrib = GeradorCodigo.returnIndex(tokenAS.get(i-1).toString());
+				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxAtrib), "");
+			}
+			
+			if(Simbolo.snumero.equals(tokenAS.get(i))) {
+				GeradorCodigo.exibir_codigo_objeto("", "LDC", tokenAS.get(i-1).toString(), "");
 			}
 			i = pegarToken(i);
 			while (!Simbolo.sponto_virgula.equals(tokenAS.get(i)) && !Simbolo.sfim.equals(tokenAS.get(i))) {
@@ -165,22 +174,34 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaSe(int i) {
+		int auxrot = rotulo;
+		int auxrot2;
 		i = pegarToken(i);
 		i = analiseExpressao(i);
 		if (Simbolo.sentao.equals(tokenAS.get(i))) {
+			GeradorCodigo.exibir_codigo_objeto("", "JMPF", "L"+Integer.toString(auxrot), "");
+			rotulo++;
 			i = pegarToken(i);
 			i = analisaComandoSimples(i);
+			auxrot2 = rotulo;
+			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L"+Integer.toString(auxrot2), "");
+			rotulo++;
 			if (Simbolo.sponto_virgula.equals(tokenAS.get(i)) && Simbolo.ssenao.equals(tokenAS.get(i + 2))) {
 				i = pegarToken(i);
 			}
 			if (Simbolo.ssenao.equals(tokenAS.get(i))) {
+				GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(auxrot), "NULL", "", "");
 				i = pegarToken(i);
 				i = analisaComandoSimples(i);
 
 			}
+			GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(auxrot2), "NULL", "", "");
+
 
 		} else
 			Erro.tratarError(i);
+		
+		
 		return i;
 	}
 
@@ -198,11 +219,19 @@ public class AnalisadorSintatico {
 
 	private static int analiseExpressao(int i) {
 		i = analiseExpressaoSimples(i);
+		String aux = "";
 		if (Simbolo.smaior.equals(tokenAS.get(i)) || Simbolo.smaiorig.equals(tokenAS.get(i))
 				|| Simbolo.smenor.equals(tokenAS.get(i)) || Simbolo.smenorig.equals(tokenAS.get(i))
 				|| Simbolo.sdif.equals(tokenAS.get(i)) || Simbolo.sig.equals(tokenAS.get(i))) {
+			
+			if(Simbolo.smaior.equals(tokenAS.get(i))){
+				aux = tokenAS.get(i).toString();
+			}
+
 			i = pegarToken(i);
 			i = analiseExpressaoSimples(i);
+			if(aux.equals(Simbolo.smaior))
+			GeradorCodigo.exibir_codigo_objeto("", "CMA", "", "");
 		}
 
 		return i;
@@ -225,10 +254,20 @@ public class AnalisadorSintatico {
 
 	private static int analiseTermo(int i) {
 		i = analiseFator(i);
+		String aux = "";
 		while (Simbolo.smult.equals(tokenAS.get(i)) || Simbolo.sdiv.equals(tokenAS.get(i))
 				|| Simbolo.sse.equals(tokenAS.get(i))) {
+			if(Simbolo.smult.equals(tokenAS.get(i)))aux = "MULT";
+			if(Simbolo.sdiv.equals(tokenAS.get(i)))aux = "DIV";
+			if(Simbolo.sse.equals(tokenAS.get(i)))aux = "OR";
+
+
+			
 			i = pegarToken(i);
 			i = analiseFator(i);
+			
+			GeradorCodigo.exibir_codigo_objeto("", aux, "", "");
+
 		}
 
 		return i;
@@ -237,17 +276,22 @@ public class AnalisadorSintatico {
 	private static int analiseFator(int i) {
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
+		int aux;
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			// Pode ser função
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-//				System.out.println(tokenAS.get(i-1));
-
+				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
+				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(aux), "");
 			} else {
 				System.out.println("Erro Semantico : " + tokenAS.get(i - 1));
 			}
 			i = analisaChamadaFuncao(i);
 		} else {
 			if (Simbolo.snumero.equals(tokenAS.get(i))) {
+				GeradorCodigo.exibir_codigo_objeto("", "LDC", tokenAS.get(i-1).toString(), "");
+				if(tokenAS.get(i-3).equals("-")) {
+					GeradorCodigo.exibir_codigo_objeto("", "SUB", "", "");
+				}
 				i = pegarToken(i);
 			} else {
 				if (Simbolo.snao.equals(tokenAS.get(i))) {
@@ -344,13 +388,6 @@ public class AnalisadorSintatico {
 		int auxrot = rotulo;;
 
 		if (Simbolo.sprocedimento.equals(tokenAS.get(i)) || Simbolo.sfuncao.equals(tokenAS.get(i))) {
-
-			//
-			// auxrot:= rotulo
-			// GERA(´ ´,JMP,rotulo,´ ´) {Salta sub-rotinas}
-			// rotulo:= rotulo + 1
-			// flag = 1
-			//
 			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L"+Integer.toString(auxrot), "");
 			rotulo++;
 			flag = 1;
@@ -372,6 +409,7 @@ public class AnalisadorSintatico {
 			GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(auxrot),"NULL","","");
 
 		}
+		
 
 		return i;
 	}
@@ -398,6 +436,10 @@ public class AnalisadorSintatico {
 			Erro.tratarError(i);
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 		nivel--;
+		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", "", "");
+		GeradorCodigo.exibir_codigo_objeto("", "RETURN", "", "");
+
+
 		return i;
 	}
 
@@ -428,6 +470,10 @@ public class AnalisadorSintatico {
 
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 		nivel--;
+		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", "", "");
+		GeradorCodigo.exibir_codigo_objeto("", "RETURNF", "", "");
+
+
 		return i;
 	}
 
