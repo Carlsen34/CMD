@@ -10,6 +10,8 @@ public class AnalisadorSintatico {
 	static Stack errorToken = new Stack();
 	static int nivel = 0;
 	static 	String tipo;
+	static int rotulo = 1;
+	static int allocAux1 = 0;
 
 	public static void analisadorSintatico() {
 		tokenAS = AnalisadorLexico.token;
@@ -21,6 +23,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				AnalisadorSemantico.inserirTabela(tokenAS.get(i - 1).toString(), "nomedeprograma", nivel, "");
+				GeradorCodigo.exibir_codigo_objeto("", "START", "", "");
 				i = pegarToken(i); // Ler proximo Token
 				if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
@@ -109,6 +112,7 @@ public class AnalisadorSintatico {
 	private static int analisaAtribChProcedimento(int i) {
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
+
 		i = pegarToken(i); // ler token seguinte
 		if (Simbolo.satribuicao.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 3).toString(), "var", nivel, "")) {
@@ -128,23 +132,28 @@ public class AnalisadorSintatico {
 	}
 
 	private static int chamadaProc(int i) {
+		String rotuloAux="";
 		if (AnalisadorSemantico.pesquisa_declproc_tabela(tokenAS.get(i - 3).toString(), "procedimento", 0, null)) {
 			System.out.println("Erro Semantico: Não existe procedimento declarado");
-		} else {
+		}else {
+			rotuloAux = GeradorCodigo.returnRotulo(tokenAS.get(i - 3).toString());
+			GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
 		}
+		
 		return i;
 	}
 
 	private static int analisaAtribuicao(int i) {
+
 		i = pegarToken(i);
+		int auxAtrib =0;
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
 		if (Simbolo.snumero.equals(tokenAS.get(i)) || Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
-				// AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "funcao",
-				// nivel, "");
-				// AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel,
-				// "");
+
+//				System.out.println(tokenAS.get(i-1));
+				
 			}
 			i = pegarToken(i);
 			while (!Simbolo.sponto_virgula.equals(tokenAS.get(i)) && !Simbolo.sfim.equals(tokenAS.get(i))) {
@@ -231,8 +240,8 @@ public class AnalisadorSintatico {
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			// Pode ser função
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-				// AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel,
-				// "");
+//				System.out.println(tokenAS.get(i-1));
+
 			} else {
 				System.out.println("Erro Semantico : " + tokenAS.get(i - 1));
 			}
@@ -278,12 +287,16 @@ public class AnalisadorSintatico {
 
 	private static int analisaLeia(int i) {
 		i = pegarToken(i);
+		int aux = 0;
 		if (Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				if (AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-					// AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel,
-					// "");
+					GeradorCodigo.exibir_codigo_objeto("", "RD", "", "");
+					aux  = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
+					GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(aux), "");
+						
+					
 				} else {
 					System.out.println("Erro Semantico :" + tokenAS.get(i - 1));
 				}
@@ -303,12 +316,14 @@ public class AnalisadorSintatico {
 
 	private static int analisaEscreva(int i) {
 		i = pegarToken(i);
+		int auxIndex = 0;
 		if (Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
 			i = pegarToken(i);
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				if (AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-					// AnalisadorSemantico.inserirTabela(tokenAS.get(i-1).toString(), "var", nivel,
-					// "");
+					auxIndex = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
+					GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxIndex), "");
+					GeradorCodigo.exibir_codigo_objeto("", "PRN", "", "");
 				} else {
 					System.out.println("Erro Semantico :" + tokenAS.get(i - 1));
 				}
@@ -326,13 +341,20 @@ public class AnalisadorSintatico {
 
 	private static int analisaSubrotinas(int i) {
 		int flag = 0;
+		int auxrot = rotulo;;
+
 		if (Simbolo.sprocedimento.equals(tokenAS.get(i)) || Simbolo.sfuncao.equals(tokenAS.get(i))) {
+
 			//
 			// auxrot:= rotulo
 			// GERA(´ ´,JMP,rotulo,´ ´) {Salta sub-rotinas}
 			// rotulo:= rotulo + 1
 			// flag = 1
 			//
+			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L"+Integer.toString(auxrot), "");
+			rotulo++;
+			flag = 1;
+			
 		}
 
 		while (Simbolo.sprocedimento.equals(tokenAS.get(i)) || Simbolo.sfuncao.equals(tokenAS.get(i))) {
@@ -347,6 +369,8 @@ public class AnalisadorSintatico {
 				Erro.tratarError(i);
 		}
 		if (flag == 1) {
+			GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(auxrot),"NULL","","");
+
 		}
 
 		return i;
@@ -357,8 +381,10 @@ public class AnalisadorSintatico {
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declproc_tabela(tokenAS.get(i - 1).toString(), "procedimento", nivel,
 					"")) {
-				AnalisadorSemantico.inserirTabela(tokenAS.get(i - 1).toString(), "procedimento", nivel, "");
+				AnalisadorSemantico.inserirTabela(tokenAS.get(i - 1).toString(), "procedimento", nivel, "L"+Integer.toString(rotulo));
+				GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(rotulo), "NULL", "", "");
 				nivel++;
+				rotulo++;
 				i = pegarToken(i); // ler proximo token
 				if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
@@ -380,6 +406,7 @@ public class AnalisadorSintatico {
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 1).toString(), "funcao", nivel, "")) {
 				AnalisadorSemantico.inserirTabela(tokenAS.get(i - 1).toString(), "funcao", nivel, "");
+				nivel++;
 				i = pegarToken(i); // ler proximo token
 				if (Simbolo.sdoispontos.equals(tokenAS.get(i))) {
 					i = pegarToken(i); // ler proximo token
@@ -405,12 +432,10 @@ public class AnalisadorSintatico {
 	}
 
 	public static int analisaEtVariaveis(int i) {
-
 		if (Simbolo.svar.equals(tokenAS.get(i))) {
 			i = pegarToken(i); // Ler Proximo Token
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				while (Simbolo.sidentificador.equals(tokenAS.get(i))) {
-
 					i = analisaVariaveis(i);
 					if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 						i = pegarToken(i); // Ler Proximo Token
@@ -424,11 +449,15 @@ public class AnalisadorSintatico {
 	}
 
 	public static int analisaVariaveis(int i) {
+		int allocAux2 = 0;
 
 		do {
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
+				GeradorCodigo.pilhaVar.add(tokenAS.get(i-1));
+
 				if (AnalisadorSemantico.pesquisar_duplicvar_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
 					AnalisadorSemantico.inserirTabela(tokenAS.get(i - 1).toString(), "var", nivel, "");
+					allocAux2++;
 				} else {
 					System.out.println("Erro Semantico : " + tokenAS.get(i - 1).toString());
 				}
@@ -445,6 +474,8 @@ public class AnalisadorSintatico {
 			} else
 				Erro.tratarError(i);
 		} while (!Simbolo.sdoispontos.equals(tokenAS.get(i)));
+		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1), Integer.toString(allocAux2));
+		allocAux1 = allocAux2;
 
 		i = pegarToken(i); // Ler Proximo Token
 

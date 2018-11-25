@@ -182,12 +182,12 @@ public class AnalisadorSemantico {
 
 	public static void printarTS() {
 		for (int i = 0; i < simbolos.size(); i++) {
-			System.out.println("Lexema : " + simbolos.get(i).getLexema());
-			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
-			System.out.println("Nivel : " + simbolos.get(i).getNivel());
-			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
-			System.out.println("Tipo : " + simbolos.get(i).getTipo());
-			System.out.println("\n");
+//			System.out.println("Lexema : " + simbolos.get(i).getLexema());
+//			System.out.println("Tipo Identificador : " + simbolos.get(i).getTipoLexema());
+//			System.out.println("Nivel : " + simbolos.get(i).getNivel());
+//			System.out.println("Rotulo : " + simbolos.get(i).getRotulo());
+//			System.out.println("Tipo : " + simbolos.get(i).getTipo());
+//			System.out.println("\n");
 
 		}
 	}

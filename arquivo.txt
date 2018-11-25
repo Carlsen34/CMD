@@ -1,36 +1,19 @@
-programa test1;
-
-var a,b,c: inteiro;
-       k: inteiro;
-
-{proc 1}
-procedimento analisa1;
-var a,z, x: inteiro;
-       k: inteiro;
+programa exemplo6;
+var x, y: inteiro;
+procedimento p;
+  var z: inteiro;
+  inicio
+  z:= x; x:=x-1;
+  se z>1 entao p 
+  senao y:=1;
+  y:=y*z
+  fim { p };
 inicio
-  se x>1  entao
-      x:= 0;
-  leia(z);
-  enquanto (a != 89) e (a<= 1000)  {condicao de parada}
-  faca inicio
-           a:= x+k
-       fim;
-  escreva(a)
-fim;
-
-
-procedimento analisa2;
-var z: inteiro;
-inicio
-  leia(a);
-  k:= a*a+(c div b) 
-fim;
-
-
-inicio
-    analisa1;
-    analisa2;
-    se k > (c+ a*a)
-    entao escreva(b)
-    senao escreva(c)
+leia(x);
+p; 
+escreva (x);
+escreva (y)
 fim.
+
+
+
