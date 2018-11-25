@@ -370,6 +370,7 @@ public class AnalisadorSintatico {
 
 		} else
 			Erro.tratarError(i);
+		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 		nivel--;
 		return i;
 	}
@@ -398,6 +399,8 @@ public class AnalisadorSintatico {
 		} else
 			Erro.tratarError(i);
 
+		AnalisadorSemantico.remover_nivel_simbolos(nivel);
+		nivel--;
 		return i;
 	}
 

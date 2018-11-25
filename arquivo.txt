@@ -6,7 +6,7 @@ var a,b,c: inteiro;
 {proc 1}
 procedimento analisa1;
 var a,z, x: inteiro;
-       k: booleano;
+       k: inteiro;
 inicio
   se x>1  entao
       x:= 0;
@@ -20,10 +20,12 @@ fim;
 
 
 procedimento analisa2;
+var z: inteiro;
 inicio
   leia(a);
   k:= a*a+(c div b) 
 fim;
+
 
 inicio
     analisa1;
