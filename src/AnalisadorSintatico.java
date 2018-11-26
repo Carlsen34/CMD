@@ -93,6 +93,8 @@ public class AnalisadorSintatico {
 			aux = tokenAS.get(i-1).toString();
 			i = analisaAtribChProcedimento(i);
 			aux1 = GeradorCodigo.returnIndex(aux);
+			GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(aux1), "");
+
 
 		} else {
 			if (Simbolo.sse.equals(tokenAS.get(i))) {
