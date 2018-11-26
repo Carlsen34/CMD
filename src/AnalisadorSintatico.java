@@ -519,6 +519,7 @@ public class AnalisadorSintatico {
 			} else
 				Erro.tratarError(i);
 		}
+		
 		return i;
 	}
 
@@ -550,8 +551,8 @@ public class AnalisadorSintatico {
 		} while (!Simbolo.sdoispontos.equals(tokenAS.get(i)));
 		countAlloc++;
 		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1), Integer.toString(allocAux2));
-		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux1));
-		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux2));
+//		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux1));
+//		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux2));
 		allocAux1 = allocAux2;
 
 		i = pegarToken(i); // Ler Proximo Token

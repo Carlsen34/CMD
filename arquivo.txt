@@ -4,7 +4,7 @@ procedimento p;
 var z: inteiro;
 inicio
 z:= x; x:=x-1;
-se z>1 entao p    
+se z>1 entao p 
 senao y:=1;
 y:=y*z
 fim { p };
