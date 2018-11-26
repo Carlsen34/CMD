@@ -12,6 +12,7 @@ public class AnalisadorSintatico {
 	static 	String tipo;
 	static int rotulo = 1;
 	static int allocAux1 = 0;
+	static int countAlloc = 0;
 
 	public static void analisadorSintatico() {
 		tokenAS = AnalisadorLexico.token;
@@ -28,7 +29,9 @@ public class AnalisadorSintatico {
 				if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
 					if (Simbolo.sponto.equals(tokenAS.get(i))) {
-						GeradorCodigo.exibir_codigo_objeto("", "DALLOC", "", "");
+						String aux1 = GeradorCodigo.auxDalloc.pop().toString();
+						String aux2 = GeradorCodigo.auxDalloc.pop().toString();
+						GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);
 						GeradorCodigo.exibir_codigo_objeto("", "HLT", "", "");
 						fimAnalisador(i);
 					} else
@@ -84,10 +87,14 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandoSimples(int i) {
 		AnalisadorSemantico.validar_tipoAUX();
-
+        String aux = "";
+        int aux1 = 0;
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
-
+			aux = tokenAS.get(i-1).toString();
 			i = analisaAtribChProcedimento(i);
+			aux1 = GeradorCodigo.returnIndex(aux);
+			if(aux1 != -1)GeradorCodigo.exibir_codigo_objeto("","STR",Integer.toString(aux1),"");
+
 		} else {
 			if (Simbolo.sse.equals(tokenAS.get(i))) {
 				i = analisaSe(i);
@@ -125,9 +132,7 @@ public class AnalisadorSintatico {
 				System.out.println("Erro Semantico : " + tokenAS.get(i - 3).toString());
 			}
 			i = analisaAtribuicao(i);
-		 //  System.out.println(tokenAS.get(i-7));
-			index = GeradorCodigo.returnIndex(tokenAS.get(i-7).toString());
-			GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(index), "");
+
 
 		} else {
 			// AnalisadorSemantico.inserirTabela(tokenAS.get(i-3).toString(),
@@ -206,11 +211,22 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaEnquanto(int i) {
+		int auxrot1,auxrot2;
+		auxrot1 = rotulo;
+		GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(rotulo),"NULL", "", "");
+		rotulo++;
+		
 		i = pegarToken(i);
 		i = analiseExpressao(i);
 		if (Simbolo.sfaca.equals(tokenAS.get(i))) {
+			auxrot2 = rotulo;
+			GeradorCodigo.exibir_codigo_objeto("","JMPF", "L"+Integer.toString(rotulo), "");
+			rotulo++;
 			i = pegarToken(i);
 			i = analisaComandoSimples(i);
+			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L"+Integer.toString(auxrot1), "");
+			GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(auxrot2), "NULL", "", "");
+
 
 		} else
 			Erro.tratarError(i);
@@ -224,24 +240,34 @@ public class AnalisadorSintatico {
 				|| Simbolo.smenor.equals(tokenAS.get(i)) || Simbolo.smenorig.equals(tokenAS.get(i))
 				|| Simbolo.sdif.equals(tokenAS.get(i)) || Simbolo.sig.equals(tokenAS.get(i))) {
 			
-			if(Simbolo.smaior.equals(tokenAS.get(i))){
-				aux = tokenAS.get(i).toString();
-			}
+			if(Simbolo.smaior.equals(tokenAS.get(i)))aux = "CMA";
+			if(Simbolo.smaiorig.equals(tokenAS.get(i)))aux = "CMAQ";
+			if(Simbolo.smenor.equals(tokenAS.get(i)))aux = "CME";
+			if(Simbolo.smenorig.equals(tokenAS.get(i)))aux = "CMEQ";
+			if(Simbolo.sdif.equals(tokenAS.get(i)))aux = "CDIF";
+			if(Simbolo.sig.equals(tokenAS.get(i)))aux = "CEQ";
+
 
 			i = pegarToken(i);
 			i = analiseExpressaoSimples(i);
-			if(aux.equals(Simbolo.smaior))
-			GeradorCodigo.exibir_codigo_objeto("", "CMA", "", "");
+			GeradorCodigo.exibir_codigo_objeto("", aux, "", "");
 		}
 
 		return i;
 	}
 
 	private static int analiseExpressaoSimples(int i) {
+		String aux = "";
 		if (Simbolo.smais.equals(tokenAS.get(i)) || Simbolo.smenos.equals(tokenAS.get(i))) {
+			if(Simbolo.smais.equals(tokenAS.get(i))) aux = "ADD";
+			if(Simbolo.smenos.equals(tokenAS.get(i))) aux = "SUB";
 			i = pegarToken(i);
+		
+
 		}
 		i = analiseTermo(i);
+		if(aux!="")GeradorCodigo.exibir_codigo_objeto("", aux, "", "");
+
 		while (Simbolo.smais.equals(tokenAS.get(i)) || Simbolo.smenos.equals(tokenAS.get(i))
 				|| Simbolo.sou.equals(tokenAS.get(i))) {
 
@@ -289,9 +315,6 @@ public class AnalisadorSintatico {
 		} else {
 			if (Simbolo.snumero.equals(tokenAS.get(i))) {
 				GeradorCodigo.exibir_codigo_objeto("", "LDC", tokenAS.get(i-1).toString(), "");
-				if(tokenAS.get(i-3).equals("-")) {
-					GeradorCodigo.exibir_codigo_objeto("", "SUB", "", "");
-				}
 				i = pegarToken(i);
 			} else {
 				if (Simbolo.snao.equals(tokenAS.get(i))) {
@@ -436,7 +459,11 @@ public class AnalisadorSintatico {
 			Erro.tratarError(i);
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 		nivel--;
-		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", "", "");
+		
+		String aux1 = GeradorCodigo.auxDalloc.pop().toString();
+		String aux2 = GeradorCodigo.auxDalloc.pop().toString();
+		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);
+	
 		GeradorCodigo.exibir_codigo_objeto("", "RETURN", "", "");
 
 
@@ -470,7 +497,10 @@ public class AnalisadorSintatico {
 
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 		nivel--;
-		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", "", "");
+		String aux1 = GeradorCodigo.auxDalloc.pop().toString();
+		String aux2 = GeradorCodigo.auxDalloc.pop().toString();
+		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);	
+	
 		GeradorCodigo.exibir_codigo_objeto("", "RETURNF", "", "");
 
 
@@ -521,6 +551,9 @@ public class AnalisadorSintatico {
 				Erro.tratarError(i);
 		} while (!Simbolo.sdoispontos.equals(tokenAS.get(i)));
 		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1), Integer.toString(allocAux2));
+		countAlloc++;
+		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux1));
+		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux2));
 		allocAux1 = allocAux2;
 
 		i = pegarToken(i); // Ler Proximo Token

@@ -2,6 +2,7 @@ import java.util.Stack;
 
 public class GeradorCodigo {
 	static Stack pilhaVar = new Stack();
+	static Stack auxDalloc = new Stack();
 	
 	
 	public static void exibir_codigo_objeto(String param1, String param2,String param3,String param4){
