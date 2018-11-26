@@ -93,7 +93,6 @@ public class AnalisadorSintatico {
 			aux = tokenAS.get(i-1).toString();
 			i = analisaAtribChProcedimento(i);
 			aux1 = GeradorCodigo.returnIndex(aux);
-			if(aux1 != -1)GeradorCodigo.exibir_codigo_objeto("","STR",Integer.toString(aux1),"");
 
 		} else {
 			if (Simbolo.sse.equals(tokenAS.get(i))) {
@@ -409,7 +408,6 @@ public class AnalisadorSintatico {
 	private static int analisaSubrotinas(int i) {
 		int flag = 0;
 		int auxrot = rotulo;;
-
 		if (Simbolo.sprocedimento.equals(tokenAS.get(i)) || Simbolo.sfuncao.equals(tokenAS.get(i))) {
 			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L"+Integer.toString(auxrot), "");
 			rotulo++;
@@ -432,7 +430,6 @@ public class AnalisadorSintatico {
 			GeradorCodigo.exibir_codigo_objeto("L"+Integer.toString(auxrot),"NULL","","");
 
 		}
-		
 
 		return i;
 	}
@@ -460,9 +457,10 @@ public class AnalisadorSintatico {
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 		nivel--;
 		
-		String aux1 = GeradorCodigo.auxDalloc.pop().toString();
-		String aux2 = GeradorCodigo.auxDalloc.pop().toString();
-		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);
+			String aux1 = GeradorCodigo.auxDalloc.pop().toString();
+			String aux2 = GeradorCodigo.auxDalloc.pop().toString();
+			GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);
+			
 	
 		GeradorCodigo.exibir_codigo_objeto("", "RETURN", "", "");
 
@@ -550,8 +548,8 @@ public class AnalisadorSintatico {
 			} else
 				Erro.tratarError(i);
 		} while (!Simbolo.sdoispontos.equals(tokenAS.get(i)));
-		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1), Integer.toString(allocAux2));
 		countAlloc++;
+		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1), Integer.toString(allocAux2));
 		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux1));
 		GeradorCodigo.auxDalloc.add(Integer.toString(allocAux2));
 		allocAux1 = allocAux2;
@@ -559,7 +557,6 @@ public class AnalisadorSintatico {
 		i = pegarToken(i); // Ler Proximo Token
 
 		i = analisaTipo(i);
-
 		return i;
 	}
 
