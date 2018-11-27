@@ -1,24 +1,12 @@
-
-programa testefinal; 
-var a,b,c:inteiro;
-
-funcao teste:inteiro;
-var b:inteiro;
+programa teste; {ERRO inteiros com e logico}
+var x,a,b,c,z:inteiro;
 inicio
-teste:=3;
-fim;
-
-inicio
-
-a := teste;
-leia(a);
-
-fim.   
-
-{
-
-TRATAR 
-1- Error Sintatico na atribuição 
-2- Analisador Semantico validar tipo no retorno da função
-3- Ajustar VM(returnf e ajuste de outras instruções) 
-}
+ x:=1;
+ a:=2;
+ b:=3;
+ c:=7;
+ z:=1;
+ se (x+a*b)e((b+c)div z)  {ERRO inteiros com e}
+ entao escreva(x)
+ senao escreva(a)
+fim.

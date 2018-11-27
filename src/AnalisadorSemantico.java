@@ -150,6 +150,7 @@ public class AnalisadorSemantico {
 
 	public static void validar_tipo(String lexema, String tipo) {
 		expressão.add(lexema);
+		
 	}
 
 	public static void validar_tipoAUX() {

@@ -165,12 +165,23 @@ public class AnalisadorSintatico {
 				auxAtrib = GeradorCodigo.returnIndex(tokenAS.get(i-1).toString());
 				if(auxAtrib != -1) {
 				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxAtrib), "");
+				tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
+				AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
 				GeradorCodigo.auxRetornoFuncao =auxAtrib;
 				}else {
-				if(!GeradorCodigo.auxRetornoFuncaoTipo)GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
+					tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
+					AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
+
+				if(!GeradorCodigo.auxRetornoFuncaoTipo) {
+						GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
+				}
 				else {
+					if(Simbolo.sinteiro.equals(tipo)) {
 					GeradorCodigo.exibir_codigo_objeto("", "LDC", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
 					GeradorCodigo.auxRetornoFuncaoTipo = false; 
+					}else {
+						AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+					}
 				}
 				GeradorCodigo.auxRetornoFuncao =-1;
 				}
