@@ -1,12 +1,18 @@
-programa exemplo6;
-var x, y: inteiro;
-funcao teste:inteiro;
-var x, y: inteiro;
+program teste;
+
+var a,b: inteiro;
+    x, y: booleano;
+
 inicio
-leia(x);
-teste:=x;
-fim;
-inicio
-x:=teste;
-leia(y);
+
+  leia (a);
+  leia(b);
+  x:= verdadeiro;
+  se ((-a-b) <= 10) e (x)
+  entao y:= x
+  senao y:= falso;
+  se y
+  entao escreva (a)
+  senao escreva(b)
+
 fim.

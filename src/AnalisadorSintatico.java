@@ -352,7 +352,7 @@ public class AnalisadorSintatico {
 			// Pode ser função
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
 				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
-				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(aux), "");
+				if(aux != -1)GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(aux), "");
 			} else {
 				AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
 
