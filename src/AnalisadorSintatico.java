@@ -153,54 +153,70 @@ public class AnalisadorSintatico {
 		
 		return i;
 	}
-
+	
 	private static int analisaAtribuicao(int i) {
 		i = pegarToken(i);
-		int auxAtrib =0;
-		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
-		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
-		if (Simbolo.snumero.equals(tokenAS.get(i)) || Simbolo.sidentificador.equals(tokenAS.get(i))) {
-			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
-
-				auxAtrib = GeradorCodigo.returnIndex(tokenAS.get(i-1).toString());
-				if(auxAtrib != -1) {
-				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxAtrib), "");
-				tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
-				AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
-				GeradorCodigo.auxRetornoFuncao =auxAtrib;
-				}else {
-					tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
-					AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
-
-				if(!GeradorCodigo.auxRetornoFuncaoTipo) {
-						GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
-				}
-				else {
-					if(Simbolo.sinteiro.equals(tipo)) {
-					GeradorCodigo.exibir_codigo_objeto("", "LDC", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
-					GeradorCodigo.auxRetornoFuncaoTipo = false; 
-					}else {
-						AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
-					}
-				}
-				GeradorCodigo.auxRetornoFuncao =-1;
-				}
-			}
-			
-			if(Simbolo.snumero.equals(tokenAS.get(i))) {
-				GeradorCodigo.exibir_codigo_objeto("", "LDC", tokenAS.get(i-1).toString(), "");
-				GeradorCodigo.auxRetornoFuncao = Integer.parseInt((String) tokenAS.get(i-1));
-				GeradorCodigo.auxRetornoFuncaoTipo = true; 
-			}
-			i = pegarToken(i);
-			while (!Simbolo.sponto_virgula.equals(tokenAS.get(i)) && !Simbolo.sfim.equals(tokenAS.get(i))) {
-				i = analiseExpressao(i);
-			}
-		} else
-			Erro.tratarError(i);
+		i = analiseExpressao(i);
 		return i;
 	}
+	
 
+//	private static int analisaAtribuicao(int i) {
+//		i = pegarToken(i);
+//		int auxAtrib =0;
+//		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
+//		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
+//		if(Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
+//			i = pegarToken(i);
+//		}
+//		
+//
+//		if (Simbolo.snumero.equals(tokenAS.get(i)) || Simbolo.sidentificador.equals(tokenAS.get(i))) {
+//			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
+//
+//				auxAtrib = GeradorCodigo.returnIndex(tokenAS.get(i-1).toString());
+//				if(auxAtrib != -1) {
+//				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxAtrib), "");
+//				tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
+//				AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
+//				GeradorCodigo.auxRetornoFuncao =auxAtrib;
+//				}else {
+//					tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
+//					AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
+//
+//				if(!GeradorCodigo.auxRetornoFuncaoTipo) {
+//						GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
+//				}
+//				else {
+//					if(Simbolo.sinteiro.equals(tipo)) {
+//					GeradorCodigo.exibir_codigo_objeto("", "LDC", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
+//					GeradorCodigo.auxRetornoFuncaoTipo = false; 
+//					}else {
+//						AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+//					}
+//				}
+//				GeradorCodigo.auxRetornoFuncao =-1;
+//				}
+//			}
+//			
+//			if(Simbolo.snumero.equals(tokenAS.get(i))) {
+//				GeradorCodigo.exibir_codigo_objeto("", "LDC", tokenAS.get(i-1).toString(), "");
+//				GeradorCodigo.auxRetornoFuncao = Integer.parseInt((String) tokenAS.get(i-1));
+//				GeradorCodigo.auxRetornoFuncaoTipo = true; 
+//			}
+//			i = pegarToken(i);
+//			if(Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
+//				i = pegarToken(i);
+//			}
+//			while (!Simbolo.sponto_virgula.equals(tokenAS.get(i)) && !Simbolo.sfim.equals(tokenAS.get(i))) {
+//				i = analiseExpressao(i);
+//			}
+//		} else
+//			Erro.tratarError(i);
+//		
+//		return i;
+//	}
+//
 	private static int analisaSe(int i) {
 		int auxrot = rotulo;
 		int auxrot2;

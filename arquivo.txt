@@ -1,12 +1,16 @@
-programa teste; {ERRO inteiros com e logico}
-var x,a,b,c,z:inteiro;
+programa exemplo6;
+var x, y: inteiro;
+procedimento p;
+var z: inteiro;
 inicio
- x:=1;
- a:=2;
- b:=3;
- c:=7;
- z:=1;
- se (x+a*b)e((b+c)div z)  {ERRO inteiros com e}
- entao escreva(x)
- senao escreva(a)
+z:= x; x:=x-1;
+se z>1 entao p 
+senao y:=1;
+y:=(y*z)
+fim { p };
+inicio
+leia(x);
+p; 
+escreva (y);
+escreva (x)
 fim.
