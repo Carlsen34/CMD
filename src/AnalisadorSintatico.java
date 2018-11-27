@@ -309,9 +309,15 @@ public class AnalisadorSintatico {
 
 		while (Simbolo.smais.equals(tokenAS.get(i)) || Simbolo.smenos.equals(tokenAS.get(i))
 				|| Simbolo.sou.equals(tokenAS.get(i))) {
-
+				if(Simbolo.smais.equals(tokenAS.get(i))) aux = "ADD";
+				if(Simbolo.smenos.equals(tokenAS.get(i))) aux = "SUB";
+				if(Simbolo.sou.equals(tokenAS.get(i))) aux = "OR";
+				
+				
 			i = pegarToken(i);
 			i = analiseTermo(i);
+			if(aux!="")GeradorCodigo.exibir_codigo_objeto("", aux, "", "");
+
 		}
 
 		return i;
