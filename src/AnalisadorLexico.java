@@ -298,6 +298,8 @@ public class AnalisadorLexico {
 		if (palavra.equals(">=")) {
 			token.add(palavra);
 			token.add(Simbolo.smaiorig);
+			identificador = false;
+
 		}
 
 		if (palavra.equals(":=")) {

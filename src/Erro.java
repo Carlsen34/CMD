@@ -16,6 +16,13 @@ public class Erro {
 			System.exit(0);
 		}
 		
+		if (!AnalisadorSemantico.errorToken.isEmpty()) {
+			//JOptionPane.showMessageDialog(null, "Error Sintatico : " + AnalisadorSintatico.errorToken.subList(0, i));
+			JOptionPane.showMessageDialog(null,"Error Semantico");
+			System.exit(0);
+		}
+		
+		
 		
 
 	}

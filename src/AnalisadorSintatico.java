@@ -130,7 +130,7 @@ public class AnalisadorSintatico {
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 3).toString(), "var", nivel, "")) {
 
 			} else {
-				System.out.println("Erro Semantico : " + tokenAS.get(i - 3).toString());
+				AnalisadorSemantico.errorToken.add(tokenAS.get(i - 3).toString());
 			}
 			i = analisaAtribuicao(i);
 
@@ -310,7 +310,8 @@ public class AnalisadorSintatico {
 				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
 				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(aux), "");
 			} else {
-				System.out.println("Erro Semantico : " + tokenAS.get(i - 1));
+				AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+
 			}
 			i = analisaChamadaFuncao(i);
 		} else {
@@ -366,7 +367,8 @@ public class AnalisadorSintatico {
 						
 					
 				} else {
-					System.out.println("Erro Semantico :" + tokenAS.get(i - 1));
+					AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+
 				}
 				i = pegarToken(i);
 				if (Simbolo.sfecha_parenteses.equals(tokenAS.get(i))) {
@@ -393,7 +395,8 @@ public class AnalisadorSintatico {
 					GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxIndex), "");
 					GeradorCodigo.exibir_codigo_objeto("", "PRN", "", "");
 				} else {
-					System.out.println("Erro Semantico :" + tokenAS.get(i - 1));
+					AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+
 				}
 				i = pegarToken(i);
 				if (Simbolo.sfecha_parenteses.equals(tokenAS.get(i))) {
@@ -451,7 +454,8 @@ public class AnalisadorSintatico {
 				} else
 					Erro.tratarError(i);
 			} else {
-				System.out.println("Erro Semantico " + tokenAS.get(i - 1));
+				AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+
 			}
 
 		} else
@@ -490,7 +494,7 @@ public class AnalisadorSintatico {
 				} else
 					Erro.tratarError(i);
 			} else
-				System.out.println("Erro Semantico : " + tokenAS.get(i - 1));
+				AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
 
 		} else
 			Erro.tratarError(i);
@@ -536,7 +540,8 @@ public class AnalisadorSintatico {
 					AnalisadorSemantico.inserirTabela(tokenAS.get(i - 1).toString(), "var", nivel, "");
 					allocAux2++;
 				} else {
-					System.out.println("Erro Semantico : " + tokenAS.get(i - 1).toString());
+					AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+
 				}
 				i = pegarToken(i);
 				if (Simbolo.svirgula.equals(tokenAS.get(i)) || Simbolo.sdoispontos.equals(tokenAS.get(i))) {

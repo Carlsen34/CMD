@@ -18,7 +18,7 @@ public class GeradorCodigo {
 				
 				if(flgAux) {
 					System.out.println("" + " " + "ALLOC" + " " + Integer.toString(auxParam3) + " " + Integer.toString(auxParam4) );
-					auxDalloc.add(Integer.toString(auxParam3));
+					auxDalloc.add(Integer.toString(auxParam4));
 					auxDalloc.add(Integer.toString(auxParam4));
 					auxParam3 = 0;
 					auxParam4 = 0;

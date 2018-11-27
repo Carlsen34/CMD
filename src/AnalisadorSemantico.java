@@ -5,7 +5,8 @@ import java.util.Stack;
 public class AnalisadorSemantico {
 	static List<TabelaSimbolos> simbolos = new ArrayList<TabelaSimbolos>();
 	static Stack expressão = new Stack();
-
+	static Stack errorToken = new Stack();
+	
 	// Metodo para inserir na tabela de simbolo
 	// Metodo testado e funcionando
 	public static void inserirTabela(String lexema, String tipoLexema, int nivel, String rotulo) {
@@ -163,7 +164,7 @@ public class AnalisadorSemantico {
 
 		for (int i = 0; i < aux1.size() - 1; i++) {
 			if (aux1.get(i) != aux1.get(i + 1)) {
-				System.out.println("ERR");
+				errorToken.add(aux1.get(i));
 			}
 		}
 		expressão.clear();
