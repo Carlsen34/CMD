@@ -1,16 +1,24 @@
-programa exemplo6;
-var x, y: inteiro;
-procedimento p;
-var z: inteiro;
+
+programa testefinal; 
+var a:inteiro;
+
+funcao teste:inteiro;
+var b:inteiro;
 inicio
-z:= x; x:=x-1;
-se z>1 entao p 
-senao y:=1;
-y:=y*z
-fim { p };
+teste:=b;
+fim;
+
 inicio
-leia(x);
-p; 
-escreva (x);
-escreva (y)
-fim.
+
+a := teste;
+leia(a);
+
+fim.   
+
+{
+
+TRATAR 
+1- Error Sintatico na atribuição 
+2- Gerador de Codigo na função (returnf e valor de retorno)
+3- Ajustar VM(returnf e ajuste de outras instruções) 
+}

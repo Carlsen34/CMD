@@ -502,9 +502,8 @@ public class AnalisadorSintatico {
 		nivel--;
 		String aux1 = GeradorCodigo.auxDalloc.pop().toString();
 		String aux2 = GeradorCodigo.auxDalloc.pop().toString();
-		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);	
 	
-		GeradorCodigo.exibir_codigo_objeto("", "RETURNF", "", "");
+		GeradorCodigo.exibir_codigo_objeto("", "RETURNF", aux2, aux1);
 
 
 		return i;
