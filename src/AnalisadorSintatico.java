@@ -155,19 +155,31 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaAtribuicao(int i) {
-
 		i = pegarToken(i);
 		int auxAtrib =0;
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(),tipo);
 		if (Simbolo.snumero.equals(tokenAS.get(i)) || Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
+
 				auxAtrib = GeradorCodigo.returnIndex(tokenAS.get(i-1).toString());
+				if(auxAtrib != -1) {
 				GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxAtrib), "");
+				GeradorCodigo.auxRetornoFuncao =auxAtrib;
+				}else {
+				if(!GeradorCodigo.auxRetornoFuncaoTipo)GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
+				else {
+					GeradorCodigo.exibir_codigo_objeto("", "LDC", Integer.toString(GeradorCodigo.auxRetornoFuncao), "");
+					GeradorCodigo.auxRetornoFuncaoTipo = false; 
+				}
+				GeradorCodigo.auxRetornoFuncao =-1;
+				}
 			}
 			
 			if(Simbolo.snumero.equals(tokenAS.get(i))) {
 				GeradorCodigo.exibir_codigo_objeto("", "LDC", tokenAS.get(i-1).toString(), "");
+				GeradorCodigo.auxRetornoFuncao = Integer.parseInt((String) tokenAS.get(i-1));
+				GeradorCodigo.auxRetornoFuncaoTipo = true; 
 			}
 			i = pegarToken(i);
 			while (!Simbolo.sponto_virgula.equals(tokenAS.get(i)) && !Simbolo.sfim.equals(tokenAS.get(i))) {
@@ -497,11 +509,16 @@ public class AnalisadorSintatico {
 
 		} else
 			Erro.tratarError(i);
+		
 
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 		nivel--;
-		String aux1 = GeradorCodigo.auxDalloc.pop().toString();
-		String aux2 = GeradorCodigo.auxDalloc.pop().toString();
+		String aux1;
+		String aux2;
+	
+		aux1 = GeradorCodigo.auxDalloc.pop().toString();
+	    aux2 = GeradorCodigo.auxDalloc.pop().toString();
+		
 	
 		GeradorCodigo.exibir_codigo_objeto("", "RETURNF", aux2, aux1);
 

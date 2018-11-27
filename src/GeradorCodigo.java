@@ -6,6 +6,8 @@ public class GeradorCodigo {
 	static boolean flgAux = false;
 	static int auxParam3 = 0;
 	static int auxParam4 = 0;
+	static int auxRetornoFuncao = 0;
+	static boolean auxRetornoFuncaoTipo = false;
 	
 	public static void exibir_codigo_objeto(String param1, String param2,String param3,String param4){
 			if(param2.equals("ALLOC")) {

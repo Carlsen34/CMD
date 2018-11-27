@@ -1,11 +1,11 @@
 
 programa testefinal; 
-var a:inteiro;
+var a,b,c:inteiro;
 
 funcao teste:inteiro;
 var b:inteiro;
 inicio
-teste:=b;
+teste:=3;
 fim;
 
 inicio
@@ -19,6 +19,6 @@ fim.
 
 TRATAR 
 1- Error Sintatico na atribuição 
-2- Gerador de Codigo na função (returnf e valor de retorno)
+2- Analisador Semantico validar tipo no retorno da função
 3- Ajustar VM(returnf e ajuste de outras instruções) 
 }
