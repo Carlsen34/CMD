@@ -13,10 +13,15 @@ public class AnalisadorSintatico {
 	static String tipo;
 	static int rotulo = 1;
 	static int allocAux1 = 0;
+	static int allocAux3 = 0;
 	static int countAlloc = 0;
 	static int nivelAux = 0;
+	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
+
 
 	public static void analisadorSintatico() {
+		String aux1 ="";
+		String aux2 ="";
 		tokenAS = AnalisadorLexico.token;
 		errorToken = AnalisadorLexico.token;
 		if (tokenAS.isEmpty())
@@ -31,9 +36,13 @@ public class AnalisadorSintatico {
 				if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
 					if (Simbolo.sponto.equals(tokenAS.get(i))) {
-						String aux1 = GeradorCodigo.auxDalloc.pop().toString();
-						String aux2 = GeradorCodigo.auxDalloc.pop().toString();
-						GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);
+						for(int a =0 ; a< allocAux.size();a++) {
+							if(allocAux.get(a).getNivel() == nivel) {
+								 aux1 = allocAux.get(a).getParam1();
+								 aux2 = allocAux.get(a).getParam2();
+							}
+						}
+						GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
 						GeradorCodigo.exibir_codigo_objeto("", "HLT", "", "");
 						fimAnalisador(i);
 					} else
@@ -85,7 +94,9 @@ public class AnalisadorSintatico {
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		System.out.println(GeradorCodigo.programaObjeto);
-		System.out.println("Press Enter to continue...");
+		//System.exit(0);
+
+	System.out.println("Press Enter to continue...");
 		try {
 			System.in.read();
 		} catch (IOException e) {
@@ -465,6 +476,8 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaDeclaracaoProcedimento(int i) {
+		String aux1 ="";
+		String aux2 ="";
 		i = pegarToken(i); // ler proximo token
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declproc_tabela(tokenAS.get(i - 1).toString(), "procedimento", nivel,
@@ -487,11 +500,15 @@ public class AnalisadorSintatico {
 		} else
 			Erro.tratarError(i);
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
-		if (nivelAux == nivel) {
-			String aux1 = GeradorCodigo.auxDalloc.pop().toString();
-			String aux2 = GeradorCodigo.auxDalloc.pop().toString();
-			GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux2, aux1);
+
+		for(int a =0 ; a< allocAux.size();a++) {
+			if(allocAux.get(a).getNivel() == nivel) {
+				 aux1 = allocAux.get(a).getParam1();
+				 aux2 = allocAux.get(a).getParam2();
+			}
 		}
+
+		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
 		nivel--;
 
 		GeradorCodigo.exibir_codigo_objeto("", "RETURN", "", "");
@@ -586,9 +603,15 @@ public class AnalisadorSintatico {
 				Erro.tratarError(i);
 		} while (!Simbolo.sdoispontos.equals(tokenAS.get(i)));
 		countAlloc++;
-		nivelAux = nivel;
-		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1), Integer.toString(allocAux2));
-		allocAux1 = allocAux2;
+		AllocDTO alloc = new AllocDTO();
+		alloc.setParam1(Integer.toString(allocAux1));
+		alloc.setParam2(Integer.toString(allocAux2));
+		alloc.setNivel(nivel);
+		allocAux.add(alloc);
+
+		//allocAux 
+		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1+allocAux3), Integer.toString(allocAux2));
+		allocAux1 = allocAux1 + allocAux2;
 
 		i = pegarToken(i); // Ler Proximo Token
 
