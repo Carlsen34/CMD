@@ -1,0 +1,12 @@
+programa exemplo5;
+var x: inteiro;
+procedimento teste;
+
+inicio
+escreva(x)
+fim;
+
+inicio
+teste;
+leia(x)
+fim.

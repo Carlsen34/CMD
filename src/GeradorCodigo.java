@@ -8,6 +8,7 @@ public class GeradorCodigo {
 	static int auxParam4 = 0;
 	static int auxRetornoFuncao = 0;
 	static boolean auxRetornoFuncaoTipo = false;
+	static String programaObjeto = "";
 	
 	public static void exibir_codigo_objeto(String param1, String param2,String param3,String param4){
 			if(param2.equals("ALLOC")) {
@@ -18,14 +19,16 @@ public class GeradorCodigo {
 			}else {
 				
 				if(flgAux) {
-					System.out.println("" + " " + "ALLOC" + " " + Integer.toString(auxParam3) + " " + Integer.toString(auxParam4) );
+					//System.out.println("" + " " + "ALLOC" + " " + Integer.toString(auxParam3) + " " + Integer.toString(auxParam4) );
+					programaObjeto = programaObjeto + "ALLOC" + " " + Integer.toString(auxParam3) + " "+ Integer.toString(auxParam4)+ "\n";
 					auxDalloc.add(Integer.toString(auxParam3));
 					auxDalloc.add(Integer.toString(auxParam4));
 					auxParam3 = 0;
 					auxParam4 = 0;
 				}	
-				
-				System.out.println(param1 + " " + param2 + " " + param3 + " " + param4 );
+				if(!param1.equals(""))programaObjeto = programaObjeto + param1 + " " + param2 + " " + param3 + " " + param4 + "\n";
+				else programaObjeto = programaObjeto + param2 + " " + param3 + " " + param4 + "\n";
+
 				flgAux = false;
 			}
 			
@@ -33,8 +36,7 @@ public class GeradorCodigo {
 	}
 	
 	public static int returnIndex(String lexema) {
-			
-		return pilhaVar.indexOf(lexema);
+		return pilhaVar.lastIndexOf(lexema);
 	}
 	
 	public static String returnRotulo(String lexema) {

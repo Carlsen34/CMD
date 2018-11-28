@@ -150,14 +150,14 @@ public class AnalisadorSemantico {
 
 	public static void validar_tipo(String lexema, String tipo) {
 		expressão.add(lexema);
-		
 	}
 
 	public static void validar_tipoAUX() {
 		String aux;
 		Stack aux1 = new Stack();
 		for (int i = 0; i < expressão.size(); i++) {
-			aux = retorna_tipo(expressão.get(i).toString());
+			if(expressão.get(i).toString().equals("verdadeiro") || expressão.get(i).toString().equals("falso")) aux = "sbooleano";
+			else aux = retorna_tipo(expressão.get(i).toString());
 			if (aux != null) {
 				aux1.add(aux);
 			}

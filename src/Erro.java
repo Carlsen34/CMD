@@ -18,7 +18,7 @@ public class Erro {
 		
 		if (!AnalisadorSemantico.errorToken.isEmpty()) {
 			//JOptionPane.showMessageDialog(null, "Error Sintatico : " + AnalisadorSintatico.errorToken.subList(0, i));
-			JOptionPane.showMessageDialog(null,"Error Semantico");
+			JOptionPane.showMessageDialog(null,"Error Semantico" );
 			System.exit(0);
 		}
 		
