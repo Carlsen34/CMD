@@ -1,12 +1,16 @@
-programa exemplo5;
-var x: inteiro;
-procedimento teste;
+programa test;
 
+var a,b: inteiro;
+
+funcao soma: inteiro;
+var c: inteiro;
 inicio
-escreva(x)
+leia(b);
+leia(c);
+soma:= b+c;
 fim;
 
 inicio
-teste;
-leia(x)
+a:=soma;
+escreva(a)
 fim.
