@@ -42,7 +42,7 @@ public class AnalisadorSintatico {
 								 aux2 = allocAux.get(a).getParam2();
 							}
 						}
-						GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
+						if(!aux1.equals(""))GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
 						GeradorCodigo.exibir_codigo_objeto("", "HLT", "", "");
 						fimAnalisador(i);
 					} else
@@ -507,8 +507,7 @@ public class AnalisadorSintatico {
 				 aux2 = allocAux.get(a).getParam2();
 			}
 		}
-
-		GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
+		if(!aux1.equals(""))GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
 		nivel--;
 
 		GeradorCodigo.exibir_codigo_objeto("", "RETURN", "", "");
