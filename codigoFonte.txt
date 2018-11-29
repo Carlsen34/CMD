@@ -1,17 +1,11 @@
-programa teste; 
-var x:inteiro;
-
-funcao num:inteiro;
-
+programa teste; {ERRO expressão nao booleanoa}
+var x:booleano;
+           
 inicio
-
-x:=x+1;
-num:=x;
-fim;
-
-
-inicio
-x:=3;
-escreva(num);
-
+ x:=verdadeiro;
+ 
+ enquanto (x)          {ERRO expressão nao booleanoa}
+ faca inicio
+      escreva(x)
+    fim
 fim.

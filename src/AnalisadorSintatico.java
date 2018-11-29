@@ -18,6 +18,7 @@ public class AnalisadorSintatico {
 	static int nivelAux = 0;
 	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
 	static int countDalloc =0;
+	static boolean flgExpressaoBooleana = true;
 
 
 	public static void analisadorSintatico() {
@@ -97,7 +98,7 @@ public class AnalisadorSintatico {
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		EscreverProgramaObj.Escrever(GeradorCodigo.programaObjeto);
-		//System.exit(0);
+		System.exit(0);
 
 	
 		
@@ -187,7 +188,10 @@ public class AnalisadorSintatico {
 		int auxrot = rotulo;
 		int auxrot2 = rotulo;
 		i = pegarToken(i);
+		flgExpressaoBooleana = false;
 		i = analiseExpressao(i);
+		if(!flgExpressaoBooleana)AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+
 		if (Simbolo.sentao.equals(tokenAS.get(i))) {
 			GeradorCodigo.exibir_codigo_objeto("", "JMPF", "L" + Integer.toString(auxrot), "");
 			rotulo++;
@@ -221,7 +225,10 @@ public class AnalisadorSintatico {
 		rotulo++;
 
 		i = pegarToken(i);
+		flgExpressaoBooleana = false;
 		i = analiseExpressao(i);
+		if(!flgExpressaoBooleana)AnalisadorSemantico.errorToken.add(tokenAS.get(i - 1).toString());
+
 		if (Simbolo.sfaca.equals(tokenAS.get(i))) {
 			auxrot2 = rotulo;
 			GeradorCodigo.exibir_codigo_objeto("", "JMPF", "L" + Integer.toString(rotulo), "");
@@ -243,18 +250,30 @@ public class AnalisadorSintatico {
 				|| Simbolo.smenor.equals(tokenAS.get(i)) || Simbolo.smenorig.equals(tokenAS.get(i))
 				|| Simbolo.sdif.equals(tokenAS.get(i)) || Simbolo.sig.equals(tokenAS.get(i))) {
 
-			if (Simbolo.smaior.equals(tokenAS.get(i)))
+			if (Simbolo.smaior.equals(tokenAS.get(i))) {
 				aux = "CMA";
-			if (Simbolo.smaiorig.equals(tokenAS.get(i)))
+				flgExpressaoBooleana = true;
+			}
+			if (Simbolo.smaiorig.equals(tokenAS.get(i))) {
 				aux = "CMAQ";
-			if (Simbolo.smenor.equals(tokenAS.get(i)))
+				flgExpressaoBooleana = true;
+			}
+			if (Simbolo.smenor.equals(tokenAS.get(i))) {
 				aux = "CME";
-			if (Simbolo.smenorig.equals(tokenAS.get(i)))
+				flgExpressaoBooleana = true;
+			}
+			if (Simbolo.smenorig.equals(tokenAS.get(i))) {
 				aux = "CMEQ";
-			if (Simbolo.sdif.equals(tokenAS.get(i)))
+				flgExpressaoBooleana = true;
+			}
+			if (Simbolo.sdif.equals(tokenAS.get(i))) {
 				aux = "CDIF";
-			if (Simbolo.sig.equals(tokenAS.get(i)))
+				flgExpressaoBooleana = true;
+			}
+			if (Simbolo.sig.equals(tokenAS.get(i))) {
 				aux = "CEQ";
+				flgExpressaoBooleana = true;
+			}
 
 			i = pegarToken(i);
 			i = analiseExpressaoSimples(i);
@@ -355,6 +374,7 @@ public class AnalisadorSintatico {
 
 					} else {
 						if (Simbolo.sverdadeiro.equals(tokenAS.get(i)) || Simbolo.sfalso.equals(tokenAS.get(i))) {
+							flgExpressaoBooleana = true;
 							AnalisadorSemantico.validar_tipoAUX();
 							if (Simbolo.sverdadeiro.equals(tokenAS.get(i)))
 								GeradorCodigo.exibir_codigo_objeto("", "LDC", "1", "");
