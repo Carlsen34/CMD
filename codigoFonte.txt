@@ -1,11 +1,18 @@
-programa teste; {ERRO expressão nao booleanoa}
-var x:booleano;
-           
+programa teste;
+
+var a,b: inteiro;
+    x, y: booleano;
+
 inicio
- x:=verdadeiro;
- 
- enquanto (x)          {ERRO expressão nao booleanoa}
- faca inicio
-      escreva(x)
-    fim
+
+  leia (a);
+  leia(b);
+  x:= verdadeiro;
+  se ((-a-b) <= 10) e (x)
+  entao y:= x
+  senao y:= falso;
+  se y
+  entao escreva (a)
+  senao escreva(b)
+
 fim.

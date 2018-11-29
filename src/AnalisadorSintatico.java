@@ -98,7 +98,7 @@ public class AnalisadorSintatico {
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		EscreverProgramaObj.Escrever(GeradorCodigo.programaObjeto);
-		System.exit(0);
+//		System.exit(0);
 
 	
 		
@@ -367,6 +367,8 @@ public class AnalisadorSintatico {
 					if (Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
 						i = pegarToken(i);
 						i = analiseExpressao(i);
+						String tip = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-3).toString());
+						if(tip.equals("sbooleano"))flgExpressaoBooleana = true;
 						if (Simbolo.sfecha_parenteses.equals(tokenAS.get(i))) {
 							i = pegarToken(i);
 						} else
