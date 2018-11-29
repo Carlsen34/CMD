@@ -97,7 +97,8 @@ public class AnalisadorSintatico {
 		tokenAS.clear();
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
-		EscreverProgramaObj.Escrever(GeradorCodigo.programaObjeto);
+		EscreverProgramaObj.EscreverProgramaObjeto(GeradorCodigo.programaObjeto);
+		
 //		System.exit(0);
 
 	

@@ -17,10 +17,10 @@ public class Fonte {
 		String aux = "";
 		try {
 			// Cria arquivo
-			File file = new File("/home/carlsen/Desktop/Faculdade/Compiladores/Projetos/CSD/codigoFonte.txt");
+			File file = new File("/home/softvaro/Área de Trabalho/Compilador/Compilador/CSD/codigoFonte.txt");
 
 			// Le o arquivo
-			FileReader ler = new FileReader("/home/carlsen/Desktop/Faculdade/Compiladores/Projetos/CSD/codigoFonte.txt");
+			FileReader ler = new FileReader("/home/softvaro/Área de Trabalho/Compilador/Compilador/CSD/codigoFonte.txt");
 			BufferedReader reader = new BufferedReader(ler);
 			String linha;
 

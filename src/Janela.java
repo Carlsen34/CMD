@@ -56,6 +56,7 @@ public class Janela extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == compilar) {
 			String valor = area.getText();
+			EscreverProgramaObj.EscreverCodigoFonte(valor);
 			fonte.lerFonteLinha(valor);
 		}
 
