@@ -35,8 +35,23 @@ public class GeradorCodigo {
 		
 	}
 	
-	public static int returnIndex(String lexema) {
-		return pilhaVar.lastIndexOf(lexema);
+	public static int returnIndex(String lexema,int nivel) {
+		int aux = pilhaVar.lastIndexOf(lexema);
+		int count =0;
+		
+		for(int i = 0; i<AnalisadorSemantico.simbolos.size();i++) {
+		if(AnalisadorSemantico.simbolos.get(i).getTipoLexema().equals("var")) {
+		if(AnalisadorSemantico.simbolos.get(i).getLexema().equals(lexema) && AnalisadorSemantico.simbolos.get(i).nivel <= nivel){
+		aux = count;
+		}
+		count ++;
+		}
+
+		}
+		
+		
+		return aux;
+		//return pilhaVar.lastIndexOf(lexema);
 	}
 	
 	public static String returnRotulo(String lexema) {

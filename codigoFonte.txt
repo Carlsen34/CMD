@@ -1,20 +1,17 @@
-programa testefinal;  {calcula o dobro ou fatorial - OK}
+programa teste; 
+var x:inteiro;
 
-var opcao,x,y:inteiro;
+funcao num:inteiro;
 
-
-procedimento numeros;
 inicio
-escreva(x);
-x := x- 1;
 
-se x > 0
-entao numeros
-
+x:=x+1;
+num:=x;
 fim;
 
+
 inicio
- leia(x);
-numeros;
-       
-fim. 
+x:=3;
+escreva(num);
+
+fim.

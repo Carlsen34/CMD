@@ -17,6 +17,7 @@ public class AnalisadorSintatico {
 	static int countAlloc = 0;
 	static int nivelAux = 0;
 	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
+	static int countDalloc =0;
 
 
 	public static void analisadorSintatico() {
@@ -40,6 +41,8 @@ public class AnalisadorSintatico {
 							if(allocAux.get(a).getNivel() == nivel) {
 								 aux1 = allocAux.get(a).getParam1();
 								 aux2 = allocAux.get(a).getParam2();
+								 int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
+								 allocAux.get(a).setParam1(Integer.toString(aux3));
 							}
 						}
 						if(!aux1.equals(""))GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
@@ -93,16 +96,10 @@ public class AnalisadorSintatico {
 		tokenAS.clear();
 		Erro.tratarError(i);
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
-		System.out.println(GeradorCodigo.programaObjeto);
+		EscreverProgramaObj.Escrever(GeradorCodigo.programaObjeto);
 		//System.exit(0);
 
-	System.out.println("Press Enter to continue...");
-		try {
-			System.in.read();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		
 		new Vm();
 		
@@ -116,7 +113,7 @@ public class AnalisadorSintatico {
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			aux = tokenAS.get(i - 1).toString();
 			i = analisaAtribChProcedimento(i);
-			aux1 = GeradorCodigo.returnIndex(aux);
+			aux1 = GeradorCodigo.returnIndex(aux,nivel);
 			if (!(aux1 == -1))
 				GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(aux1), "");
 
@@ -331,7 +328,7 @@ public class AnalisadorSintatico {
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			// Pode ser função
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
+				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(),nivel);
 				if (aux != -1)
 					GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(aux), "");
 			} else {
@@ -392,7 +389,7 @@ public class AnalisadorSintatico {
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				if (AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
 					GeradorCodigo.exibir_codigo_objeto("", "RD", "", "");
-					aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
+					aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(),nivel);
 					GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(aux), "");
 
 				} else {
@@ -421,7 +418,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				if (AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-					auxIndex = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString());
+					auxIndex = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(),nivel);
 					GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxIndex), "");
 					GeradorCodigo.exibir_codigo_objeto("", "PRN", "", "");
 				} else {
@@ -505,9 +502,15 @@ public class AnalisadorSintatico {
 			if(allocAux.get(a).getNivel() == nivel) {
 				 aux1 = allocAux.get(a).getParam1();
 				 aux2 = allocAux.get(a).getParam2();
+				 int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
+				 allocAux.get(a).setParam1(Integer.toString(aux3));
 			}
 		}
-		if(!aux1.equals(""))GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
+
+		if(!aux1.equals("")) {
+			GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
+			countDalloc = countDalloc + Integer.parseInt(aux2);
+		}
 		nivel--;
 
 		GeradorCodigo.exibir_codigo_objeto("", "RETURN", "", "");
@@ -516,6 +519,8 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaDeclaracaoFuncao(int i) {
+		String aux1 ="";
+		String aux2 ="";
 		i = pegarToken(i); // ler proximo token
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 1).toString(), "funcao", nivel, "")) {
@@ -544,14 +549,30 @@ public class AnalisadorSintatico {
 			Erro.tratarError(i);
 
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
+
+
+		
+		
+		
+		for(int a =0 ; a< allocAux.size();a++) {
+			if(allocAux.get(a).getNivel() == nivel) {
+				 aux1 = allocAux.get(a).getParam1();
+				 aux2 = allocAux.get(a).getParam2();
+				 int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
+				 allocAux.get(a).setParam1(Integer.toString(aux3));
+			}
+		}
+
+		if(!aux1.equals("")) {
+			GeradorCodigo.exibir_codigo_objeto("", "RETURNF", aux1, aux2);
+			countDalloc = countDalloc + Integer.parseInt(aux2);
+		}else {
+			GeradorCodigo.exibir_codigo_objeto("", "RETURNF", "", "");
+
+		}
+		
 		nivel--;
-		String aux1;
-		String aux2;
 
-		aux1 = GeradorCodigo.auxDalloc.pop().toString();
-		aux2 = GeradorCodigo.auxDalloc.pop().toString();
-
-		GeradorCodigo.exibir_codigo_objeto("", "RETURNF", aux2, aux1);
 
 		return i;
 	}
@@ -603,13 +624,13 @@ public class AnalisadorSintatico {
 		} while (!Simbolo.sdoispontos.equals(tokenAS.get(i)));
 		countAlloc++;
 		AllocDTO alloc = new AllocDTO();
-		alloc.setParam1(Integer.toString(allocAux1));
+		alloc.setParam1(Integer.toString(allocAux1-countDalloc));
 		alloc.setParam2(Integer.toString(allocAux2));
 		alloc.setNivel(nivel);
 		allocAux.add(alloc);
 
 		//allocAux 
-		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1+allocAux3), Integer.toString(allocAux2));
+		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1-countDalloc), Integer.toString(allocAux2));
 		allocAux1 = allocAux1 + allocAux2;
 
 		i = pegarToken(i); // Ler Proximo Token
