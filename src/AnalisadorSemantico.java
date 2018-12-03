@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.swing.JOptionPane;
+
 public class AnalisadorSemantico {
 	static List<TabelaSimbolos> simbolos = new ArrayList<TabelaSimbolos>();
 	static Stack expressão = new Stack();
@@ -152,7 +154,7 @@ public class AnalisadorSemantico {
 		expressão.add(lexema);
 	}
 
-	public static void validar_tipoAUX() {
+	public static void validar_tipoAUX(int numAux) {
 		String aux;
 		Stack aux1 = new Stack();
 		for (int i = 0; i < expressão.size(); i++) {
@@ -165,7 +167,8 @@ public class AnalisadorSemantico {
 
 		for (int i = 0; i < aux1.size() - 1; i++) {
 			if (aux1.get(i) != aux1.get(i + 1)) {
-				errorToken.add(aux1.get(i));
+				JOptionPane.showMessageDialog(null,"Erro Semantico: TIPOS INVALIDOS");
+				Erro.tratarError1(numAux, "semantico");
 			}
 		}
 		expressão.clear();

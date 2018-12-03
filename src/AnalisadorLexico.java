@@ -89,6 +89,8 @@ public class AnalisadorLexico {
 			if (errorToken.isEmpty()) {
 				errorToken = token;
 				errorToken.add(palavra);
+				Erro.tratarError1(errorToken.size(), "lexico");
+
 			}
 		}
 
@@ -99,6 +101,8 @@ public class AnalisadorLexico {
 					if (errorToken.isEmpty()) {
 						errorToken = token;
 						errorToken.add(palavra);
+						Erro.tratarError1(errorToken.size(), "lexico");
+
 					}
 					palavra = "";
 				}
@@ -377,6 +381,8 @@ public class AnalisadorLexico {
 			if (errorToken.isEmpty()) {
 				errorToken = token;
 				errorToken.add(palavra);
+				Erro.tratarError1(errorToken.size(), "lexico");
+
 			}
 		}
 		// else AnalisadorSintatico.analisadorSintatico();
