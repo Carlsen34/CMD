@@ -296,11 +296,15 @@ public class AnalisadorSintatico {
 
 	private static int analiseExpressaoSimples(int i) {
 		String aux = "";
+
 		if (Simbolo.smais.equals(tokenAS.get(i)) || Simbolo.smenos.equals(tokenAS.get(i))) {
 			if (Simbolo.smais.equals(tokenAS.get(i)))
 				aux = "ADD";
-			if (Simbolo.smenos.equals(tokenAS.get(i)))
-				aux = "SUB";
+			if (Simbolo.smenos.equals(tokenAS.get(i))) {
+				aux = "INV";
+			}
+
+			
 			i = pegarToken(i);
 
 		}
@@ -314,8 +318,10 @@ public class AnalisadorSintatico {
 				aux = "ADD";
 			if (Simbolo.smenos.equals(tokenAS.get(i)))
 				aux = "SUB";
-			if (Simbolo.sou.equals(tokenAS.get(i)))
+			if (Simbolo.sou.equals(tokenAS.get(i))) {
 				aux = "OR";
+				AnalisadorSemantico.expressão.clear();
+			}
 
 			i = pegarToken(i);
 			i = analiseTermo(i);
@@ -336,8 +342,10 @@ public class AnalisadorSintatico {
 				aux = "MULT";
 			if (Simbolo.sdiv.equals(tokenAS.get(i)))
 				aux = "DIVI";
-			if (Simbolo.sse.equals(tokenAS.get(i)))
+			if (Simbolo.sse.equals(tokenAS.get(i))) {
 				aux = "AND";
+				AnalisadorSemantico.expressão.clear();
+			}
 
 			i = pegarToken(i);
 
@@ -353,10 +361,14 @@ public class AnalisadorSintatico {
 	private static int analiseFator(int i) {
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(), tipo);
+	
+
 		int aux;
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
-			// Pode ser função
-			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
+			tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 1).toString());
+			if(tipo.equals("sbooleano"))	flgExpressaoBooleana = true;
+
+			AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(), tipo);			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
 				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(),nivel);
 				if (aux != -1)
 					GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(aux), "");
