@@ -109,7 +109,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaComandoSimples(int i) {
-		AnalisadorSemantico.validar_tipoAUX(i);
+		//AnalisadorSemantico.validar_tipoAUX(i);
 		String aux = "";
 		int aux1 = 0;
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
@@ -386,6 +386,8 @@ public class AnalisadorSintatico {
 				if (Simbolo.snao.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
 					i = analiseFator(i);
+					GeradorCodigo.exibir_codigo_objeto("", "NEG", "", "");
+
 				} else {
 					if (Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
 						i = pegarToken(i);

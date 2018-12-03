@@ -1,31 +1,14 @@
 programa test;
 
-var a,b: inteiro;
+var a,b: booleano;
 
 
-funcao soma: inteiro;
-var c,a: inteiro;
-
-  procedimento ler;
-  inicio
-     leia (c);
-     leia (a);
-     escreva (soma);
-fim;
-
-  procedimento loop;
-  var x: inteiro;
-  inicio
-    leia (x);   {para parar digite um valor maior que 9 }
-    se x < 10
-    entao ler;
-  fim;
-
- inicio
-  loop;
-  soma:= c+a;
- fim;
 
 inicio
-  escreva(soma)
+a:=falso;
+b:=falso;
+
+se (a ou nao b) entao escreva(a);
+
+
 fim.
