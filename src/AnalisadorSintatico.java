@@ -8,24 +8,20 @@ import javax.swing.JOptionPane;
 public class AnalisadorSintatico {
 
 	static Stack tokenAS = new Stack();
-	static Stack errorToken = new Stack();
 	static int nivel = 0;
 	static String tipo;
 	static int rotulo = 1;
 	static int allocAux1 = 0;
-	static int allocAux3 = 0;
 	static int countAlloc = 0;
 	static int nivelAux = 0;
 	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
-	static int countDalloc =0;
+	static int countDalloc = 0;
 	static boolean flgExpressaoBooleana = true;
-    
 
 	public static void analisadorSintatico() {
-		String aux1 ="";
-		String aux2 ="";
+		String aux1 = "";
+		String aux2 = "";
 		tokenAS = AnalisadorLexico.token;
-		errorToken = AnalisadorLexico.token;
 		if (tokenAS.isEmpty())
 			Erro.tratarError1(0, "sintatico");
 		int i = 1;
@@ -38,15 +34,16 @@ public class AnalisadorSintatico {
 				if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 					i = analisarBloco(i);
 					if (Simbolo.sponto.equals(tokenAS.get(i))) {
-						for(int a =0 ; a< allocAux.size();a++) {
-							if(allocAux.get(a).getNivel() == nivel) {
-								 aux1 = allocAux.get(a).getParam1();
-								 aux2 = allocAux.get(a).getParam2();
-								 int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
-								 allocAux.get(a).setParam1(Integer.toString(aux3));
+						for (int a = 0; a < allocAux.size(); a++) {
+							if (allocAux.get(a).getNivel() == nivel) {
+								aux1 = allocAux.get(a).getParam1();
+								aux2 = allocAux.get(a).getParam2();
+								int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
+								allocAux.get(a).setParam1(Integer.toString(aux3));
 							}
 						}
-						if(!aux1.equals(""))GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
+						if (!aux1.equals(""))
+							GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
 						GeradorCodigo.exibir_codigo_objeto("", "HLT", "", "");
 						fimAnalisador(i);
 					} else
@@ -94,28 +91,22 @@ public class AnalisadorSintatico {
 	}
 
 	private static void fimAnalisador(int i) {
-	    //tokenAS.clear();
-		//Erro.tratarError(i);
+
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		EscreverProgramaObj.EscreverProgramaObjeto(GeradorCodigo.programaObjeto);
-		
-//		System.exit(0);
 
-	
-		
 		new Vm();
-		
-	
+
 	}
 
 	private static int analisaComandoSimples(int i) {
-		//AnalisadorSemantico.validar_tipoAUX(i);
+		AnalisadorSemantico.validar_tipoAUX(i);
 		String aux = "";
 		int aux1 = 0;
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			aux = tokenAS.get(i - 1).toString();
 			i = analisaAtribChProcedimento(i);
-			aux1 = GeradorCodigo.returnIndex(aux,nivel);
+			aux1 = GeradorCodigo.returnIndex(aux, nivel);
 			if (!(aux1 == -1))
 				GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(aux1), "");
 
@@ -153,8 +144,8 @@ public class AnalisadorSintatico {
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 3).toString(), "var", nivel, "")) {
 
 			} else {
-				JOptionPane.showMessageDialog(null,"Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
-				Erro.tratarError1(i-3, "semantico");
+				JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
+				Erro.tratarError1(i - 3, "semantico");
 			}
 			i = analisaAtribuicao(i);
 			if (!AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 3).toString(), "funcao", nivel, "")) {
@@ -171,8 +162,8 @@ public class AnalisadorSintatico {
 	private static int chamadaProc(int i) {
 		String rotuloAux = "";
 		if (AnalisadorSemantico.pesquisa_declproc_tabela(tokenAS.get(i - 3).toString(), "procedimento", 0, null)) {
-			JOptionPane.showMessageDialog(null,"Erro Semantico: PROCEDIMENTO COM NOME INVALIDO");
-			Erro.tratarError1(i-3, "semantico");
+			JOptionPane.showMessageDialog(null, "Erro Semantico: PROCEDIMENTO COM NOME INVALIDO");
+			Erro.tratarError1(i - 3, "semantico");
 		} else {
 			rotuloAux = GeradorCodigo.returnRotulo(tokenAS.get(i - 3).toString());
 			GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
@@ -182,8 +173,19 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaAtribuicao(int i) {
+		String tipoAux = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 3).toString());
+		if (tipoAux.equals("sinteiro")) {
+			flgExpressaoBooleana = false;
+		}
+
 		i = pegarToken(i);
 		i = analiseExpressao(i);
+		if (flgExpressaoBooleana && tipoAux.equals("sinteiro")) {
+			JOptionPane.showMessageDialog(null, "Erro Semantico: EXRPESSÃO NÃO BOOLEANA");
+
+			Erro.tratarError1(i, "semantico");
+		}
+
 		return i;
 	}
 
@@ -193,8 +195,8 @@ public class AnalisadorSintatico {
 		i = pegarToken(i);
 		flgExpressaoBooleana = false;
 		i = analiseExpressao(i);
-		if(!flgExpressaoBooleana) {
-			JOptionPane.showMessageDialog(null,"Erro Semantico: EXRPESSÃO NÃO BOOLEANA");
+		if (!flgExpressaoBooleana) {
+			JOptionPane.showMessageDialog(null, "Erro Semantico: EXRPESSÃO NÃO BOOLEANA");
 
 			Erro.tratarError1(i, "semantico");
 		}
@@ -215,8 +217,8 @@ public class AnalisadorSintatico {
 				i = pegarToken(i);
 				i = analisaComandoSimples(i);
 
-			}else
-			GeradorCodigo.exibir_codigo_objeto("L" + Integer.toString(auxrot), "NULL", "", "");
+			} else
+				GeradorCodigo.exibir_codigo_objeto("L" + Integer.toString(auxrot), "NULL", "", "");
 
 		} else
 			Erro.tratarError1(i, "sintatico");
@@ -233,11 +235,10 @@ public class AnalisadorSintatico {
 		i = pegarToken(i);
 		flgExpressaoBooleana = false;
 		i = analiseExpressao(i);
-		if(!flgExpressaoBooleana) {
-			JOptionPane.showMessageDialog(null,"Erro Semantico: EXPRESSÃO NÃO BOOLEANA");
+		if (!flgExpressaoBooleana) {
+			JOptionPane.showMessageDialog(null, "Erro Semantico: EXPRESSÃO NÃO BOOLEANA");
 			Erro.tratarError1(i, "semantico");
 		}
-
 
 		if (Simbolo.sfaca.equals(tokenAS.get(i))) {
 			auxrot2 = rotulo;
@@ -304,7 +305,6 @@ public class AnalisadorSintatico {
 				aux = "INV";
 			}
 
-			
 			i = pegarToken(i);
 
 		}
@@ -361,19 +361,20 @@ public class AnalisadorSintatico {
 	private static int analiseFator(int i) {
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(), tipo);
-	
 
 		int aux;
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 1).toString());
-			if(tipo.equals("sbooleano"))	flgExpressaoBooleana = true;
+			if (tipo.equals("sbooleano"))
+				flgExpressaoBooleana = true;
 
-			AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(), tipo);			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(),nivel);
+			AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(), tipo);
+			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
+				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(), nivel);
 				if (aux != -1)
 					GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(aux), "");
 			} else {
-				JOptionPane.showMessageDialog(null,"Erro Semantico:VARIAVEL NÃO DECLARADA");
+				JOptionPane.showMessageDialog(null, "Erro Semantico:VARIAVEL NÃO DECLARADA");
 				Erro.tratarError1(i, "semantico");
 
 			}
@@ -392,8 +393,9 @@ public class AnalisadorSintatico {
 					if (Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
 						i = pegarToken(i);
 						i = analiseExpressao(i);
-						String tip = AnalisadorSemantico.retorna_tipo(tokenAS.get(i-3).toString());
-						if(tip.equals("sbooleano"))flgExpressaoBooleana = true;
+						String tip = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 3).toString());
+						if (tip.equals("sbooleano"))
+							flgExpressaoBooleana = true;
 						if (Simbolo.sfecha_parenteses.equals(tokenAS.get(i))) {
 							i = pegarToken(i);
 						} else
@@ -436,11 +438,11 @@ public class AnalisadorSintatico {
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				if (AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
 					GeradorCodigo.exibir_codigo_objeto("", "RD", "", "");
-					aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(),nivel);
+					aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(), nivel);
 					GeradorCodigo.exibir_codigo_objeto("", "STR", Integer.toString(aux), "");
 
 				} else {
-					JOptionPane.showMessageDialog(null,"Erro Semantico: VARIAVEL NÃO DECLARADA");
+					JOptionPane.showMessageDialog(null, "Erro Semantico: VARIAVEL NÃO DECLARADA");
 					Erro.tratarError1(i, "semantico");
 
 				}
@@ -466,7 +468,7 @@ public class AnalisadorSintatico {
 			i = pegarToken(i);
 			if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 				if (AnalisadorSemantico.pesquisa_declvar_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
-					auxIndex = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(),nivel);
+					auxIndex = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(), nivel);
 					GeradorCodigo.exibir_codigo_objeto("", "LDV", Integer.toString(auxIndex), "");
 					GeradorCodigo.exibir_codigo_objeto("", "PRN", "", "");
 				} else {
@@ -475,7 +477,7 @@ public class AnalisadorSintatico {
 						GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
 						GeradorCodigo.exibir_codigo_objeto("", "PRN", "", "");
 					} else {
-						JOptionPane.showMessageDialog(null,"Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
+						JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
 						Erro.tratarError1(i, "semantico");
 
 					}
@@ -524,8 +526,8 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaDeclaracaoProcedimento(int i) {
-		String aux1 ="";
-		String aux2 ="";
+		String aux1 = "";
+		String aux2 = "";
 		i = pegarToken(i); // ler proximo token
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declproc_tabela(tokenAS.get(i - 1).toString(), "procedimento", nivel,
@@ -541,7 +543,7 @@ public class AnalisadorSintatico {
 				} else
 					Erro.tratarError1(i, "sintatico");
 			} else {
-				JOptionPane.showMessageDialog(null,"Erro Semantico: PROCEDIMENTO COM NOME INVALIDO");
+				JOptionPane.showMessageDialog(null, "Erro Semantico: PROCEDIMENTO COM NOME INVALIDO");
 				Erro.tratarError1(i, "semantico");
 
 			}
@@ -550,16 +552,16 @@ public class AnalisadorSintatico {
 			Erro.tratarError1(i, "sintatico");
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 
-		for(int a =0 ; a< allocAux.size();a++) {
-			if(allocAux.get(a).getNivel() == nivel) {
-				 aux1 = allocAux.get(a).getParam1();
-				 aux2 = allocAux.get(a).getParam2();
-				 int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
-				 allocAux.get(a).setParam1(Integer.toString(aux3));
+		for (int a = 0; a < allocAux.size(); a++) {
+			if (allocAux.get(a).getNivel() == nivel) {
+				aux1 = allocAux.get(a).getParam1();
+				aux2 = allocAux.get(a).getParam2();
+				int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
+				allocAux.get(a).setParam1(Integer.toString(aux3));
 			}
 		}
 
-		if(!aux1.equals("")) {
+		if (!aux1.equals("")) {
 			GeradorCodigo.exibir_codigo_objeto("", "DALLOC", aux1, aux2);
 			countDalloc = countDalloc + Integer.parseInt(aux2);
 		}
@@ -571,8 +573,8 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaDeclaracaoFuncao(int i) {
-		String aux1 ="";
-		String aux2 ="";
+		String aux1 = "";
+		String aux2 = "";
 		i = pegarToken(i); // ler proximo token
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 1).toString(), "funcao", nivel, "")) {
@@ -596,7 +598,7 @@ public class AnalisadorSintatico {
 					Erro.tratarError1(i, "sintatico");
 			} else {
 				Erro.tratarError1(i, "semantico");
-				JOptionPane.showMessageDialog(null,"Erro Semantico: FUNCAO NÃO DECLARADA");
+				JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO NÃO DECLARADA");
 			}
 
 		} else
@@ -604,29 +606,24 @@ public class AnalisadorSintatico {
 
 		AnalisadorSemantico.remover_nivel_simbolos(nivel);
 
-
-		
-		
-		
-		for(int a =0 ; a< allocAux.size();a++) {
-			if(allocAux.get(a).getNivel() == nivel) {
-				 aux1 = allocAux.get(a).getParam1();
-				 aux2 = allocAux.get(a).getParam2();
-				 int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
-				 allocAux.get(a).setParam1(Integer.toString(aux3));
+		for (int a = 0; a < allocAux.size(); a++) {
+			if (allocAux.get(a).getNivel() == nivel) {
+				aux1 = allocAux.get(a).getParam1();
+				aux2 = allocAux.get(a).getParam2();
+				int aux3 = Integer.parseInt(aux1) - Integer.parseInt(aux2);
+				allocAux.get(a).setParam1(Integer.toString(aux3));
 			}
 		}
 
-		if(!aux1.equals("")) {
+		if (!aux1.equals("")) {
 			GeradorCodigo.exibir_codigo_objeto("", "RETURNF", aux1, aux2);
 			countDalloc = countDalloc + Integer.parseInt(aux2);
-		}else {
+		} else {
 			GeradorCodigo.exibir_codigo_objeto("", "RETURNF", "", "");
 
 		}
-		
-		nivel--;
 
+		nivel--;
 
 		return i;
 	}
@@ -660,7 +657,7 @@ public class AnalisadorSintatico {
 					AnalisadorSemantico.inserirTabela(tokenAS.get(i - 1).toString(), "var", nivel, "");
 					allocAux2++;
 				} else {
-					JOptionPane.showMessageDialog(null,"Erro Semantico: VARIAVEL COM NOME INVALIDO");
+					JOptionPane.showMessageDialog(null, "Erro Semantico: VARIAVEL COM NOME INVALIDO");
 					Erro.tratarError1(i, "semantico");
 
 				}
@@ -679,13 +676,14 @@ public class AnalisadorSintatico {
 		} while (!Simbolo.sdoispontos.equals(tokenAS.get(i)));
 		countAlloc++;
 		AllocDTO alloc = new AllocDTO();
-		alloc.setParam1(Integer.toString(allocAux1-countDalloc));
+		alloc.setParam1(Integer.toString(allocAux1 - countDalloc));
 		alloc.setParam2(Integer.toString(allocAux2));
 		alloc.setNivel(nivel);
 		allocAux.add(alloc);
 
-		//allocAux 
-		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1-countDalloc), Integer.toString(allocAux2));
+		// allocAux
+		GeradorCodigo.exibir_codigo_objeto("", "ALLOC", Integer.toString(allocAux1 - countDalloc),
+				Integer.toString(allocAux2));
 		allocAux1 = allocAux1 + allocAux2;
 
 		i = pegarToken(i); // Ler Proximo Token

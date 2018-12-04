@@ -9,7 +9,7 @@ public class EscreverProgramaObj {
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(
-					"/home/carlsen/Desktop/Faculdade/Compiladores/Projetos/Virtual-Machine/programaObj.txt"));
+					"Virtual-Machine/programaObj.txt"));
 			writer.write(text);
 
 		} catch (IOException e) {
@@ -28,7 +28,7 @@ public class EscreverProgramaObj {
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(
-					"/home/carlsen/Desktop/Faculdade/Compiladores/Projetos/Virtual-Machine/programaObj.txt"));
+					"CSD/codigoFonte.txt"));
 			writer.write(text);
 
 		} catch (IOException e) {
