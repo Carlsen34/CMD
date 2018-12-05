@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 public class AnalisadorSintatico {
 
 	static Stack tokenAS = new Stack();
+	static Stack tokenASerror = new Stack();
 	static int nivel = 0;
 	static String tipo;
 	static int rotulo = 1;
@@ -17,11 +18,30 @@ public class AnalisadorSintatico {
 	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
 	static int countDalloc = 0;
 	static boolean flgExpressaoBooleana = true;
+	
+
+	public static void analisadorSintatico1(List<Token> token) {
+
+		for(int i = 0;i<token.size();i++) {
+			tokenAS.push(token.get(i).getLexema());
+			tokenAS.push(token.get(i).getSimbolo());
+			
+			tokenASerror.push(token.get(i).getNumLinha());
+			tokenASerror.push(token.get(i).getNumLinha());
+		}
+		
+		
+		analisadorSintatico();		
+		
+	}
+	
+
+	
 
 	public static void analisadorSintatico() {
 		String aux1 = "";
 		String aux2 = "";
-		tokenAS = AnalisadorLexico.token;
+		//tokenAS = AnalisadorLexico.token;
 		if (tokenAS.isEmpty())
 			Erro.tratarError1(0, "sintatico");
 		int i = 1;
@@ -709,4 +729,6 @@ public class AnalisadorSintatico {
 		i += 2;
 		return i;
 	}
+
+
 }

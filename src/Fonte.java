@@ -8,12 +8,15 @@ import java.util.Stack;
 
 public class Fonte {
 
-	Stack token = new Stack();
+	//Stack token = new Stack();
 	Stack nLinhas = new Stack();
+	static List<Token> token = new ArrayList<Token>();
+	
+	
+	
+	public String lerArquivoEdicao() {
 
-	public String lerArquivo() {
-
-		int numerosLinhas = 0;
+		int numerosLinhas = 1;
 		String aux = "";
 		try {
 			// Cria arquivo
@@ -34,28 +37,58 @@ public class Fonte {
 			e.printStackTrace();
 		}
 
+
 		return aux;
 	}
 
-	public void lerFonteLinha(String str) {
-		for (int i = 0; i < str.length(); i++) {
-			token.add(str.charAt(i));
-		}
-		token = AnalisadorLexico.eliminarComentario(token);
-		token = AnalisadorLexico.consumirEspaco(token);
 
+
+	public String lerArquivoCompilacao() {
+
+		int numerosLinhas = 1;
+		String aux = "";
+		try {
+			// Cria arquivo
+			File file = new File("CSD/codigoFonte.txt");
+
+			// Le o arquivo
+			FileReader ler = new FileReader("CSD/codigoFonte.txt");
+			BufferedReader reader = new BufferedReader(ler);
+			String linha;
+
+			while ((linha = reader.readLine()) != null) {
+			    
+				lerLFonteCaracter(linha,numerosLinhas);
+				numerosLinhas++;
+				aux = aux + linha + '\n';
+				linha = linha + " ";
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	      AnalisadorLexico.AnaliseLexica(token);
+
+		return aux;
 	}
 
+
+
+
 	public void lerLFonteCaracter(String linha, int numberLinhas) {
-		// Fazer loop infinito pra jogar os tokens para o analisador lexico, junto com o
-		// numero da linha
+		
+		char[] letras = null;
+		letras = linha.toCharArray();
+	
+		for(int i = 0; i<letras.length;i++) {
+			Token t = new Token();
+			t.setLexema(String.valueOf(letras[i]));
+			t.setNumLinha(numberLinhas);
+			token.add(t);
 
-		if (linha.length() == 0) {
-			token.add(' ');
 		}
-		for (int i = 0; i < linha.length(); i++) {
-			token.add(linha.charAt(i));
+		
 
-		}
 	}
 }

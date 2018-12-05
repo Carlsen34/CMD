@@ -31,7 +31,6 @@ public class GeradorCodigo {
 				flgAux = false;
 			}
 			
-		
 	}
 	
 	public static int returnIndex(String lexema,int nivel) {

@@ -18,7 +18,7 @@ public class Janela extends JFrame implements ActionListener {
 	JButton compilar = new JButton();
 	JButton apagar = new JButton();
 	Fonte fonte = new Fonte();
-	String aux = fonte.lerArquivo();
+	String aux = fonte.lerArquivoEdicao();
 
 	public Janela() {
 
@@ -57,7 +57,8 @@ public class Janela extends JFrame implements ActionListener {
 		if (e.getSource() == compilar) {
 			String valor = area.getText();
 			EscreverProgramaObj.EscreverCodigoFonte(valor);
-			fonte.lerFonteLinha(valor);
+			fonte.lerArquivoCompilacao();
+
 		}
 
 		if (e.getSource() == apagar) {
