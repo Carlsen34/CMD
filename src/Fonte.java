@@ -57,11 +57,10 @@ public class Fonte {
 			String linha;
 
 			while ((linha = reader.readLine()) != null) {
-			    
-				lerLFonteCaracter(linha,numerosLinhas);
+			  
+				lerLFonteCaracter(linha + "\n",numerosLinhas);
 				numerosLinhas++;
-				aux = aux + linha + '\n';
-				linha = linha + " ";
+			
 			}
 
 		} catch (IOException e) {

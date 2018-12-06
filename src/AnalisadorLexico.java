@@ -366,14 +366,14 @@ public class AnalisadorLexico {
 
 	private static void tratarComentarioEspaco(List<Token> token, int i) {
 		
-		while(token.get(i).getLexema().equals(" ") || token.get(i).getLexema().equals("{")|| token.get(i).getLexema().equals("\t")) {
+		while(token.get(i).getLexema().equals(" ") || token.get(i).getLexema().equals("{")|| token.get(i).getLexema().equals("\t") || token.get(i).getLexema().equals("\n")) {
 	        if(token.get(i).getLexema().equals("{")) {
 	        	while(!token.get(i).getLexema().equals("}")) {
 	        		token.remove(i);
 	        	}
         		token.remove(i);
 	        }
-	        while(token.get(i).getLexema().equals(" ") || token.get(i).getLexema().equals("\t") ) {
+	        while(token.get(i).getLexema().equals(" ") || token.get(i).getLexema().equals("\t") || token.get(i).getLexema().equals("\n") ) {
         		token.remove(i);
 	        }
 
