@@ -12,16 +12,9 @@ public class AnalisadorLexico {
 
    public static void  AnaliseLexica(List<Token> token) {
 
-	    
-	     do {
 		   count++;
 		   tratarComentarioEspaco(token,count);
 		   pegaToken(token,count);
-	     }while(!token1.get(token1.size()-1).getLexema().equals("."));
-		   
-	    
-	       
-	     print(token1);
 		 
 	    AnalisadorSintatico.analisadorSintatico1(token1);
 
@@ -29,13 +22,12 @@ public class AnalisadorLexico {
 	   
    }
 	
-   public static int chamarToken(List<Token> token) {
+   public static void chamarToken(List<Token> token) {
 	   
 	   count++;
 	   tratarComentarioEspaco(token,count);
 	   pegaToken(token,count);
 
-	   return token1.size();
    
 }
 	

@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +19,16 @@ public class AnalisadorSintatico {
 	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
 	static int countDalloc = 0;
 	static boolean flgExpressaoBooleana = true;
-	
+	static int contadorPegaToken = 0;
 
 	public static void analisadorSintatico1(List<Token> token) {
+		
+		tokenAS.push(token.get(contadorPegaToken).getLexema());
+		tokenAS.push(token.get(contadorPegaToken).getSimbolo());
+		tokenASerror.push(token.get(contadorPegaToken).getNumLinha());
+		tokenASerror.push(token.get(contadorPegaToken).getNumLinha());
 
-		for(int i = 0;i<token.size();i++) {
-			tokenAS.push(token.get(i).getLexema());
-			tokenAS.push(token.get(i).getSimbolo());
-			
-			tokenASerror.push(token.get(i).getNumLinha());
-			tokenASerror.push(token.get(i).getNumLinha());
-		}
-		
-		
 		analisadorSintatico();		
-		
 	}
 	
 
@@ -727,6 +723,14 @@ public class AnalisadorSintatico {
 
 	public static int pegarToken(int i) {
 		i += 2;
+		contadorPegaToken++;
+		AnalisadorLexico.chamarToken(Fonte.token);
+		tokenAS.push(AnalisadorLexico.token1.get(contadorPegaToken).getLexema());
+		tokenAS.push(AnalisadorLexico.token1.get(contadorPegaToken).getSimbolo());
+		tokenASerror.push(AnalisadorLexico.token1.get(contadorPegaToken).getNumLinha());
+		tokenASerror.push(AnalisadorLexico.token1.get(contadorPegaToken).getNumLinha());
+		
+		
 		return i;
 	}
 
