@@ -357,12 +357,12 @@ public class AnalisadorSintatico {
 		i = analiseFator(i);
 		String aux = "";
 		while (Simbolo.smult.equals(tokenAS.get(i)) || Simbolo.sdiv.equals(tokenAS.get(i))
-				|| Simbolo.sse.equals(tokenAS.get(i))) {
+				|| Simbolo.se.equals(tokenAS.get(i))) {
 			if (Simbolo.smult.equals(tokenAS.get(i)))
 				aux = "MULT";
 			if (Simbolo.sdiv.equals(tokenAS.get(i)))
 				aux = "DIVI";
-			if (Simbolo.sse.equals(tokenAS.get(i))) {
+			if (Simbolo.se.equals(tokenAS.get(i))) {
 				aux = "AND";
 				AnalisadorSemantico.expressão.clear();
 			}

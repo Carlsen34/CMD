@@ -32,7 +32,7 @@ public class Simbolo {
 	static final String smenos = "smenos";
 	static final String smult = "smult";
 	static final String sdiv = "sdiv";
-	static final String se = "sse";
+	static final String se = "se";
 	static final String sou = "sou";
 	static final String snao = "snao";
 	static final String sdoispontos = "sdoispontos";
