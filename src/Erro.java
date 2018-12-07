@@ -16,6 +16,8 @@ public class Erro {
 
 		}
 		if(tipo.equals("sintatico")) {
+			String aux1 = "";
+
 			JOptionPane.showMessageDialog(null,"Error Sintatico:"  +" "+ AnalisadorSintatico.tokenAS.get(i-1));
 			JOptionPane.showMessageDialog(null,"Error Sintatico na Linha :"  +" "+ AnalisadorSintatico.tokenASerror.get(i-1));
 			FlgError = false;

@@ -30,6 +30,18 @@ public class Limpar {
 		AnalisadorLexico.token1.clear();
 		
 		
+		GeradorCodigo.pilhaVar.clear();
+		GeradorCodigo.auxDalloc.clear();
+		GeradorCodigo.flgAux = false;
+		GeradorCodigo.auxParam3 = 0;
+		GeradorCodigo.auxParam4 = 0;
+		GeradorCodigo.auxRetornoFuncao = 0;
+		GeradorCodigo.auxRetornoFuncaoTipo = false;
+		GeradorCodigo.programaObjeto = "";
+		
+		
+		
+
 		
 		Fonte.token.clear();
 		

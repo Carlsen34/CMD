@@ -19,9 +19,9 @@ public class Janela extends JFrame implements ActionListener {
 	JButton apagar = new JButton();
 	Fonte fonte = new Fonte();
 	String aux = fonte.lerArquivoEdicao();
+	JLabel label = new JLabel();
 
 	public Janela() {
-
 		
 		tela.add(area);
 		area.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -31,6 +31,8 @@ public class Janela extends JFrame implements ActionListener {
 
 		JScrollPane scroll = new JScrollPane(area);
 		scroll.setPreferredSize(new Dimension(700, 500));
+		TextLineNumber contadorLinhas = new TextLineNumber(area);
+		scroll.setRowHeaderView(contadorLinhas);
 		tela.add(scroll);
 		tela.setLayout(new FlowLayout());
 		tela.setSize(1300, 700);
