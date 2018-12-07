@@ -9,7 +9,6 @@ import java.util.Stack;
 public class Fonte {
 
 	//Stack token = new Stack();
-	Stack nLinhas = new Stack();
 	static List<Token> token = new ArrayList<Token>();
 	
 	

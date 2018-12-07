@@ -11,7 +11,7 @@ public class AnalisadorSintatico {
 	static Stack tokenAS = new Stack();
 	static Stack tokenASerror = new Stack();
 	static int nivel = 0;
-	static String tipo;
+	static String tipo = "";
 	static int rotulo = 1;
 	static int allocAux1 = 0;
 	static int countAlloc = 0;
@@ -22,16 +22,16 @@ public class AnalisadorSintatico {
 	static int contadorPegaToken = 0;
 
 	public static void analisadorSintatico1(List<Token> token) {
-		
+		try {
 		tokenAS.push(token.get(contadorPegaToken).getLexema());
 		tokenAS.push(token.get(contadorPegaToken).getSimbolo());
 		tokenASerror.push(token.get(contadorPegaToken).getNumLinha());
 		tokenASerror.push(token.get(contadorPegaToken).getNumLinha());
-
 		analisadorSintatico();		
+		}catch(ArrayIndexOutOfBoundsException exception) {
+		}
 	}
 	
-
 	
 
 	public static void analisadorSintatico() {
@@ -77,6 +77,7 @@ public class AnalisadorSintatico {
 		i = analisaEtVariaveis(i);
 		i = analisaSubrotinas(i);
 		i = analisaComandos(i);
+		
 
 		return i;
 
@@ -106,12 +107,22 @@ public class AnalisadorSintatico {
 		return i;
 	}
 
-	private static void fimAnalisador(int i) {
-
+	static void fimAnalisador(int i) {
+        if(Erro.FlgError) {
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		EscreverProgramaObj.EscreverProgramaObjeto(GeradorCodigo.programaObjeto);
 
 		new Vm();
+        }else {
+        	
+        	Limpar.limpar();
+        	
+//        	tokenAS.clear();
+//            tokenASerror.clear();
+//        	AnalisadorSemantico.simbolos.clear();
+        	classTeste.main(null);
+        	Erro.FlgError = true;
+        }
 
 	}
 
@@ -724,6 +735,7 @@ public class AnalisadorSintatico {
 	}
 
 	public static int pegarToken(int i) {
+		try {
 		i += 2;
 		contadorPegaToken++;
 		AnalisadorLexico.chamarToken(Fonte.token);
@@ -731,7 +743,8 @@ public class AnalisadorSintatico {
 		tokenAS.push(AnalisadorLexico.token1.get(contadorPegaToken).getSimbolo());
 		tokenASerror.push(AnalisadorLexico.token1.get(contadorPegaToken).getNumLinha());
 		tokenASerror.push(AnalisadorLexico.token1.get(contadorPegaToken).getNumLinha());
-		
+		}catch(IndexOutOfBoundsException exception) {
+		}
 		
 		return i;
 	}

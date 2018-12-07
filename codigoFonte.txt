@@ -7,9 +7,8 @@ var x:inteiro;
 inicio
 
 x := 3;
-
 se nao 1>3
-entao
+entao  
 escreva(x);
 
 fim.         
