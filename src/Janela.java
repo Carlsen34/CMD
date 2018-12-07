@@ -22,6 +22,7 @@ public class Janela extends JFrame implements ActionListener {
 
 	public Janela() {
 
+		
 		tela.add(area);
 		area.setBorder(BorderFactory.createLineBorder(Color.black));
 		area.setBackground(Color.white);
@@ -31,7 +32,6 @@ public class Janela extends JFrame implements ActionListener {
 		JScrollPane scroll = new JScrollPane(area);
 		scroll.setPreferredSize(new Dimension(700, 500));
 		tela.add(scroll);
-
 		tela.setLayout(new FlowLayout());
 		tela.setSize(1300, 700);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
