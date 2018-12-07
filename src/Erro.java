@@ -4,7 +4,6 @@ public class Erro {
 
 
 	
-	
 	public static void tratarError1(int i, String tipo) {
 		String aux = "";
 	

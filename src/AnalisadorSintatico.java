@@ -225,7 +225,7 @@ public class AnalisadorSintatico {
 			auxrot2 = rotulo;
 			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L" + Integer.toString(auxrot2), "");
 			rotulo++;
-			if (Simbolo.sponto_virgula.equals(tokenAS.get(i)) && Simbolo.ssenao.equals(tokenAS.get(i + 2))) {
+			if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
 				i = pegarToken(i);
 			}
 			if (Simbolo.ssenao.equals(tokenAS.get(i))) {
@@ -402,8 +402,10 @@ public class AnalisadorSintatico {
 			} else {
 				if (Simbolo.snao.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
-					i = analiseFator(i);
+					//i = analiseFator(i);
+					i = analiseExpressao(i);
 					GeradorCodigo.exibir_codigo_objeto("", "NEG", "", "");
+
 
 				} else {
 					if (Simbolo.sabre_parenteses.equals(tokenAS.get(i))) {
