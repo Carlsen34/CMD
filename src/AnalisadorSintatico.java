@@ -127,7 +127,7 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analisaComandoSimples(int i) {
-		AnalisadorSemantico.validar_tipoAUX(i);
+			AnalisadorSemantico.validar_tipoAUX(i);
 		String aux = "";
 		int aux1 = 0;
 		if (Simbolo.sidentificador.equals(tokenAS.get(i))) {
@@ -236,9 +236,7 @@ public class AnalisadorSintatico {
 			auxrot2 = rotulo;
 			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L" + Integer.toString(auxrot2), "");
 			rotulo++;
-			if (Simbolo.sponto_virgula.equals(tokenAS.get(i))) {
-				i = pegarToken(i);
-			}
+
 			if (Simbolo.ssenao.equals(tokenAS.get(i))) {
 				GeradorCodigo.exibir_codigo_objeto("L" + Integer.toString(auxrot), "NULL", "", "");
 				i = pegarToken(i);
@@ -413,8 +411,8 @@ public class AnalisadorSintatico {
 			} else {
 				if (Simbolo.snao.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
-					//i = analiseFator(i);
-					i = analiseExpressao(i);
+					i = analiseFator(i);
+					//i = analiseExpressao(i);
 					GeradorCodigo.exibir_codigo_objeto("", "NEG", "", "");
 
 
