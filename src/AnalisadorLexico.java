@@ -249,7 +249,7 @@ public class AnalisadorLexico {
 			flgIdentificador = false;
 			t.setSimbolo("sse");
 		}
-		if(aux.equals("entao")) {
+		if(aux.equals("entao") || aux.equals("então")) {
 			flgIdentificador = false;
 			t.setSimbolo("sentao");
 		}
@@ -261,7 +261,7 @@ public class AnalisadorLexico {
 			flgIdentificador = false;
 			t.setSimbolo("sfaca");
 		}
-		if(aux.equals("inicio")) {
+		if(aux.equals("inicio") || aux.equals("início")) {
 			flgIdentificador = false;
 			t.setSimbolo("sinicio");
 		}
@@ -301,11 +301,11 @@ public class AnalisadorLexico {
 			flgIdentificador = false;
 			t.setSimbolo("sprocedimento");
 		}
-		if(aux.equals("senao")) {
+		if(aux.equals("senao") || aux.equals("senão")) {
 			flgIdentificador = false;
 			t.setSimbolo("ssenao");
 		}
-		if(aux.equals("funcao")) {
+		if(aux.equals("funcao") || aux.equals("funcão")) {
 			flgIdentificador = false;
 			t.setSimbolo("sfuncao");
 		}
@@ -321,7 +321,7 @@ public class AnalisadorLexico {
 			flgIdentificador = false;
 			t.setSimbolo("sou");
 		}
-		if(aux.equals("nao")) {
+		if(aux.equals("nao") || aux.equals("não")) {
 			flgIdentificador = false;
 			t.setSimbolo("snao");
 		}
@@ -346,7 +346,7 @@ public class AnalisadorLexico {
 	private static void print(List<Token> token1) {
 
 		for(int i =0;i<token1.size();i++) {
-			System.out.println(token1.get(i).getLexema());
+			//	System.out.println(token1.get(i).getLexema());
 			//System.out.println(token1.get(i).getSimbolo());
 			//System.out.println(token1.get(i).getNumLinha());
 
@@ -408,6 +408,7 @@ public class AnalisadorLexico {
 				|| aux.equals("i") || aux.equals("j") || aux.equals("u") || aux.equals("v") || aux.equals("x")
 				|| aux.equals("w") || aux.equals("y") || aux.equals("z") || aux.equals("ã") || aux.equals("á")
 				|| aux.equals("é") || aux.equals("i") || aux.equals("ç") || aux.equals("_")) {
+			
 			return true;
 		}
 		return false;

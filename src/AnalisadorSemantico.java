@@ -101,7 +101,6 @@ public class AnalisadorSemantico {
 			}
 		}
 
-		// if(pesquisa_declfunc_tabela(lexema, "funcao", nivel, rotulo)) return false;
 
 		return true;
 	}
@@ -151,7 +150,7 @@ public class AnalisadorSemantico {
 	}
 
 	public static void validar_tipo(String lexema, String tipo) {
-		expressão.add(lexema);
+		expressão.add(lexema);// adiciona em uma pilha todos os valores da expressão, para poder validar os tipos da expressão
 	}
 
 	public static void validar_tipoAUX(int numAux) {
@@ -161,12 +160,12 @@ public class AnalisadorSemantico {
 			if(expressão.get(i).toString().equals("verdadeiro") || expressão.get(i).toString().equals("falso")) aux = "sbooleano";
 			else aux = retorna_tipo(expressão.get(i).toString());
 			if (aux != null) {
-				aux1.add(aux);
+				aux1.add(aux);  // insere o tipo dos valores da expressão na pilha aux
 			}
 		}
-
+		
 		for (int i = 0; i < aux1.size() - 1; i++) {
-			if (aux1.get(i) != aux1.get(i + 1)) {
+			if (aux1.get(i) != aux1.get(i + 1)) { //Caso os tipos forem diferentes exibir erro 
 				JOptionPane.showMessageDialog(null,"Erro Semantico: TIPOS INVALIDOS");
 				Erro.tratarError1(numAux, "semantico");
 			}

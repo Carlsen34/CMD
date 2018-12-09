@@ -39,8 +39,6 @@ public class Limpar {
 		GeradorCodigo.auxRetornoFuncaoTipo = false;
 		GeradorCodigo.programaObjeto = "";
 		
-		
-		
 
 		
 		Fonte.token.clear();

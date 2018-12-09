@@ -111,16 +111,13 @@ public class AnalisadorSintatico {
         if(Erro.FlgError) {
 		JOptionPane.showMessageDialog(null, "Codigo Compilado Com Sucesso");
 		EscreverProgramaObj.EscreverProgramaObjeto(GeradorCodigo.programaObjeto);
-
+		
 		new Vm();
         }else {
         	
         	Limpar.limpar();
         	
-//        	tokenAS.clear();
-//            tokenASerror.clear();
-//        	AnalisadorSemantico.simbolos.clear();
-        	classTeste.main(null);
+        	new CSD();
         	Erro.FlgError = true;
         }
 
@@ -175,6 +172,7 @@ public class AnalisadorSintatico {
 				Erro.tratarError1(i - 3, "semantico");
 			}
 			i = analisaAtribuicao(i);
+			
 			if (!AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 3).toString(), "funcao", nivel, "")) {
 				rotuloAux = GeradorCodigo.returnRotulo(tokenAS.get(i - 3).toString());
 				GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
