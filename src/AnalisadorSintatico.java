@@ -309,6 +309,8 @@ public class AnalisadorSintatico {
 				flgExpressaoBooleana = true;
 			}
 
+			AnalisadorSemantico.validar_tipo(tokenAS.get(i).toString(), "");
+			
 			i = pegarToken(i);
 			i = analiseExpressaoSimples(i);
 

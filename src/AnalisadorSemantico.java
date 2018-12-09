@@ -155,17 +155,43 @@ public class AnalisadorSemantico {
 
 	public static void validar_tipoAUX(int numAux) {
 		String aux;
+		boolean isBool = false;
 		Stack aux1 = new Stack();
+		
+		
 		for (int i = 0; i < expressão.size(); i++) {
 			if(expressão.get(i).toString().equals("verdadeiro") || expressão.get(i).toString().equals("falso")) aux = "sbooleano";
+			else if(expressão.get(i).toString().equals("smaior")||
+			expressão.get(i).toString().equals("smaiorig")||	
+			expressão.get(i).toString().equals("smenor")||
+			expressão.get(i).toString().equals("smenorig")||
+			expressão.get(i).toString().equals("sdif")||
+			expressão.get(i).toString().equals("sig")) {
+				aux = "isBoolean";
+			}
 			else aux = retorna_tipo(expressão.get(i).toString());
 			if (aux != null) {
 				aux1.add(aux);  // insere o tipo dos valores da expressão na pilha aux
 			}
 		}
 		
+		
 		for (int i = 0; i < aux1.size() - 1; i++) {
-			if (aux1.get(i) != aux1.get(i + 1)) { //Caso os tipos forem diferentes exibir erro 
+			aux = aux1.get(0).toString();
+			if(aux.equals("sbooleano") && aux1.get(i).equals("isBoolean")) {
+				isBool =true;
+			
+			}
+			if(aux1.get(i).equals("isBoolean")) {
+				aux1.remove(i);
+
+			}
+	
+		}
+		
+		
+		for (int i = 0; i < aux1.size() - 1; i++) {
+				if (aux1.get(i) != aux1.get(i + 1) && !isBool) { //Caso os tipos forem diferentes exibir erro 
 				JOptionPane.showMessageDialog(null,"Erro Semantico: TIPOS INVALIDOS");
 				Erro.tratarError1(numAux, "semantico");
 			}
