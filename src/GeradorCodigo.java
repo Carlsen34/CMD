@@ -37,9 +37,9 @@ public class GeradorCodigo {
 		int aux = pilhaVar.lastIndexOf(lexema);
 		int count =0;
 		
-		for(int i = 0; i<AnalisadorSemantico.simbolos.size();i++) {
-		if(AnalisadorSemantico.simbolos.get(i).getTipoLexema().equals("var")) {
-		if(AnalisadorSemantico.simbolos.get(i).getLexema().equals(lexema) && AnalisadorSemantico.simbolos.get(i).nivel <= nivel){
+		for(int i = 0; i<AnalisadorSemantico.tabelaSimbolo.size();i++) {
+		if(AnalisadorSemantico.tabelaSimbolo.get(i).getTipoLexema().equals("var")) {
+		if(AnalisadorSemantico.tabelaSimbolo.get(i).getLexema().equals(lexema) && AnalisadorSemantico.tabelaSimbolo.get(i).nivel <= nivel){
 		aux = count;
 		}
 		count ++;
@@ -52,9 +52,9 @@ public class GeradorCodigo {
 	}
 	
 	public static String returnRotulo(String lexema) {
-		for(int i = 0; i<AnalisadorSemantico.simbolos.size();i++) {
-			if(lexema.equals(AnalisadorSemantico.simbolos.get(i).getLexema())) {
-				return AnalisadorSemantico.simbolos.get(i).getRotulo();
+		for(int i = 0; i<AnalisadorSemantico.tabelaSimbolo.size();i++) {
+			if(lexema.equals(AnalisadorSemantico.tabelaSimbolo.get(i).getLexema())) {
+				return AnalisadorSemantico.tabelaSimbolo.get(i).getRotulo();
 			}
 		}
 		

@@ -21,7 +21,7 @@ public class Limpar {
 		
 		
 		
-		AnalisadorSemantico.simbolos.clear();
+		AnalisadorSemantico.tabelaSimbolo.clear();
 		AnalisadorSemantico.expressão = new Stack();
 		AnalisadorSemantico.errorToken = new Stack();
 		

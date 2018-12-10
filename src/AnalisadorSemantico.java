@@ -5,20 +5,20 @@ import java.util.Stack;
 import javax.swing.JOptionPane;
 
 public class AnalisadorSemantico {
-	static List<TabelaSimbolos> simbolos = new ArrayList<TabelaSimbolos>();
+	static List<Simbolo> tabelaSimbolo = new ArrayList<Simbolo>();
 	static Stack expressão = new Stack();
 	static Stack errorToken = new Stack();
 	
 	// Metodo para inserir na tabela de simbolo
 	// Metodo testado e funcionando
 	public static void inserirTabela(String lexema, String tipoLexema, int nivel, String rotulo) {
-		TabelaSimbolos ts = new TabelaSimbolos();
+		Simbolo ts = new Simbolo();
 		ts.setLexema(lexema);
 		ts.setTipoLexema(tipoLexema);
 		ts.setNivel(nivel);
 		ts.setRotulo(rotulo);
 		ts.setTipo("");
-		simbolos.add(ts);
+		tabelaSimbolo.add(ts);
 
 	}
 
@@ -29,20 +29,20 @@ public class AnalisadorSemantico {
 	 */
 
 	public static boolean pesquisar_duplicvar_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
-		for (int i = 0; i < simbolos.size(); i++) {
-			if (simbolos.get(i).getLexema().equals(lexema)) {
-				if (simbolos.get(i).getTipoLexema().equals("var")) { // Verificar se o lexema é uma variavel e está no
+		for (int i = 0; i < tabelaSimbolo.size(); i++) {
+			if (tabelaSimbolo.get(i).getLexema().equals(lexema)) {
+				if (tabelaSimbolo.get(i).getTipoLexema().equals("var")) { // Verificar se o lexema é uma variavel e está no
 																		// mesmo nivel
-					if (simbolos.get(i).getNivel() == nivel) { // Caso o nivel seja diferente a variavel pode ser
+					if (tabelaSimbolo.get(i).getNivel() == nivel) { // Caso o nivel seja diferente a variavel pode ser
 																// declarada novamente
 						return false;
 					}
 				} else {
-					if (simbolos.get(i).getTipoLexema().equals("nomedeprograma")
-							|| simbolos.get(i).getTipoLexema().equals("procedimento") // Caso o lexema seja nome do
+					if (tabelaSimbolo.get(i).getTipoLexema().equals("nomedeprograma")
+							|| tabelaSimbolo.get(i).getTipoLexema().equals("procedimento") // Caso o lexema seja nome do
 																						// programa,procedimento ou
 																						// funcao
-							|| simbolos.get(i).getTipoLexema().equals("funcao")) { // Indiferente se o nivel seja
+							|| tabelaSimbolo.get(i).getTipoLexema().equals("funcao")) { // Indiferente se o nivel seja
 																					// diferente
 						return false; // A variavel não pode ser declarada
 					}
@@ -55,10 +55,10 @@ public class AnalisadorSemantico {
 	// Pesqusiar se a variavel já esta declarada
 	// Metodo testado e funcionando
 	public static boolean pesquisa_declvar_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
-		for (int i = 0; i < simbolos.size(); i++) {
-			if (simbolos.get(i).getLexema().equals(lexema)) {
-				if (simbolos.get(i).getTipoLexema().equals("var")) {
-					if (simbolos.get(i).getNivel() <= nivel) {
+		for (int i = 0; i < tabelaSimbolo.size(); i++) {
+			if (tabelaSimbolo.get(i).getLexema().equals(lexema)) {
+				if (tabelaSimbolo.get(i).getTipoLexema().equals("var")) {
+					if (tabelaSimbolo.get(i).getNivel() <= nivel) {
 						return true;
 					}
 				}
@@ -72,16 +72,16 @@ public class AnalisadorSemantico {
 
 	public static boolean pesquisa_declvarfunc_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
 		if (tipoLexema.equals("funcao")) {
-			for (int i = 0; i < simbolos.size(); i++) {
-				if (simbolos.get(i).getLexema().equals(lexema)) {
+			for (int i = 0; i < tabelaSimbolo.size(); i++) {
+				if (tabelaSimbolo.get(i).getLexema().equals(lexema)) {
 					return true;
 				}
 			}
 		}
 		if (tipoLexema.equals("var")) {
-			for (int i = 0; i < simbolos.size(); i++) {
-				if (simbolos.get(i).getLexema().equals(lexema)) {
-					if (simbolos.get(i).getNivel() <= nivel) {
+			for (int i = 0; i < tabelaSimbolo.size(); i++) {
+				if (tabelaSimbolo.get(i).getLexema().equals(lexema)) {
+					if (tabelaSimbolo.get(i).getNivel() <= nivel) {
 						return true;
 					}
 				}
@@ -93,9 +93,9 @@ public class AnalisadorSemantico {
 	// Pesquisar se há duplicidade na declaração de um procedimento
 	public static boolean pesquisa_declproc_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
 
-		for (int i = 0; i < simbolos.size(); i++) {
-			if (simbolos.get(i).getLexema().equals(lexema)) {
-				if (tipoLexema.equals(simbolos.get(i).getTipoLexema())) {
+		for (int i = 0; i < tabelaSimbolo.size(); i++) {
+			if (tabelaSimbolo.get(i).getLexema().equals(lexema)) {
+				if (tipoLexema.equals(tabelaSimbolo.get(i).getTipoLexema())) {
 					return false;
 				}
 			}
@@ -107,8 +107,8 @@ public class AnalisadorSemantico {
 
 	// Pesquisar se há duplicidade na declaração de uma funcao
 	public static boolean pesquisa_declfunc_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
-		for (int i = 0; i < simbolos.size(); i++) {
-			if (simbolos.get(i).getLexema().equals(lexema) && simbolos.get(i).getTipoLexema().equals(tipoLexema)) {
+		for (int i = 0; i < tabelaSimbolo.size(); i++) {
+			if (tabelaSimbolo.get(i).getLexema().equals(lexema) && tabelaSimbolo.get(i).getTipoLexema().equals(tipoLexema)) {
 				return false;
 			}
 		}
@@ -127,22 +127,22 @@ public class AnalisadorSemantico {
 			String tipo) {
 
 		if (tipoLexema.equals("var")) {
-			for (int i = 0; i < simbolos.size(); i++) {
-				if (simbolos.get(i).getTipo().equals("") || simbolos.get(i).getTipo().equals(null)) {
-					if (!simbolos.get(i).getTipoLexema().equals("nomedeprograma")
-							&& !simbolos.get(i).getTipoLexema().equals("procedimento")) {
-						simbolos.get(i).setTipo(tipo);
+			for (int i = 0; i < tabelaSimbolo.size(); i++) {
+				if (tabelaSimbolo.get(i).getTipo().equals("") || tabelaSimbolo.get(i).getTipo().equals(null)) {
+					if (!tabelaSimbolo.get(i).getTipoLexema().equals("nomedeprograma")
+							&& !tabelaSimbolo.get(i).getTipoLexema().equals("procedimento")) {
+						tabelaSimbolo.get(i).setTipo(tipo);
 					}
 				}
 			}
 		}
 
 		if (tipoLexema.equals("funcao")) {
-			for (int i = 0; i < simbolos.size(); i++) {
-				if (simbolos.get(i).getTipo().equals("") || simbolos.get(i).getTipo().equals(null)) {
-					if (!simbolos.get(i).getTipoLexema().equals("nomedeprograma")
-							&& !simbolos.get(i).getTipoLexema().equals("procedimento")) {
-						simbolos.get(i).setTipo(tipo);
+			for (int i = 0; i < tabelaSimbolo.size(); i++) {
+				if (tabelaSimbolo.get(i).getTipo().equals("") || tabelaSimbolo.get(i).getTipo().equals(null)) {
+					if (!tabelaSimbolo.get(i).getTipoLexema().equals("nomedeprograma")
+							&& !tabelaSimbolo.get(i).getTipoLexema().equals("procedimento")) {
+						tabelaSimbolo.get(i).setTipo(tipo);
 					}
 				}
 			}
@@ -199,10 +199,10 @@ public class AnalisadorSemantico {
 		expressão.clear();
 	}
 
-	public static void remover_nivel_simbolos(int nivel) {
-		for (int i = 0; i < simbolos.size(); i++) {
-			if (simbolos.get(i).getNivel() == nivel) {
-				simbolos.remove(i);
+	public static void remover_nivel_tabelaSimbolo(int nivel) {
+		for (int i = 0; i < tabelaSimbolo.size(); i++) {
+			if (tabelaSimbolo.get(i).getNivel() == nivel) {
+				tabelaSimbolo.remove(i);
 				i--;
 			}
 
@@ -221,9 +221,9 @@ public class AnalisadorSemantico {
 			return "sinteiro";
 		}
 
-		for (int i = simbolos.size() - 1; i > 0; i--) {
-			if (simbolos.get(i).getLexema().equals(lexema)) {
-				return simbolos.get(i).getTipo();
+		for (int i = tabelaSimbolo.size() - 1; i > 0; i--) {
+			if (tabelaSimbolo.get(i).getLexema().equals(lexema)) {
+				return tabelaSimbolo.get(i).getTipo();
 			}
 		}
 
