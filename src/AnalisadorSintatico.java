@@ -175,6 +175,10 @@ public class AnalisadorSintatico {
 			
 			if (!AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 3).toString(), "funcao", nivel, "")) {
 				rotuloAux = GeradorCodigo.returnRotulo(tokenAS.get(i - 3).toString());
+				if(rotuloAux.equals("-1")) {
+					JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
+					Erro.tratarError1(i, "semantico");
+				}
 				GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
 			}
 
@@ -191,6 +195,10 @@ public class AnalisadorSintatico {
 			Erro.tratarError1(i - 3, "semantico");
 		} else {
 			rotuloAux = GeradorCodigo.returnRotulo(tokenAS.get(i - 3).toString());
+			if(rotuloAux.equals("-1")) {
+				JOptionPane.showMessageDialog(null, "Erro Semantico: PROCEDIMENTO NÃO DECLARADO");
+				Erro.tratarError1(i, "semantico");
+			}
 			GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
 		}
 
@@ -501,6 +509,10 @@ public class AnalisadorSintatico {
 				} else {
 					if (AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
 						rotuloAux = GeradorCodigo.returnRotulo(tokenAS.get(i - 1).toString());
+						if(rotuloAux.equals("-1")) {
+							JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
+							Erro.tratarError1(i, "semantico");
+						}
 						GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
 						GeradorCodigo.exibir_codigo_objeto("", "PRN", "", "");
 					} else {

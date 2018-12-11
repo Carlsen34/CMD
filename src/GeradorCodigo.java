@@ -59,7 +59,7 @@ public class GeradorCodigo {
 		}
 		
 		
-		return "O";
+		return "-1";
 		
 	}
 	

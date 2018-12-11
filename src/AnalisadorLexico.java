@@ -393,7 +393,7 @@ public class AnalisadorLexico {
 	public static boolean isExpressao(String aux) {
 		if (aux.equals("(") || aux.equals(")") || aux.equals("!") || aux.equals("=") || aux.equals("<")
 				|| aux.equals(">") || aux.equals(":") || aux.equals(";") || aux.equals(".") || aux.equals(",")
-				|| aux.equals("_") || aux.equals("+") || aux.equals("-") || aux.equals("*")) {
+				 || aux.equals("+") || aux.equals("-") || aux.equals("*")) {
 			return true;
 		}
 		return false;
@@ -407,7 +407,7 @@ public class AnalisadorLexico {
 				|| aux.equals("p") || aux.equals("q") || aux.equals("r") || aux.equals("s") || aux.equals("t")
 				|| aux.equals("i") || aux.equals("í") || aux.equals("j") || aux.equals("u") || aux.equals("v") || aux.equals("x")
 				|| aux.equals("w") || aux.equals("y") || aux.equals("z") || aux.equals("ã") || aux.equals("á")
-				|| aux.equals("é") || aux.equals("i") || aux.equals("ç") || aux.equals("_")) {
+				|| aux.equals("é") || aux.equals("i") || aux.equals("ç")) {
 			
 			return true;
 		}
