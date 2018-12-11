@@ -1,47 +1,35 @@
+programa test1;
 
+var a,b,c: inteiro;
 
-programa testefinal; 
-
-var opcao,x,y,total:inteiro;
-    k:booleano;
-
-
-procedimento numeros;
-var x,y: inteiro;
-
-procedimento dobro;
-var media: inteiro;
+{proc 1}
+procedimento analisa1;
+var a, x: inteiro;
+       z: booleano;
 inicio
-  media:=(x+y)*2;
-  escreva(media)
+  se x!1  entao
+      x:= 0;
+      leia(z)
+  enquanto (a != 89) e (a<= 1000)  {condicao de parada}
+  faca inicio
+           a:= x+z
+       fim;
+  escreva(a)
+fim;
+
+
+procedimento analisa2;
+inicio
+  leia(a);
+  b:= a*a+(c div b) 
 fim;
 
 inicio
-  leia(x);
-  leia(y);
-  total:= x+y;         {ERRO variavel nao declarada}
-  escreva(total);  {soma dos numeros lidos}  
-  dobro            {Calcula a media aritmetica dos numeros lidos}
-fim;
+    analisa1;
+    analisa2;
+    se b > (c+ a*a)
+    entao escreva(b)
+    senao escreva(c)
+fim.
 
-procedimento p;               {calcula fatouial de um numero lido}
-var total,z: inteiro;
-inicio
-  z:= x; x:=x-1;
-  se  z>1 entao p  {recursivo} 
-  senao  y:=1;
-  y:=y*z               
-fim { p };
-
-inicio
-  leia(opcao);
-  k:=verdadeiro;
-  escreva(k);
-  se opcao > 1 
-  entao numeros
-  senao inicio
-         leia(x);
-         p;
-         escreva(y)
-       fim
-fim.         
+{fim}   
