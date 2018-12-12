@@ -393,16 +393,32 @@ public class AnalisadorSintatico {
 	}
 
 	private static int analiseFator(int i) {
+
 		tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 1).toString());
 		AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(), tipo);
 
 		int aux;
 		if (PalavraReservada.sidentificador.equals(tokenAS.get(i))) {
 			tipo = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 1).toString());
-			if (tipo.equals("sbooleano"))
+			if(tipo == null) {
+				JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
+				Erro.tratarError1(i, "semantico");
+			}
+			if (tipo.equals("sbooleano")) {
 				flgExpressaoBooleana = true;
-
+			}
 			AnalisadorSemantico.validar_tipo(tokenAS.get(i - 1).toString(), tipo);
+			
+			if (!AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 1).toString(), "funcao", nivel, "")) {
+				String rotuloAux = GeradorCodigo.returnRotulo(tokenAS.get(i - 1).toString());
+				if(rotuloAux.equals("-1")) {
+					JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO OU VARIAVEL NÃO DECLARADAS");
+					Erro.tratarError1(i, "semantico");
+				}
+				GeradorCodigo.exibir_codigo_objeto("", "CALL", rotuloAux, "");
+				
+			}
+
 			if (AnalisadorSemantico.pesquisa_declvarfunc_tabela(tokenAS.get(i - 1).toString(), "var", nivel, "")) {
 				aux = GeradorCodigo.returnIndex(tokenAS.get(i - 1).toString(), nivel);
 				if (aux != -1)
