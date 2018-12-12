@@ -33,8 +33,8 @@ leia(x);
 leia(y);
 d;
 escreva(x);
-x:= x+f1+y*x+1;
-escreva(x)
+x:= x+f1+y*x;
+escreva(x+y)
 fim.
 
 
