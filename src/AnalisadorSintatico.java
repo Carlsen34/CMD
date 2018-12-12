@@ -19,6 +19,7 @@ public class AnalisadorSintatico {
 	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
 	static int countDalloc = 0;
 	static boolean flgExpressaoBooleana = true;
+
 	static int contadorPegaToken = 0;
 
 	public static void analisadorSintatico1(List<Token> token) {
@@ -420,7 +421,6 @@ public class AnalisadorSintatico {
 				if (PalavraReservada.snao.equals(tokenAS.get(i))) {
 					i = pegarToken(i);
 					i = analiseFator(i);
-					//i = analiseExpressao(i);
 					GeradorCodigo.exibir_codigo_objeto("", "NEG", "", "");
 
 
@@ -653,6 +653,9 @@ public class AnalisadorSintatico {
 				allocAux.get(a).setParam1(Integer.toString(aux3));
 			}
 		}
+		
+		
+		
 
 		if (!aux1.equals("")) {
 			GeradorCodigo.exibir_codigo_objeto("", "RETURNF", aux1, aux2);
