@@ -34,7 +34,7 @@ leia(y);
 d;
 escreva(x);
 x:= x+f1+y*x;
-escreva(x+y)
+escreva(x)
 fim.
 
 
