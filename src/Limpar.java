@@ -17,6 +17,8 @@ public class Limpar {
 		AnalisadorSintatico.allocAux.clear();
 		AnalisadorSintatico.countDalloc = 0;
 		AnalisadorSintatico.flgExpressaoBooleana = true;
+		AnalisadorSintatico.flgRetornoFuncUltimaInstrucao = true;
+		AnalisadorSintatico.flgExistenciaRetorno =true;
 		AnalisadorSintatico.contadorPegaToken = 0;
 		
 		

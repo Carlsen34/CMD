@@ -19,6 +19,8 @@ public class AnalisadorSintatico {
 	static List<AllocDTO> allocAux = new ArrayList<AllocDTO>();
 	static int countDalloc = 0;
 	static boolean flgExpressaoBooleana = true;
+	static boolean flgExistenciaRetorno = true;
+	static boolean flgRetornoFuncUltimaInstrucao = true;
 
 	static int contadorPegaToken = 0;
 
@@ -126,6 +128,10 @@ public class AnalisadorSintatico {
 
 	private static int analisaComandoSimples(int i) {
 			AnalisadorSemantico.validar_tipoAUX(i);
+		if(!flgRetornoFuncUltimaInstrucao) {
+			JOptionPane.showMessageDialog(null, "Erro Semantico: Retorno ultima instrução função");
+			Erro.tratarError1(i, "semantico");
+		}
 		String aux = "";
 		int aux1 = 0;
 		if (PalavraReservada.sidentificador.equals(tokenAS.get(i))) {
@@ -210,6 +216,12 @@ public class AnalisadorSintatico {
 		String tipoAux = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 3).toString());
 		if (tipoAux.equals("sinteiro")) {
 			flgExpressaoBooleana = false;
+		}
+		
+		if(!AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i-3).toString(), "funcao", i, "")) {
+			flgRetornoFuncUltimaInstrucao = false;
+			flgExistenciaRetorno = true;
+			
 		}
 
 		i = pegarToken(i);
@@ -630,6 +642,8 @@ public class AnalisadorSintatico {
 	private static int analisaDeclaracaoFuncao(int i) {
 		String aux1 = "";
 		String aux2 = "";
+		flgExistenciaRetorno = false;
+
 		i = pegarToken(i); // ler proximo token
 		if (PalavraReservada.sidentificador.equals(tokenAS.get(i))) {
 			if (AnalisadorSemantico.pesquisa_declfunc_tabela(tokenAS.get(i - 1).toString(), "funcao", nivel, "")) {
@@ -678,6 +692,15 @@ public class AnalisadorSintatico {
 			GeradorCodigo.exibir_codigo_objeto("", "RETURNF", "", "");
 
 		}
+		
+		
+		if(!flgExistenciaRetorno) {
+			JOptionPane.showMessageDialog(null, "Erro Semantico: FUNÇÃO NÃO POSSUI VALOR DE RETORNO");
+			Erro.tratarError1(i, "semantico");
+		}
+		
+		
+		flgRetornoFuncUltimaInstrucao = true;
 		AnalisadorSemantico.validar_tipoAUX(i);
 		AnalisadorSemantico.remover_nivel_tabelaSimbolo(nivel);
 		nivel--;
