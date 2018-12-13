@@ -1,43 +1,41 @@
-programa testefinal1;
+programa test;
 
-var x,y, dobro: inteiro;
+var a,b: inteiro;
 
-procedimento d;
-  procedimento m;
-  var b: inteiro;
+
+funcao soma: inteiro;
+var c,a: inteiro;
+
+  procedimento ler;
   inicio
-      	b:= x*y;
+     leia (c);
+     leia (a);
+     escreva (soma);
+fim;
 
-	escreva(b);
+  procedimento loop;
+  var x: inteiro;
+  
+  funcao f2:inteiro;
+  inicio
+  
+  escreva(a);
+  f2:=10;
+  
   fim;
-inicio
-        m;
-	dobro:=x+x
-fim;
+  
+  
+  inicio
+    leia (x);   {para parar digite um valor maior que 9 }
+    se x < f2
+    entao ler;
+  fim;
 
-funcao f1:inteiro;
-var media, res: inteiro;
-inicio
-	media :=(x+y) div 2;
-	se x>y
-        entao
-   		res:=media
-	senao
-		res:=dobro;	
- 	f1:=res;
-     	
-fim;
+ inicio
+  loop;
+  soma:= c+a;
+ fim;
 
 inicio
-leia(x);
-leia(y);
-d;
-escreva(x);
-x:= x+f1+y*x;
-escreva(x)
+  escreva(soma)
 fim.
-
-
-
-
-

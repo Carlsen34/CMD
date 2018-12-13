@@ -54,7 +54,7 @@ public class GeradorCodigo {
 	public static String returnRotulo(String lexema) {
 		for(int i = 0; i<AnalisadorSemantico.tabelaSimbolo.size();i++) {
 			if(lexema.equals(AnalisadorSemantico.tabelaSimbolo.get(i).getLexema())) {
-				return AnalisadorSemantico.tabelaSimbolo.get(i).getRotulo();
+ 				return AnalisadorSemantico.tabelaSimbolo.get(i).getRotulo();
 			}
 		}
 		
