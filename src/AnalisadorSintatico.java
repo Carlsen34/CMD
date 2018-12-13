@@ -252,11 +252,13 @@ public class AnalisadorSintatico {
 			rotulo++;
 			i = pegarToken(i);
 			i = analisaComandoSimples(i);
+			flgRetornoFuncUltimaInstrucao =true;
 			auxrot2 = rotulo;
 			GeradorCodigo.exibir_codigo_objeto("", "JMP", "L" + Integer.toString(auxrot2), "");
 			rotulo++;
 
 			if (PalavraReservada.ssenao.equals(tokenAS.get(i))) {
+				System.out.println(flgRetornoFuncUltimaInstrucao);
 				GeradorCodigo.exibir_codigo_objeto("L" + Integer.toString(auxrot), "NULL", "", "");
 				i = pegarToken(i);
 				i = analisaComandoSimples(i);
@@ -667,7 +669,7 @@ public class AnalisadorSintatico {
 					Erro.tratarError1(i, "sintatico");
 			} else {
 				Erro.tratarError1(i, "semantico");
-				JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO NÃO DECLARADA");
+				JOptionPane.showMessageDialog(null, "Erro Semantico: FUNCAO INVALIDA");
 			}
 
 		} else

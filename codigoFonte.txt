@@ -25,7 +25,6 @@ inicio
 	senao
 		res:=dobro;	
  	f1:=res;
-
      	
 fim;
 

@@ -95,7 +95,7 @@ public class AnalisadorSemantico {
 
 		for (int i = 0; i < tabelaSimbolo.size(); i++) {
 			if (tabelaSimbolo.get(i).getLexema().equals(lexema)) {
-				if (tipoLexema.equals(tabelaSimbolo.get(i).getTipoLexema())) {
+				if (tipoLexema.equals(tabelaSimbolo.get(i).getTipoLexema()) || tabelaSimbolo.get(i).getTipoLexema().equals("nomedeprograma")) {
 					return false;
 				}
 			}
@@ -108,7 +108,8 @@ public class AnalisadorSemantico {
 	// Pesquisar se há duplicidade na declaração de uma funcao
 	public static boolean pesquisa_declfunc_tabela(String lexema, String tipoLexema, int nivel, String rotulo) {
 		for (int i = 0; i < tabelaSimbolo.size(); i++) {
-			if (tabelaSimbolo.get(i).getLexema().equals(lexema) && tabelaSimbolo.get(i).getTipoLexema().equals(tipoLexema)) {
+			if (tabelaSimbolo.get(i).getLexema().equals(lexema) && 
+					(tabelaSimbolo.get(i).getTipoLexema().equals(tipoLexema) || tabelaSimbolo.get(i).getTipoLexema().equals("nomedeprograma"))) {
 				return false;
 			}
 		}
