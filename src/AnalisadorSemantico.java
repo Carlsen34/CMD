@@ -172,6 +172,7 @@ public class AnalisadorSemantico {
 			else aux = retorna_tipo(expressão.get(i).toString());
 			if (aux != null) {
 				aux1.add(aux);  // insere o tipo dos valores da expressão na pilha aux
+				System.out.println(aux1);
 			}
 		}
 		
@@ -229,5 +230,6 @@ public class AnalisadorSemantico {
 
 		return null;
 	}
+
 
 }

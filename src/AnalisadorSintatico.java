@@ -658,9 +658,7 @@ public class AnalisadorSintatico {
 
 		} else
 			Erro.tratarError1(i, "sintatico");
-
-		AnalisadorSemantico.remover_nivel_tabelaSimbolo(nivel);
-
+		
 		for (int a = 0; a < allocAux.size(); a++) {
 			if (allocAux.get(a).getNivel() == nivel) {
 				aux1 = allocAux.get(a).getParam1();
@@ -680,7 +678,8 @@ public class AnalisadorSintatico {
 			GeradorCodigo.exibir_codigo_objeto("", "RETURNF", "", "");
 
 		}
-
+		AnalisadorSemantico.validar_tipoAUX(i);
+		AnalisadorSemantico.remover_nivel_tabelaSimbolo(nivel);
 		nivel--;
 
 		return i;

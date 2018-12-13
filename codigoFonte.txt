@@ -1,43 +1,42 @@
-programa testefinal1;
+programa testefinal;  {calcula o dobro ou fatorial - OK}
 
-var x,y, dobro: inteiro;
+var opcao,x,y:inteiro;
 
-procedimento d;
-  procedimento m;
-  var b: inteiro;
-  inicio
-      	b:= x*y;
 
-	escreva(b);
-  fim;
+procedimento numeros;
+var x,y,total: inteiro;
+
+procedimento dobro;
+var media: inteiro;
 inicio
-        m;
-	dobro:=x+x
-fim;
-
-funcao f1:inteiro;
-var media, res: inteiro;
-inicio
-	media :=(x+y) div 2;
-	se x>y
-        entao
-   		res:=media
-	senao
-		res:=dobro;	
- 	f1:=res;
-     	
+  media:=(x+y)*2;
+  escreva(media)
 fim;
 
 inicio
-leia(x);
-leia(y);
-d;
-escreva(x);
-x:= x+f1+y*x;
-escreva(x)
-fim.
+  leia(x);
+  leia(y);
+  total:= x+y;
+  escreva(total);  {soma dos numeros lidos}
+  dobro            {Calcula o dobro dos numeros lidos}
+fim;
 
+procedimento p;               {calcula fatorial de um numero lido}
+var z: inteiro;
+inicio
+  z:= x; x:=x-1;
+  se  z>1 entao p  {recursivo} 
+  senao  y:=1;
+  y:=y*z               
+fim { p };
 
-
-
-
+inicio
+  leia(opcao);
+  se opcao = 1
+  entao numeros
+  senao inicio
+         leia(x);
+         p;
+         escreva(y)
+       fim
+fim.         
