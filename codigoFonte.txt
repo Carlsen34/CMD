@@ -1,41 +1,57 @@
-programa test;
+{T}
+programa test1;
 
-var a,b: inteiro;
+var a,b,c,x: inteiro;
 
+{proc 1}
+procedimento analisa1;
+var x: inteiro;
+       z: booleano;
 
-funcao soma: inteiro;
-var c,a: inteiro;
-
-  procedimento ler;
+ funcao analisa2:booleano;
+ var x:booleano; 
   inicio
-     leia (c);
-     leia (a);
-     escreva (soma);
-fim;
+   leia(a);b:=1;
+   x:= a<b;
+   analisa2:= verdadeiro;
+ fim;
 
-  procedimento loop;
-  var x: inteiro;
-  
-  funcao f2:inteiro;
-  inicio
-  
-  escreva(a);
-  f2:=10;
-  
-  fim;
-  
-  
-  inicio
-    leia (x);   {para parar digite um valor maior que 9 }
-    se x < f2
-    entao ler;
-  fim;
-
+ funcao func1: inteiro;
  inicio
-  loop;
-  soma:= c+a;
+  enquanto nao analisa2 
+  faca func1:= +a-(-b);
+  
  fim;
 
 inicio
-  escreva(soma)
+  leia(x);z:= x>1;
+  se z  entao
+      inicio      
+           x:= func1;
+           z:= falso;
+           escreva(x);
+      fim;
+  enquanto ( (-a*(-b) = 1064) ou (a<= (-1000)) e (z))  {condicao de parada}
+  faca inicio
+           a:= x+b;
+           z:= verdadeiro e nao falso
+       fim;
+  escreva(a)
+fim;
+
+
+
+inicio
+inicio
+    leia(c);
+    analisa1;
+    se b > (c+ a*a)
+    entao escreva(b)
+    senao escreva(c)
+fim
 fim.
+
+
+
+
+

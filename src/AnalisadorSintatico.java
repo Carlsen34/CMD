@@ -459,8 +459,8 @@ public class AnalisadorSintatico {
 						i = pegarToken(i);
 						i = analiseExpressao(i);
 						String tip = AnalisadorSemantico.retorna_tipo(tokenAS.get(i - 3).toString());
-						if (tip.equals("sbooleano"))
-							flgExpressaoBooleana = true;
+//						if (tip.equals("sbooleano"))
+//							flgExpressaoBooleana = true;
 						if (PalavraReservada.sfecha_parenteses.equals(tokenAS.get(i))) {
 							i = pegarToken(i);
 						} else
